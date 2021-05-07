@@ -3,7 +3,7 @@ using Spotify.Domain.Response;
 
 namespace Spotify.Domain.Models
 {
-    public class ArtistSearch
+    public class ArtistSearch : Search
     {
         public Artists artists { get; set; }
     }

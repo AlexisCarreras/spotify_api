@@ -19,11 +19,11 @@ namespace Spotify.Service
             };
         }
 
-        public ArtistSearch Search(string name, string type)
+        public Search Search(string name, string type)
         {
             try
             {
-                string bearer = "BQB974V1C3n_dwBSOxUXKsXw4AtRdiVe_2ieRG1FhZ7-9Jw9Hy1BH_zSviek-Y40IKkMfuaiGOVy8IanyUoFwEM7rT5cT30jW6R5gOPNfjIOD4rK0UfTx7gdLa3Zwxh7kz8BsVjnYTbjyCI";
+                string bearer = "BQBsOkp6VE3t2JdBU8YNNq820RMy3rZbhIzfhoj7RSXgyEGc9I4NWHflpIMjQtDFj7KqNyL29QovdISvC6cpOkDlpm4T_cWArV9p5Ly3DG7yy2MVI-V4NgPdlDA9oU_KPZpt5b4e-KHXSlk";
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}";
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
@@ -45,17 +45,17 @@ namespace Spotify.Service
                     var responseArtist = JsonSerializer.Deserialize<ArtistSearch>(responseJson);
                     return responseArtist;
                 }
-                //else if (type.ToLower() == SearchEnum.Album.ToString().ToLower())
-                //{
-                //    var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
-                //    return responseAlbum;
-                //}
-                //else
-                //{
-                //    var response = JsonSerializer.Deserialize<TrackSearch>(responseJson);
-                //}
+				else if (type.ToLower() == SearchEnum.Album.ToString().ToLower())
+				{
+					var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
+					return responseAlbum;
+				}
+				//else
+				//{
+				//    var response = JsonSerializer.Deserialize<TrackSearch>(responseJson);
+				//}
 
-                return null;
+				return null;
 
             }
             catch (HttpRequestException ex)

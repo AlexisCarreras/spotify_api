@@ -14,11 +14,11 @@ namespace Spotify.Application
         {
             _searchService = new SearchService();
         }
-        public List<Artist> Search(string name, SearchEnum type)
+        public List<Artist> SearchArtist(string name, SearchEnum type)
         {
             var responseService = _searchService.Search(name, type.ToString());
 
-            var arrItem = responseService.artists.items;
+            var arrItem = ((ArtistSearch)responseService).artists.items;
 
             List<Artist> listArtista = new List<Artist>();
 
@@ -38,6 +38,32 @@ namespace Spotify.Application
             }
 
             return listArtista;
+        }
+
+        public List<Album> SearchAlbum(string name, SearchEnum type)
+        {
+            var responseService = _searchService.Search(name, type.ToString());
+
+            var arrItem = ((AlbumSearch)responseService).albums.items;
+
+            List<Album> listAlbum = new List<Album>();
+
+            for (int i = 0; i < arrItem.Length; i++)
+            {
+                Album album = new Album()
+                {
+                    name = arrItem[i].name,
+                    id = arrItem[i].id,
+                    type = arrItem[i].album_type,
+                    totalTracks = arrItem[i].total_tracks,
+                    albumArtist = arrItem[i].artists[0].name,
+                    images = arrItem[i].images
+                };
+
+                listAlbum.Add(album);
+            }
+
+            return listAlbum;
         }
 
     }

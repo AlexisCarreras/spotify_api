@@ -17,8 +17,12 @@ namespace Spotify.Api.Controllers
         [HttpGet]
         public IActionResult Get(string name, SearchEnum type)
         {
-            var response = _searchBusiness.Search(name, type);
+
+
+            var response = _searchBusiness.SearchAlbum(name, type);
             return Ok(response);
+
+
         }
     }
 }
