@@ -23,7 +23,7 @@ namespace Spotify.Service
         {
             try
             {
-                string bearer = "BQBsOkp6VE3t2JdBU8YNNq820RMy3rZbhIzfhoj7RSXgyEGc9I4NWHflpIMjQtDFj7KqNyL29QovdISvC6cpOkDlpm4T_cWArV9p5Ly3DG7yy2MVI-V4NgPdlDA9oU_KPZpt5b4e-KHXSlk";
+                string bearer = "BQD_etfRUx0eOXYluB49KuEWvb1yBt7Zuwaydd5Dz-9XrPbGar3eXRfPS6ZSR_Cx8epVe1nlY0ILOScsxs56USRpzTXlZt3tu-ZAFxsTAveltSqgTvdsoqHK8SFWwypeHIZwq7KHKdVVQuA";
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}";
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));

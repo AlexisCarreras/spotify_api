@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Spotify.Domain.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Spotify.Domain.Response
 {
-    public class Album
+    public class Album : Item
     {
         public string id { get; set;  }
         public string name { get; set; }

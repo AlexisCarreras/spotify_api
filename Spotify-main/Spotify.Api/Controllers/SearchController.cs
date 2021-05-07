@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Spotify.Application;
 using Spotify.Domain.Enums;
+using Spotify.Domain.Response;
+using System.Collections.Generic;
 
 namespace Spotify.Api.Controllers
 {
@@ -19,8 +21,29 @@ namespace Spotify.Api.Controllers
         {
 
 
-            var response = _searchBusiness.SearchAlbum(name, type);
-            return Ok(response);
+            var response = _searchBusiness.Search(name, type);
+            
+
+            List<Album> lst = new List<Album>();
+
+            foreach (Album a in response)
+            {
+                Album _album = new Album()
+                {
+                    albumArtist = a.albumArtist,
+                    id = a.id,
+                    images = a.images,
+                    name = a.name,
+                    totalTracks = a.totalTracks,
+                    type = a.type
+
+                };
+
+                lst.Add(_album);
+
+            }
+
+            return Ok(lst);
 
 
         }
