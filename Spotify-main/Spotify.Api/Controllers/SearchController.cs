@@ -19,32 +19,26 @@ namespace Spotify.Api.Controllers
         [HttpGet]
         public IActionResult Get(string name, SearchEnum type)
         {
-
-
             var response = _searchBusiness.Search(name, type);
-            
 
-            List<Album> lst = new List<Album>();
+            var tipo = response[0].GetType();
+            var listaArtist = new List<Artist>();
+            var listaAlbum = new List<Album>();
 
-            foreach (Album a in response)
+            if (tipo.Name == "Album")
             {
-                Album _album = new Album()
-                {
-                    albumArtist = a.albumArtist,
-                    id = a.id,
-                    images = a.images,
-                    name = a.name,
-                    totalTracks = a.totalTracks,
-                    type = a.type
-
-                };
-
-                lst.Add(_album);
-
+                foreach (Album a in response)
+                    listaAlbum.Add(a);
+                return Ok(listaAlbum);
+            }
+            else if (tipo.Name == "Artist")
+            {
+                foreach (Artist a in response)
+                    listaArtist.Add(a);
+                return Ok(listaArtist);
             }
 
-            return Ok(lst);
-
+            return Ok();
 
         }
     }

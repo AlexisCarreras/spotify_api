@@ -7,64 +7,75 @@ using Spotify.Service;
 
 namespace Spotify.Application
 {
-    public class SearchBusiness //: ISearchBusiness
-    {
-        private SearchService _searchService { get; set; }
-        public SearchBusiness()
-        {
-            _searchService = new SearchService();
-        }
+	public class SearchBusiness //: ISearchBusiness
+	{
+		private SearchService _searchService { get; set; }
+		public SearchBusiness()
+		{
+			_searchService = new SearchService();
+		}
 
-        public virtual List<Item> Search(string name, SearchEnum type)
-        {
+		public virtual List<Item> Search(string name, SearchEnum type)
+		{
+			var listaItem = new List<Item>();
 
-			//if (type == SearchEnum.Album) 
-			//{
+			if (type == SearchEnum.Album)
+			{
+				var listaAlbum = SearchAlbum(name, type);
 
-			var listaAlbum = SearchAlbum(name, type);
-
-			var listaItem = new List<Item>(listaAlbum.Count);
-
-
-				for (int i = 0; i < listaAlbum.Count; i++) {
+				for (int i = 0; i < listaAlbum.Count; i++)
+				{
 
 					listaItem.Add(listaAlbum[i]);
 				}
 
-				return listaItem;
-			
-			//}
+			}
+			else if (type == SearchEnum.Artist)
+			{
+				var listaArtist = SearchArtist(name, type);
+
+				for (int i = 0; i < listaArtist.Count; i++)
+				{
+
+					listaItem.Add(listaArtist[i]);
+				}
+			}
+
+			return listaItem;
+
+
 		}
 
-        public SearchService GetSearchService() 
-        {
-            return _searchService;
-        }
-		//public List<Artist> SearchArtist(string name, SearchEnum type)
-		//{
-		//    var responseService = _searchService.Search(name, type.ToString());
+		public SearchService GetSearchService()
+		{
+			return _searchService;
+		}
 
-		//    var arrItem = ((ArtistSearch)responseService).artists.items;
+		private List<Artist> SearchArtist(string name, SearchEnum type)
+		{
+			var responseService = _searchService.Search(name, type.ToString());
 
-		//    List<Artist> listArtista = new List<Artist>();
+			var arrItem = ((ArtistSearch)responseService).artists.items;
 
-		//    for (int i = 0; i < arrItem.Length; i++)
-		//    {
-		//        Artist artist = new Artist()
-		//        {
-		//            name = arrItem[i].name,
-		//            id = arrItem[i].id,
-		//            type = arrItem[i].type,
-		//            genres = arrItem[i].genres,
-		//            popularity = arrItem[i].popularity,
-		//            images = arrItem[i].images
-		//        };
+			List<Artist> listArtista = new List<Artist>();
 
-		//        listArtista.Add(artist);
-		//    }
+			for (int i = 0; i < arrItem.Length; i++)
+			{
+				Artist artist = new Artist()
+				{
+					name = arrItem[i].name,
+					id = arrItem[i].id,
+					type = arrItem[i].type,
+					genres = arrItem[i].genres,
+					popularity = arrItem[i].popularity,
+					images = arrItem[i].images
+				};
 
-		//    return listArtista;
-		//}
+				listArtista.Add(artist);
+			}
+
+			return listArtista;
+		}
 
 		private List<Album> SearchAlbum(string name, SearchEnum type)
 		{

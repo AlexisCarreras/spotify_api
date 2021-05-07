@@ -2,7 +2,7 @@
 
 namespace Spotify.Domain.Response
 {
-    public class Artist
+    public class Artist : Item
     {
         public string[] genres { get; set; }
         public string id { get; set; }
