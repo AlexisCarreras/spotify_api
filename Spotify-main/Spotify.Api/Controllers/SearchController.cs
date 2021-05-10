@@ -22,7 +22,7 @@ namespace Spotify.Api.Controllers
         {
             var response = _searchBusiness.Search(name, type);
 
-            if (response.Count != 0) 
+            if (response.Count != 0)
             {
                 var tipo = response[0].GetType();
                 var listaArtist = new List<Artist>();
@@ -40,16 +40,14 @@ namespace Spotify.Api.Controllers
                         listaArtist.Add(a);
                     return Ok(listaArtist);
                 }
-
                 return Ok();
-
             }
             else
             {
                 return Ok(new List<Item>());
             }
 
-            
+
 
         }
     }
