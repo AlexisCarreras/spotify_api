@@ -7,23 +7,23 @@ using System.Collections.Generic;
 
 namespace Spotify.Api.Controllers
 {
-    [Route("api/search/artist")]
+    [Route("api/search/album")]
     [ApiController]
-    public class SearchController : ControllerBase
+    public class SearchAlbumController : ControllerBase
     {
         private readonly SearchBusiness _searchBusiness;
-        public SearchController()
+        public SearchAlbumController()
         {
             _searchBusiness = new SearchBusiness();
         }
 
         [HttpGet]
-        public IActionResult Get(string name, SearchEnum type = SearchEnum.Artist)
+        public IActionResult Get(string name, SearchEnum type = SearchEnum.Album)
         {
-            var response = _searchBusiness.SearchArtist(name, type);
+            var response = _searchBusiness.SearchAlbum(name, type);
 
             return Ok(response);
-            
+
 
 
 

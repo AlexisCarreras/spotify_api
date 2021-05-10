@@ -46,7 +46,7 @@ namespace Spotify.Application
 			return listArtista;
 		}
 
-		private List<Album> SearchAlbum(string name, SearchEnum type)
+		public List<Album> SearchAlbum(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
 
