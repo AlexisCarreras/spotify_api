@@ -10,8 +10,7 @@ namespace Spotify.Domain.Response
         public string name { get; set; }
         public int popularity { get; set; }
         public string type { get; set; }
-
-        // FALTA TOP TRACKS
+        public Track[] topTracks { get; set; }
     }
 
 

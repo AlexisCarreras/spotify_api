@@ -23,7 +23,7 @@ namespace Spotify.Service
         {
             try
             {
-                string bearer = "BQAwM-uu-oTHtnb-kDlRd-QiQK5rXfwshWIxs7E3lx7N-9sJnVfz_5cCBEokXGpDq7q3r2oIA3LpvDwtzgo9h_RxwuDLh_8RTTOi-gpijg9xRrvBf1xaWvah2NUjkv0Shu6KT4keFmXTc2w";
+                string bearer = "BQCQTP_sG3vuGFKKLyaTFSIWFATpuNapmHPW673o1VrRwLhZdrvTy2vRoeMlLwfX4u-g8bwM0kcw0G4H1QKcDzee7sPiSLdZpEbd6ETLB8unygSc1KFF_HJsTR9SOHFaUH5MBf42q_PMHAU";
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}";
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
@@ -36,8 +36,6 @@ namespace Spotify.Service
                 var status = (int)result.StatusCode;
 
                 var responseJson = result.Content.ReadAsStringAsync().Result;
-
-                // Deserializar ArtistSearch
 
 
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())

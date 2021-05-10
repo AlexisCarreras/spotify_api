@@ -7,13 +7,13 @@ using Spotify.Service;
 
 namespace Spotify.Application
 {
-	public class SearchBusiness //: ISearchBusiness
-	{
-		private SearchService _searchService { get; set; }
-		public SearchBusiness()
-		{
-			_searchService = new SearchService();
-		}
+    public class SearchBusiness //: ISearchBusiness
+    {
+        private SearchService _searchService { get; set; }
+        public SearchBusiness()
+        {
+            _searchService = new SearchService();
+        }
 
         public SearchService GetSearchService()
         {
@@ -21,82 +21,85 @@ namespace Spotify.Application
         }
 
         public List<Artist> SearchArtist(string name, SearchEnum type)
-		{
-			var responseService = _searchService.Search(name, type.ToString());
+        {
+            var responseService = _searchService.Search(name, type.ToString());
 
-			var arrItem = ((ArtistSearch)responseService).artists.items;
+            var arrItem = ((ArtistSearch)responseService).artists.items;
 
-			List<Artist> listArtista = new List<Artist>();
+            List<Artist> listArtista = new List<Artist>();
 
-			for (int i = 0; i < arrItem.Length; i++)
-			{
-				Artist artist = new Artist()
-				{
-					name = arrItem[i].name,
-					id = arrItem[i].id,
-					type = arrItem[i].type,
-					genres = arrItem[i].genres,
-					popularity = arrItem[i].popularity,
-					images = arrItem[i].images
-				};
+            for (int i = 0; i < arrItem.Length; i++)
+            {
+                Artist artist = new Artist()
+                {
+                    name = arrItem[i].name,
+                    id = arrItem[i].id,
+                    type = arrItem[i].type,
+                    genres = arrItem[i].genres,
+                    popularity = arrItem[i].popularity,
+                    images = arrItem[i].images
 
-				listArtista.Add(artist);
-			}
+                };
+                listArtista.Add(artist);
+            }
 
-			return listArtista;
-		}
+            return listArtista;
+        }
 
-		public List<Album> SearchAlbum(string name, SearchEnum type)
-		{
-			var responseService = _searchService.Search(name, type.ToString());
+        public List<Album> SearchAlbum(string name, SearchEnum type)
+        {
+            var responseService = _searchService.Search(name, type.ToString());
 
-			var arrItem = ((AlbumSearch)responseService).albums.items;
+            var arrItem = ((AlbumSearch)responseService).albums.items;
 
-			List<Album> listAlbum = new List<Album>();
+            List<Album> listAlbum = new List<Album>();
 
-			for (int i = 0; i < arrItem.Length; i++)
-			{
-				Album album = new Album()
-				{
-					name = arrItem[i].name,
-					id = arrItem[i].id,
-					type = arrItem[i].album_type,
-					totalTracks = arrItem[i].total_tracks,
-					albumArtist = arrItem[i].artists[0].name,
-					images = arrItem[i].images
-				};
+            for (int i = 0; i < arrItem.Length; i++)
+            {
+                Album album = new Album()
+                {
+                    name = arrItem[i].name,
+                    id = arrItem[i].id,
+                    type = arrItem[i].album_type,
+                    totalTracks = arrItem[i].total_tracks,
+                    albumArtist = arrItem[i].artists[0].name,
+                    images = arrItem[i].images,
 
-				listAlbum.Add(album);
-			}
+                };
 
-			return listAlbum;
-		}
+                listAlbum.Add(album);
+            }
 
-		public List<Track> SearchTrack(string name, SearchEnum type)
-		{
-			var responseService = _searchService.Search(name, type.ToString());
+            return listAlbum;
+        }
 
-			var arrItem = ((TrackSearch)responseService).tracks.items;
+        public List<Track> SearchTrack(string name, SearchEnum type)
+        {
+            var responseService = _searchService.Search(name, type.ToString());
 
-			List<Track> listTrack = new List<Track>();
+            var arrItem = ((TrackSearch)responseService).tracks.items;
 
-			for (int i = 0; i < arrItem.Length; i++)
-			{
-				Track track = new Track()
-				{
-					name = arrItem[i].name,
-					id = arrItem[i].id,
-					trackLength = arrItem[i].duration_ms,
-					albumName = arrItem[i].album.name,
-					artistName = arrItem[i].artists[0].name,
-					previewUrl = arrItem[i].preview_url
-				};
+            List<Track> listTrack = new List<Track>();
 
-				listTrack.Add(track);
-			}
+            for (int i = 0; i < arrItem.Length; i++)
+            {
+                Track track = new Track()
+                {
+                    name = arrItem[i].name,
+                    id = arrItem[i].id,
+                    trackLength = arrItem[i].duration_ms,
+                    albumName = arrItem[i].album.name,
+                    artistName = arrItem[i].artists[0].name,
+                    previewUrl = arrItem[i].preview_url,
+                    favorite = false
 
-			return listTrack;
-		}
+                };
 
-	}
+                listTrack.Add(track);
+            }
+
+            return listTrack;
+        }
+
+    }
 }

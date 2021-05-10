@@ -12,6 +12,7 @@ namespace Spotify.Domain.Response
         public string albumName { get; set; }
         public string artistName { get; set; }
         public string previewUrl { get; set; }
+        public bool favorite { get; set; }
 
     }
 }
