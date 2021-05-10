@@ -15,43 +15,12 @@ namespace Spotify.Application
 			_searchService = new SearchService();
 		}
 
-		public virtual List<Item> Search(string name, SearchEnum type)
-		{
-			var listaItem = new List<Item>();
-
-			if (type == SearchEnum.Album)
-			{
-				var listaAlbum = SearchAlbum(name, type);
-
-				for (int i = 0; i < listaAlbum.Count; i++)
-				{
-
-					listaItem.Add(listaAlbum[i]);
-				}
-
-			}
-			else if (type == SearchEnum.Artist)
-			{
-				var listaArtist = SearchArtist(name, type);
-
-				for (int i = 0; i < listaArtist.Count; i++)
-				{
-
-					listaItem.Add(listaArtist[i]);
-				}
-			}
-
-			return listaItem;
-
-
-		}
-
 		public SearchService GetSearchService()
 		{
 			return _searchService;
 		}
 
-		private List<Artist> SearchArtist(string name, SearchEnum type)
+		public List<Artist> SearchArtist(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
 

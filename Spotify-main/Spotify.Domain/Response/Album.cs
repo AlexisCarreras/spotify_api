@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Spotify.Domain.Response
 {
-    public class Album : Item
+    public class Album
     {
         public string id { get; set;  }
         public string name { get; set; }

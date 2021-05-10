@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Spotify.Api.Controllers
 {
-    [Route("api/search")]
+    [Route("api/search/artist")]
     [ApiController]
     public class SearchController : ControllerBase
     {
@@ -18,34 +18,12 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string name, SearchEnum type)
+        public IActionResult Get(string name, SearchEnum type = SearchEnum.Artist)
         {
-            var response = _searchBusiness.Search(name, type);
+            var response = _searchBusiness.SearchArtist(name, type);
 
-            if (response.Count != 0)
-            {
-                var tipo = response[0].GetType();
-                var listaArtist = new List<Artist>();
-                var listaAlbum = new List<Album>();
-
-                if (tipo.Name == "Album")
-                {
-                    foreach (Album a in response)
-                        listaAlbum.Add(a);
-                    return Ok(listaAlbum);
-                }
-                else if (tipo.Name == "Artist")
-                {
-                    foreach (Artist a in response)
-                        listaArtist.Add(a);
-                    return Ok(listaArtist);
-                }
-                return Ok();
-            }
-            else
-            {
-                return Ok(new List<Item>());
-            }
+            return Ok(response);
+            
 
 
 
