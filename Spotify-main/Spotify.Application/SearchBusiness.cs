@@ -15,12 +15,12 @@ namespace Spotify.Application
 			_searchService = new SearchService();
 		}
 
-		public SearchService GetSearchService()
-		{
-			return _searchService;
-		}
+        public SearchService GetSearchService()
+        {
+            return _searchService;
+        }
 
-		public List<Artist> SearchArtist(string name, SearchEnum type)
+        public List<Artist> SearchArtist(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
 
@@ -70,6 +70,32 @@ namespace Spotify.Application
 			}
 
 			return listAlbum;
+		}
+
+		public List<Track> SearchTrack(string name, SearchEnum type)
+		{
+			var responseService = _searchService.Search(name, type.ToString());
+
+			var arrItem = ((TrackSearch)responseService).tracks.items;
+
+			List<Track> listTrack = new List<Track>();
+
+			for (int i = 0; i < arrItem.Length; i++)
+			{
+				Track track = new Track()
+				{
+					name = arrItem[i].name,
+					id = arrItem[i].id,
+					trackLength = arrItem[i].duration_ms,
+					albumName = arrItem[i].album.name,
+					artistName = arrItem[i].artists[0].name,
+					previewUrl = arrItem[i].preview_url
+				};
+
+				listTrack.Add(track);
+			}
+
+			return listTrack;
 		}
 
 	}

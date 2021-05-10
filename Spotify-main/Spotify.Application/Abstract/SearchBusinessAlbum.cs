@@ -20,11 +20,11 @@
 
 
 
-//			List<Album> listAlbum = new List<Album>();
+//			List<AlbumTrackSearch> listAlbum = new List<AlbumTrackSearch>();
 
 //			for (int i = 0; i < arrItem.Length; i++)
 //			{
-//				Album album = new Album()
+//				AlbumTrackSearch album = new AlbumTrackSearch()
 //				{
 //					name = arrItem[i].name,
 //					id = arrItem[i].id,

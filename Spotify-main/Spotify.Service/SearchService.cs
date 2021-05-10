@@ -23,7 +23,7 @@ namespace Spotify.Service
         {
             try
             {
-                string bearer = "BQCH8UgXrATEcOrQX58vJ2ibTCU9ZdHt2CMu7qbGDrJOSV98KcBTnk3eIKrczrBdRV1Fk_DclQJW0CbkDE7KEdArhqYmJRj9Q82J_yZoNzsNyfWXyCMzILiVT036adDnq45kl7ztAwpQ3K8";
+                string bearer = "BQAwM-uu-oTHtnb-kDlRd-QiQK5rXfwshWIxs7E3lx7N-9sJnVfz_5cCBEokXGpDq7q3r2oIA3LpvDwtzgo9h_RxwuDLh_8RTTOi-gpijg9xRrvBf1xaWvah2NUjkv0Shu6KT4keFmXTc2w";
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}";
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
@@ -50,12 +50,11 @@ namespace Spotify.Service
 					var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
 					return responseAlbum;
 				}
-				//else
-				//{
-				//    var response = JsonSerializer.Deserialize<TrackSearch>(responseJson);
-				//}
-
-				return null;
+                else
+                {
+                    var responseTrack = JsonSerializer.Deserialize<TrackSearch>(responseJson);
+                    return responseTrack;
+                }
 
             }
             catch (HttpRequestException ex)

@@ -43,7 +43,7 @@ namespace Spotify.Domain.Models
 
     public class ArtistAlbumSearch
     {
-        public External_Urls1 external_urls { get; set; }
+        public External_Urls1AlbumSearch external_urls { get; set; }
         public string href { get; set; }
         public string id { get; set; }
         public string name { get; set; }
@@ -51,7 +51,7 @@ namespace Spotify.Domain.Models
         public string uri { get; set; }
     }
 
-    public class External_Urls1
+    public class External_Urls1AlbumSearch
     {
         public string spotify { get; set; }
     }
