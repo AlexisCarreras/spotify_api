@@ -37,7 +37,6 @@ namespace Spotify.Service
 
                 var responseJson = result.Content.ReadAsStringAsync().Result;
 
-
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
                 {
                     var responseArtist = JsonSerializer.Deserialize<ArtistSearch>(responseJson);
@@ -62,11 +61,6 @@ namespace Spotify.Service
                 return null;
             }
         }
-
-
-
-
-
 
     }
 
