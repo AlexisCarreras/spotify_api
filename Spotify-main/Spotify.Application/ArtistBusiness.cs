@@ -30,7 +30,8 @@ namespace Spotify.Application
                 type = responseService.type,
                 genres = responseService.genres,
                 popularity = responseService.popularity,
-                images = responseService.images
+                images = responseService.images,
+                topTracks = topTracks(id).ToArray()
             };
 
             return artist;
@@ -38,7 +39,30 @@ namespace Spotify.Application
 
         public List<Track> topTracks(string id, string market = "ar")
         {
-            var responseService = _artistService.TopTracks.;
+            var responseService = _artistService.TopTracks(id, market);
+            var arrTracks = ((ArtistTopTracks)responseService).tracks;
+
+
+            List<Track> listTopTracks = new List<Track>();
+            for(int i = 0; i<arrTracks.Length;i++)
+            {
+                Track track = new Track()
+                {
+                    albumName = arrTracks[i].album.name,
+                    artistName = arrTracks[i].artists[0].name,
+                    id = arrTracks[i].id,
+                    name = arrTracks[i].name,
+                    trackLength = arrTracks[i].duration_ms,
+                    previewUrl = arrTracks[i].preview_url,
+                    favorite = false
+
+                };
+                listTopTracks.Add(track);
+            }
+
+            return listTopTracks;
+
+
 
         }
 

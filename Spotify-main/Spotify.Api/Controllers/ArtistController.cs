@@ -24,4 +24,22 @@ namespace Spotify.Api.Controllers
             return Ok(response);
         }
     }
+
+    [Route("api/artist/{id}/toptracks")]
+    [ApiController]
+    public class ArtistTopTrackController : ControllerBase
+    {
+        private readonly ArtistBusiness _artistBusiness;
+        public ArtistTopTrackController()
+        {
+            _artistBusiness = new ArtistBusiness();
+        }
+
+        [HttpGet]
+        public IActionResult Get(string id)
+        {
+            var response = _artistBusiness.topTracks(id);
+            return Ok(response);
+        }
+    }
 }
