@@ -24,7 +24,7 @@ namespace Spotify.Api
             services.AddControllers();
 
             //services.AddTransient<ISearchBusiness, SearchBusiness>();
-            //services.AddTransient<ISearchService, SearchService>();
+            //services.AddTransient<ISearchService, SpotifyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

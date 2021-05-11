@@ -5,13 +5,14 @@ using System.Text.Json;
 using Spotify.Domain.Models;
 using Spotify.Domain.Enums;
 using Spotify.Domain.Abstract;
+using Spotify.Domain.Response;
 
 namespace Spotify.Service
 {
-    public class SearchService //: ISearchService
+    public class SpotifyService //: ISearchService
     {
         private readonly HttpClient _httpClient;
-        public SearchService()
+        public SpotifyService()
         {
             _httpClient = new HttpClient
             {
@@ -23,7 +24,7 @@ namespace Spotify.Service
         {
             try
             {
-                string bearer = "BQCQTP_sG3vuGFKKLyaTFSIWFATpuNapmHPW673o1VrRwLhZdrvTy2vRoeMlLwfX4u-g8bwM0kcw0G4H1QKcDzee7sPiSLdZpEbd6ETLB8unygSc1KFF_HJsTR9SOHFaUH5MBf42q_PMHAU";
+                string bearer = "BQAZAMwqxEByQNzZ8eP0e6AxEqyVrdRuNRWgfuakTNS0R51V9XB-_-JCog40R4VQ2zTaTufyGJHZd9ry4JKDVkeL8VssovuHxej7eQpAN1dM8wlaSAtEKhfPwM4gEdIJzMZbKLhlBRsMhXU";
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}";
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
@@ -62,9 +63,43 @@ namespace Spotify.Service
             }
         }
 
-    }
+        public ArtistModel Artist(string id)
+        {
+            try
+            {
+                string bearer = "BQAZAMwqxEByQNzZ8eP0e6AxEqyVrdRuNRWgfuakTNS0R51V9XB-_-JCog40R4VQ2zTaTufyGJHZd9ry4JKDVkeL8VssovuHxej7eQpAN1dM8wlaSAtEKhfPwM4gEdIJzMZbKLhlBRsMhXU";
 
+                string uri = $"/v1/artists/{id}";
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
+
+                var result = _httpClient.GetAsync(uri).Result;
+
+                result.EnsureSuccessStatusCode(); // si no es un 200...
+
+                var status = (int)result.StatusCode;
+
+                var responseJson = result.Content.ReadAsStringAsync().Result;
+
+                var responseArtist = JsonSerializer.Deserialize<ArtistModel>(responseJson);
+                return responseArtist;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("error inesperado:" + ex.Message);
+
+                return null;
+            }
+        }
+
+    }
 }
+
+
+
+
+
 
 //VerifyResponse();
 //if (!result.IsSuccessStatusCode)

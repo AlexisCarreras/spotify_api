@@ -9,13 +9,13 @@ namespace Spotify.Application
 {
     public class SearchBusiness //: ISearchBusiness
     {
-        private SearchService _searchService { get; set; }
+        private Service.SpotifyService _searchService { get; set; }
         public SearchBusiness()
         {
-            _searchService = new SearchService();
+			_searchService = new Service.SpotifyService();
         }
 
-        public SearchService GetSearchService()
+        public Service.SpotifyService GetSearchService()
         {
             return _searchService;
         }
