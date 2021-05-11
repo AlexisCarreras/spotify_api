@@ -23,7 +23,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQD2-SY5F64TpneDoUGr9sCPjgoYSOswpggSsJ9_X2pwqIlo5NUbt2vpc26NoiP1uWgyZf5_7ny92iGExj3ekSXx86mRMRMzzNPpkLDh7NeR3uSRjjc5JgFasPyg2hEZTDlBMYmL4t7eQd8";
+            string bearer = "BQCePioL2SGc5ZKp9edY0K1W_ODiHQuDv6sesrQYyFvH9F_CJJEmnRLSFuryRq-aEHkyKlTdUx0xKNbkeCAwpaQAIhMkwKF9ft-afb7A2Ezv8fa7JG2W_6U55ugZX64qOziaYRe8JTmZrMVTjEzAdjpO4Y0HfJfrpPcbNzS7u8RNWgkjl6sj1-k1jT9GfgwQoXIG9HCZ0A-H7ETvrFBGHDt_VUYmAaXVVWEhtJJ5fU_6CruMm4BxOZlCWJtPmvyGm46bX9M-928wzAzVq3V4Vw";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -42,7 +42,6 @@ namespace Spotify.Service
             try
             {
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}";
-
                 var responseJson = Conexion(uri);
 
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
@@ -60,12 +59,10 @@ namespace Spotify.Service
                     var responseTrack = JsonSerializer.Deserialize<TrackSearch>(responseJson);
                     return responseTrack;
                 }
-
             }
             catch (HttpRequestException ex)
             {
                 Console.WriteLine("error inesperado:" + ex.Message);
-
                 return null;
             }
         }
@@ -75,35 +72,29 @@ namespace Spotify.Service
             try
             {
                 string uri = $"/v1/artists/{id}";
-
                 var responseJson = Conexion(uri);
-
                 var responseArtist = JsonSerializer.Deserialize<ItemArtistSearch>(responseJson);
                 return responseArtist;
             }
             catch (HttpRequestException ex)
             {
                 Console.WriteLine("error inesperado:" + ex.Message);
-
                 return null;
             }
         }
 
-        public ArtistTopTracks TopTracks(string id, string market = "ar")
+        public ArtistTopTracks TopTracks(string id, string market = "from_token")
         {
             try
             {
                 string uri = $"/v1/artists/{id}/top-tracks?market={market}";
-
                 var responseJson = Conexion(uri);
-
                 var responseTopTracks = JsonSerializer.Deserialize<ArtistTopTracks>(responseJson);
                 return responseTopTracks;
             }
             catch (HttpRequestException ex)
             {
                 Console.WriteLine("error inesperado:" + ex.Message);
-
                 return null;
             }
         }
