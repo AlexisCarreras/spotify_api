@@ -88,6 +88,27 @@ namespace Spotify.Service
             }
         }
 
+        public ArtistTopTracks TopTracks(string id, string market = "ar")
+        {
+            try
+            {
+                string uri = $"/v1/artists/{id}/top-tracks?market={market}";
+
+                var responseJson = Conexion(uri);
+
+                var responseTopTracks = JsonSerializer.Deserialize<ArtistTopTracks>(responseJson);
+                return responseTopTracks;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("error inesperado:" + ex.Message);
+
+                return null;
+            }
+        }
+
+
+
     }
 }
 

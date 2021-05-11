@@ -36,5 +36,11 @@ namespace Spotify.Application
             return artist;
         }
 
+        public List<Track> topTracks(string id, string market = "ar")
+        {
+            var responseService = _artistService.TopTracks.;
+
+        }
+
     }
 }
