@@ -9,21 +9,55 @@ namespace Spotify.Application
 {
     public class AlbumBusiness
     {
-        private Service.SpotifyService _artistService { get; set; }
+        private Service.SpotifyService _albumService { get; set; }
         public AlbumBusiness()
         {
-            _artistService = new Service.SpotifyService();
+            _albumService = new Service.SpotifyService();
         }
 
-        public Service.SpotifyService GetArtistService()
+        public Service.SpotifyService GetAlbumService()
         {
-            return _artistService;
+            return _albumService;
         }
 
-        public Album artist(string id)
+        public Album album(string id)
         {
-            Album artist = new Album();
-;           return artist;
+            var responseService = _albumService.Album(id);
+
+            Album album = new Album()
+            {
+                albumArtist = responseService.artists[0].name,
+                id = responseService.id,
+                images = responseService.images,
+                name = responseService.name,
+                totalTracks = responseService.total_tracks,
+                type = responseService.type,
+                tracks = AlbumTracks(id).ToArray()
+
+            };
+            return album;
+        }
+        public List<Track> AlbumTracks(string id)
+        {
+            var responseService = _albumService.AlbumTracks(id);
+            var arrTracks = responseService.items;
+
+            List<Track> albumTracks = new List<Track>();
+            for (int i = 0; i < arrTracks.Length; i++)
+            {
+                Track track = new Track()
+                {
+                    albumName = album(id).name,
+                    artistName = arrTracks[i].artists[0].name,
+                    id = arrTracks[i].id,
+                    name = arrTracks[i].name,
+                    trackLength = arrTracks[i].duration_ms,
+                    previewUrl = arrTracks[i].preview_url,
+                    favorite = false
+                };
+                albumTracks.Add(track);
+            }
+            return albumTracks;
         }
     }
 }

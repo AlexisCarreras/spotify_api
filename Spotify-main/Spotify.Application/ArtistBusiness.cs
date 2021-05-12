@@ -42,7 +42,7 @@ namespace Spotify.Application
         public List<Track> TopTracks(string id, string market = "from_token")
         {
             var responseService = _artistService.TopTracks(id, market);
-            var arrTracks = ((ArtistTopTracks)responseService).tracks;
+            var arrTracks = responseService.tracks;
 
 
             List<Track> listTopTracks = new List<Track>();

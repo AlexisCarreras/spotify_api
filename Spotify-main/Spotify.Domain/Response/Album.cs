@@ -13,6 +13,6 @@ namespace Spotify.Domain.Response
         public string type { get; set; }
         public Track[] tracks { get; set; }
         public int totalTracks { get; set; }
-        public string albumArtist { get; set; } // albums{items[artist[i].name]}
+        public string albumArtist { get; set; }
     }
 }

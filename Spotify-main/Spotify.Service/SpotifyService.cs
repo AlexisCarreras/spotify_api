@@ -24,7 +24,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQBCv2tuNgfhE0gPNeMlr95L76rGW6DmG-vX3iUECffYG2Vc36oRIpqFDsobk93HLofaS6gBaCT-7W7A0EUA9PMgclNhqRLMsA-GzV8BqsgXEdkLUx9lpqGpIEBRLBhwLfgVSZcJOmPG7yI";
+            string bearer = "BQBkLguZG0PLOGFGQ_GPZaMePfjcbw9NwqnkX5aEqEZiAKmM-Yg_bpEr6MmmXYNJazSle_CUHfQdkmtz4unYO3iDRxle67akn8gs82a1ei_h1R-6kUMJZ6cHo2DSn43NSIasQwg0aCEVrLc";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -117,9 +117,43 @@ namespace Spotify.Service
 
 		}
 
+        public AlbumModel Album(string id)
+        {
+            try
+            {
+                string uri = $"/v1/albums/{id}";
+                var responseJson = Conexion(uri);
+                var responseAlbums = JsonSerializer.Deserialize<AlbumModel>(responseJson);
+                return responseAlbums;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("error inesperado:" + ex.Message);
+                return null;
+            }
+
+        }
+
+        public AlbumTracksModel AlbumTracks(string id)
+        {
+            try
+            {
+                string uri = $"/v1/albums/{id}";
+                var responseJson = Conexion(uri);
+                var responseAlbums = JsonSerializer.Deserialize<AlbumTracksModel>(responseJson);
+                return responseAlbums;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("error inesperado:" + ex.Message);
+                return null;
+            }
+
+        }
 
 
-	}
+
+    }
 }
 
 
