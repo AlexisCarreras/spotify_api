@@ -6,6 +6,7 @@ using Spotify.Domain.Models;
 using Spotify.Domain.Enums;
 using Spotify.Domain.Abstract;
 using Spotify.Domain.Response;
+using static Spotify.Domain.Models.AlbumArtist;
 
 namespace Spotify.Service
 {
@@ -23,7 +24,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQCePioL2SGc5ZKp9edY0K1W_ODiHQuDv6sesrQYyFvH9F_CJJEmnRLSFuryRq-aEHkyKlTdUx0xKNbkeCAwpaQAIhMkwKF9ft-afb7A2Ezv8fa7JG2W_6U55ugZX64qOziaYRe8JTmZrMVTjEzAdjpO4Y0HfJfrpPcbNzS7u8RNWgkjl6sj1-k1jT9GfgwQoXIG9HCZ0A-H7ETvrFBGHDt_VUYmAaXVVWEhtJJ5fU_6CruMm4BxOZlCWJtPmvyGm46bX9M-928wzAzVq3V4Vw";
+            string bearer = "BQAs2KTm0pHlmznfPP8gee2GCS4BwjZKI3NhtpKZeglK2GsjfAK1gNBUJm8cQ9kVUBEBoEQRiiCo8p1ufee9-J2BmM09cZqfBpkVXTKPYIOdtl9SPhLO2Iv7600LUBhzQOq5wt3rbL3Iukw";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -99,9 +100,26 @@ namespace Spotify.Service
             }
         }
 
+		public ItemAlbumArtist AlbumsArtist(string id)
+		{
+			try
+			{
+				string uri = $"/v1/artists/{id}/albums";
+				var responseJson = Conexion(uri);
+				var responseAlbumsArtist = JsonSerializer.Deserialize<ItemAlbumArtist>(responseJson);
+				return responseAlbumsArtist;
+			}
+			catch (HttpRequestException ex)
+			{
+				Console.WriteLine("error inesperado:" + ex.Message);
+				return null;
+			}
+
+		}
 
 
-    }
+
+	}
 }
 
 

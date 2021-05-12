@@ -3,6 +3,7 @@ using Spotify.Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Spotify.Domain.Models.AlbumArtist;
 
 namespace Spotify.Application
 {
@@ -31,13 +32,13 @@ namespace Spotify.Application
                 genres = responseService.genres,
                 popularity = responseService.popularity,
                 images = responseService.images,
-                topTracks = topTracks(id).ToArray()
+                topTracks = TopTracks(id).ToArray()
             };
 
             return artist;
         }
 
-        public List<Track> topTracks(string id, string market = "from_token")
+        public List<Track> TopTracks(string id, string market = "from_token")
         {
             var responseService = _artistService.TopTracks(id, market);
             var arrTracks = ((ArtistTopTracks)responseService).tracks;
@@ -55,16 +56,28 @@ namespace Spotify.Application
                     trackLength = arrTracks[i].duration_ms,
                     previewUrl = arrTracks[i].preview_url,
                     favorite = false
-
                 };
                 listTopTracks.Add(track);
             }
-
             return listTopTracks;
-
-
-
         }
 
-    }
+        public Album albumArtist(string id)
+        {
+            var responseService = _artistService.AlbumsArtist(id);
+
+            Album album = new Album()
+            {
+                name = responseService.name,
+                albumArtist = responseService.artists[0].name,
+                id = responseService.id,
+                //images = responseService.images,
+                totalTracks = responseService.total_tracks,
+                type = responseService.type,
+            };
+
+            return album;
+        }
+
+	}
 }
