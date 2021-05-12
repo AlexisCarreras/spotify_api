@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Spotify.Domain.Response;
 
 namespace Spotify.Domain.Models
 {
@@ -52,12 +53,12 @@ namespace Spotify.Domain.Models
 			public string spotify { get; set; }
 		}
 
-		public class Image
-		{
-			public int height { get; set; }
-			public string url { get; set; }
-			public int width { get; set; }
-		}
+		//public class Image
+		//{
+		//	public int height { get; set; }
+		//	public string url { get; set; }
+		//	public int width { get; set; }
+		//}
 
 	}
 }

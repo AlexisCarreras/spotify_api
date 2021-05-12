@@ -24,7 +24,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQAs2KTm0pHlmznfPP8gee2GCS4BwjZKI3NhtpKZeglK2GsjfAK1gNBUJm8cQ9kVUBEBoEQRiiCo8p1ufee9-J2BmM09cZqfBpkVXTKPYIOdtl9SPhLO2Iv7600LUBhzQOq5wt3rbL3Iukw";
+            string bearer = "BQBCv2tuNgfhE0gPNeMlr95L76rGW6DmG-vX3iUECffYG2Vc36oRIpqFDsobk93HLofaS6gBaCT-7W7A0EUA9PMgclNhqRLMsA-GzV8BqsgXEdkLUx9lpqGpIEBRLBhwLfgVSZcJOmPG7yI";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -100,13 +100,13 @@ namespace Spotify.Service
             }
         }
 
-		public ItemAlbumArtist AlbumsArtist(string id)
+		public AlbumArtist AlbumsArtist(string id)
 		{
 			try
 			{
 				string uri = $"/v1/artists/{id}/albums";
 				var responseJson = Conexion(uri);
-				var responseAlbumsArtist = JsonSerializer.Deserialize<ItemAlbumArtist>(responseJson);
+				var responseAlbumsArtist = JsonSerializer.Deserialize<AlbumArtist>(responseJson);
 				return responseAlbumsArtist;
 			}
 			catch (HttpRequestException ex)
