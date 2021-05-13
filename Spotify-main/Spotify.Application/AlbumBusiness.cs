@@ -33,7 +33,6 @@ namespace Spotify.Application
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
                 tracks = AlbumTracks(id).ToArray()
-
             };
             return album;
         }
@@ -49,7 +48,7 @@ namespace Spotify.Application
             {
                 Track track = new Track()
                 {
-                    //albumName = arrTracks[i].id,
+                    //albumName = Album(id).name,
                     artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,
