@@ -46,9 +46,11 @@ namespace Spotify.Application
             List<Track> albumTracks = new List<Track>();
             for (int i = 0; i < arrTracks.Length; i++)
             {
+                var namealb = new TrackBusiness(); 
+
                 Track track = new Track()
                 {
-                    //albumName = Album(id).name,
+                    albumName = namealb.Track(arrTracks[i].id).albumName, //Lo obtengo de la API de tracks
                     artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,

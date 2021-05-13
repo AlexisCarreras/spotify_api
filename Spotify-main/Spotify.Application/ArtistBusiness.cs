@@ -33,7 +33,8 @@ namespace Spotify.Application
                 popularity = responseService.popularity,
                 images = responseService.images,
                 topTracks = TopTracks(id).ToArray(),
-                albums = AlbumArtist(id).ToArray() 
+                albums = AlbumArtist(id).ToArray(),
+                
             };
 
             return artist;
@@ -66,7 +67,7 @@ namespace Spotify.Application
         public List<Album> AlbumArtist(string id)
         {
             var responseService = _artistService.AlbumsArtist(id);
-            var arrAlbums = ((AlbumArtist)responseService).items;
+            var arrAlbums = responseService.items;
 
             List<Album> listAlbums = new List<Album>();
             for (int i = 0; i < arrAlbums.Length; i++)
@@ -79,6 +80,7 @@ namespace Spotify.Application
                     images = arrAlbums[i].images,
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type
+                    
                 };
                 listAlbums.Add(album);
             }
