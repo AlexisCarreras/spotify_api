@@ -33,7 +33,7 @@ namespace Spotify.Application
                 popularity = responseService.popularity,
                 images = responseService.images,
                 topTracks = TopTracks(id).ToArray(),
-                albums = albumArtist(id).ToArray() 
+                //albums = albumArtist(id).ToArray() 
             };
 
             return artist;
