@@ -37,6 +37,8 @@ namespace Spotify.Application
             };
             return album;
         }
+
+        
         public List<Track> AlbumTracks(string id)
         {
             var responseService = _albumService.AlbumTracks(id);
@@ -47,7 +49,7 @@ namespace Spotify.Application
             {
                 Track track = new Track()
                 {
-                    albumName = Album(id).name,
+                    //albumName = arrTracks[i].id,
                     artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,
