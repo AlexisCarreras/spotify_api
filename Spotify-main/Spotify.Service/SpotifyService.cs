@@ -24,7 +24,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQDhKvgJu-4_N7iN91SZrQBvcCGKkymgv45UkkxrNxJ3VHdU7BErhko1-msn84Zm8JwHeQgHKfdZ291X9VX4ij4zaEB8lbHefKI2OSkoHQwfkkItJMz3sV9MufsRrx83j0qHRbjmDTOmoCw";
+            string bearer = "BQDF1ZXmLyRdr-zthiPcdoKu-i4az9NvgnBpknJFhnmuRwO2sOhPiCgwUia0ISQYxQ_KetLCymjL33de0bIEFZFTwZPchbDe58i-AZgscTNc0NTB47BfKlGaY0U5hwVHXhQRGXpDvrvwGCU";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -138,7 +138,7 @@ namespace Spotify.Service
         {
             try
             {
-                string uri = $"/v1/albums/{id}";
+                string uri = $"/v1/albums/{id}/tracks";
                 var responseJson = Conexion(uri);
                 var responseAlbums = JsonSerializer.Deserialize<AlbumTracksModel>(responseJson);
                 return responseAlbums;

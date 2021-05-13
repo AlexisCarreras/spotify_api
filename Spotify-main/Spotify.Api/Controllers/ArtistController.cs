@@ -56,7 +56,7 @@ namespace Spotify.Api.Controllers
         [HttpGet]
         public IActionResult Get(string id)
         {
-            var response = _artistBusiness.albumArtist(id);
+            var response = _artistBusiness.AlbumArtist(id);
             return Ok(response);
         }
     }
