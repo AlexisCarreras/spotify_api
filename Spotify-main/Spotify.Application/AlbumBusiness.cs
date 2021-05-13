@@ -20,7 +20,7 @@ namespace Spotify.Application
             return _albumService;
         }
 
-        public Album album(string id)
+        public Album Album(string id)
         {
             var responseService = _albumService.Album(id);
 
@@ -47,7 +47,7 @@ namespace Spotify.Application
             {
                 Track track = new Track()
                 {
-                    albumName = album(id).name,
+                    albumName = Album(id).name,
                     artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,

@@ -20,7 +20,7 @@ namespace Spotify.Api.Controllers
         [HttpGet]
         public IActionResult Get(string id)
         {
-            var response = _albumBusiness.album(id);
+            var response = _albumBusiness.Album(id);
             return Ok(response);
         }
     }
@@ -38,7 +38,7 @@ namespace Spotify.Api.Controllers
         [HttpGet]
         public IActionResult Get(string id)
         {
-            var response = _albumBusiness.album(id);
+            var response = _albumBusiness.AlbumTracks(id);
             return Ok(response);
         }
     }
