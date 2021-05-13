@@ -25,21 +25,21 @@ namespace Spotify.Api.Controllers
         }
     }
 
-    [Route("api/album/{id}/tracks")]
-    [ApiController]
-    public class AlbumTracksController : ControllerBase
-    {
-        private readonly AlbumBusiness _albumBusiness;
-        public AlbumTracksController()
-        {
-            _albumBusiness = new AlbumBusiness();
-        }
+    //[Route("api/album/{id}/tracks")]
+    //[ApiController]
+    //public class AlbumTracksController : ControllerBase
+    //{
+    //    private readonly AlbumBusiness _albumBusiness;
+    //    public AlbumTracksController()
+    //    {
+    //        _albumBusiness = new AlbumBusiness();
+    //    }
 
-        [HttpGet]
-        public IActionResult Get(string id)
-        {
-            var response = _albumBusiness.AlbumTracks(id);
-            return Ok(response);
-        }
-    }
+    //    [HttpGet]
+    //    public IActionResult Get(string id)
+    //    {
+    //        var response = _albumBusiness.AlbumTracks(id);
+    //        return Ok(response);
+    //    }
+    
 }

@@ -32,25 +32,23 @@ namespace Spotify.Application
                 name = responseService.name,
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
-                tracks = AlbumTracks(id).ToArray()
+                tracks = AlbumTracks(id, responseService.name).ToArray()
             };
             return album;
         }
 
         
-        public List<Track> AlbumTracks(string id)
+        private List<Track> AlbumTracks(string id, string name)
         {
-            var responseService = _albumService.AlbumTracks(id);
+            AlbumTracksModel responseService = _albumService.AlbumTracks(id);
             var arrTracks = responseService.items;
 
             List<Track> albumTracks = new List<Track>();
             for (int i = 0; i < arrTracks.Length; i++)
             {
-                var namealb = new TrackBusiness(); 
-
                 Track track = new Track()
                 {
-                    albumName = namealb.Track(arrTracks[i].id).albumName, //Lo obtengo de la API de tracks
+                    albumName = name,
                     artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,

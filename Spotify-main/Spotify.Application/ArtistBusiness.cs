@@ -72,6 +72,8 @@ namespace Spotify.Application
             List<Album> listAlbums = new List<Album>();
             for (int i = 0; i < arrAlbums.Length; i++)
             {
+                var tr = new AlbumBusiness();
+                Track[] tracksAlbum = tr.Album(arrAlbums[i].id).tracks;
                 Album album = new Album()
                 {
                     name = arrAlbums[i].name,
@@ -79,8 +81,9 @@ namespace Spotify.Application
                     id = arrAlbums[i].id,
                     images = arrAlbums[i].images,
                     totalTracks = arrAlbums[i].total_tracks,
-                    type = arrAlbums[i].type
-                    
+                    type = arrAlbums[i].type,
+                    tracks = tracksAlbum
+
                 };
                 listAlbums.Add(album);
             }
