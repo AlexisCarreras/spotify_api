@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Spotify.Api.Controllers
 {
-    [Route("api/artist/{id}")]
+    [Route("api/artist/")]
     [ApiController]
     public class ArtistController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace Spotify.Api.Controllers
             _artistBusiness = new ArtistBusiness();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
             var response = _artistBusiness.artist(id);

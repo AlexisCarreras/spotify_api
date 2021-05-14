@@ -7,52 +7,32 @@ using System.Collections.Generic;
 
 namespace Spotify.Api.Controllers
 {
-    [Route("api/search/artist")]
+    [Route("api/[Controller]/")]
     [ApiController]
-    public class SearchArtistController : ControllerBase
+    public class SearchController : ControllerBase
     {
         private readonly SearchBusiness _searchBusiness;
-        public SearchArtistController()
+        public SearchController()
         {
             _searchBusiness = new SearchBusiness();
         }
 
-        [HttpGet]
-        public IActionResult Get(string name, SearchEnum type = SearchEnum.Artist)
+        [HttpGet("artist")]
+        public IActionResult GetArtist(string name, SearchEnum type = SearchEnum.Artist)
         {
             var response = _searchBusiness.SearchArtist(name, type);
             return Ok(response);
         }
-    }
 
-    [Route("api/search/track")]
-    [ApiController]
-    public class SearchTrackController : ControllerBase
-    {
-        private readonly SearchBusiness _searchBusiness;
-        public SearchTrackController()
-        {
-            _searchBusiness = new SearchBusiness();
-        }
-        [HttpGet]
-        public IActionResult Get(string name, SearchEnum type = SearchEnum.Track)
+        [HttpGet("track")]
+        public IActionResult GetTrack(string name, SearchEnum type = SearchEnum.Track)
         {
             var response = _searchBusiness.SearchTrack(name, type);
             return Ok(response);
         }
-    }
 
-    [Route("api/search/album")]
-    [ApiController]
-    public class SearchAlbumController : ControllerBase
-    {
-        private readonly SearchBusiness _searchBusiness;
-        public SearchAlbumController()
-        {
-            _searchBusiness = new SearchBusiness();
-        }
-        [HttpGet]
-        public IActionResult Get(string name, SearchEnum type = SearchEnum.Album)
+        [HttpGet("album")]
+        public IActionResult GetAlbum(string name, SearchEnum type = SearchEnum.Album)
         {
             var response = _searchBusiness.SearchAlbum(name, type);
             return Ok(response);
