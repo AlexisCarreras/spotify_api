@@ -30,6 +30,11 @@ namespace Spotify.Application
 
             for (int i = 0; i < arrItem.Length; i++)
             {
+
+                var alb = new ArtistBusiness();
+                //Album[] album = alb.AlbumArtist(arrItem[i].id).ToArray();
+                Track[] topTracks = alb.TopTracks(arrItem[i].id).ToArray();
+
                 Artist artist = new Artist()
                 {
                     name = arrItem[i].name,
@@ -37,7 +42,9 @@ namespace Spotify.Application
                     type = arrItem[i].type,
                     genres = arrItem[i].genres,
                     popularity = arrItem[i].popularity,
-                    images = arrItem[i].images
+                    images = arrItem[i].images,
+                    //albums = album,
+                    topTracks = topTracks
                 };
                 listArtista.Add(artist);
             }
