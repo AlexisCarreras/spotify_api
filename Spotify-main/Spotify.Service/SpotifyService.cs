@@ -24,7 +24,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQDOeeJ6OBqx_Z_vMJ_lwYYtAoSqt5GjlHVqABqILsVNqcQSwaQUfiflnqM2KY2b7l17gC3NWj9VlMGQqitlG8LmkXPWPPef0-RonxgRZ24Czvvg3dn7HIO4F0bUgpE-pPF-o2-TmuSb8Zs";
+            string bearer = "BQDDrrFPT6aibwZRLNFRsKmxctFbhwu-OLGyDg66aBNpQxMpgT5W72UlKTBLiJNH79_RzTbj6MLnDBgLTfGzeAhC1wiPuZYQB2o-bZjT0R7z3ryS5i5Ko8oK4efw24bgik_s2QiqeCFgtAc";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
