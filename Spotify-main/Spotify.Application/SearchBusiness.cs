@@ -12,7 +12,7 @@ namespace Spotify.Application
         private Service.SpotifyService _searchService { get; set; }
         public SearchBusiness()
         {
-			_searchService = new Service.SpotifyService();
+            _searchService = new Service.SpotifyService();
         }
 
         public Service.SpotifyService GetSearchService()
@@ -38,11 +38,9 @@ namespace Spotify.Application
                     genres = arrItem[i].genres,
                     popularity = arrItem[i].popularity,
                     images = arrItem[i].images
-
                 };
                 listArtista.Add(artist);
             }
-
             return listArtista;
         }
 
@@ -67,7 +65,6 @@ namespace Spotify.Application
                     albumArtist = arrItem[i].artists[0].name,
                     images = arrItem[i].images,
                     tracks = tracksAlbum
-
                 };
 
                 listAlbum.Add(album);

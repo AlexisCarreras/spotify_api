@@ -83,6 +83,7 @@ namespace Spotify.Application
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
                     tracks = tracksAlbum
+                    
 
                 };
                 listAlbums.Add(album);
