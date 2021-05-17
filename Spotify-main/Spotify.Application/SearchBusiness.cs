@@ -32,7 +32,7 @@ namespace Spotify.Application
             {
 
                 var alb = new ArtistBusiness();
-                //Album[] album = alb.AlbumArtist(arrItem[i].id).ToArray();
+                //Album[] album = alb.AlbumArtist(arrItem[i].id).ToArray(); // TARDA MUCHO!!!!
                 Track[] topTracks = alb.TopTracks(arrItem[i].id).ToArray();
 
                 Artist artist = new Artist()
