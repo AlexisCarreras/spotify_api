@@ -24,7 +24,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQCfTVnmW173SVx14uNBktDtFbsnpM64axPIN37af6Mjm4-E59DDlw4PaeTAFrhq4slbe0h2U6ugTkjwSKTWay1oJj8DMJWFokCBn2oxn-AH4UQS3o5lhnaUCJbFZWVleN3OilOTpTiZASg";
+            string bearer = "BQAxZs6u0oMDFBabZlJw_biNEUn5lavOXcOYnoGANW8rga_615ind4nDkr3bKoWiQqfDNss0XP8Chh84pR6qr1L9W42nglFJO1-3APLdfrBfatxIv7BJ-s6TI6Vh4lzbKzieNkMcINO6N4c";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -159,6 +159,23 @@ namespace Spotify.Service
                 var responseJson = Conexion(uri);
                 var responseAlbums = JsonSerializer.Deserialize<TrackModel>(responseJson);
                 return responseAlbums;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("error inesperado:" + ex.Message);
+                return null;
+            }
+
+        }
+
+        public TrackFeaturesModel TrackFeatures(string id)
+        {
+            try
+            {
+                string uri = $"/v1/audio-features/{id}";
+                var responseJson = Conexion(uri);
+                var responseTrackFeatures = JsonSerializer.Deserialize<TrackFeaturesModel>(responseJson);
+                return responseTrackFeatures;
             }
             catch (HttpRequestException ex)
             {
