@@ -1,4 +1,5 @@
-﻿using Spotify.Domain.Models;
+﻿using Spotify.Application.Mapper;
+using Spotify.Domain.Models;
 using Spotify.Domain.Response;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,8 @@ namespace Spotify.Application
             List<Track> albumTracks = new List<Track>();
             for (int i = 0; i < arrTracks.Length; i++)
             {
+                var trackFeatures = _albumService.TrackFeatures(arrTracks[i].id);
+
                 Track track = new Track()
                 {
                     albumName = name,
@@ -56,6 +59,7 @@ namespace Spotify.Application
                     previewUrl = arrTracks[i].preview_url,
                     favorite = false
                 };
+                track.TrackMapping(trackFeatures);
                 albumTracks.Add(track);
             }
             return albumTracks;

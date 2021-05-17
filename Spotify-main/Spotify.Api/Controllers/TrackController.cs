@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Spotify.Api.Controllers
 {
-    [Route("api/track/")]
+    [Route("api/[Controller]/")]
     [ApiController]
     public class TrackController : ControllerBase
     {
