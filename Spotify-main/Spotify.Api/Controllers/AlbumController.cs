@@ -23,7 +23,7 @@ namespace Spotify.Api.Controllers
             var response = _albumBusiness.Album(id);
             return Ok(response);
         }
-    }
+	}
 
     //[Route("api/album/{id}/tracks")]
     //[ApiController]
@@ -41,5 +41,5 @@ namespace Spotify.Api.Controllers
     //        var response = _albumBusiness.AlbumTracks(id);
     //        return Ok(response);
     //    }
-    
+
 }

@@ -34,8 +34,6 @@ namespace Spotify.Application
 			{
 
 				var alb = new ArtistBusiness();
-				//Album[] album = alb.AlbumArtist(arrItem[i].id).ToArray();
-				Track[] topTracks = alb.TopTracks(arrItem[i].id).ToArray();
 
 				Artist artist = new Artist()
 				{
@@ -44,9 +42,7 @@ namespace Spotify.Application
 					type = arrItem[i].type,
 					genres = arrItem[i].genres,
 					popularity = arrItem[i].popularity,
-					images = ImageMapper.ImageMapping(arrItem[i].images),
-					//albums = album,
-					topTracks = topTracks
+					images = ImageMapper.ImageMapping(arrItem[i].images)
 				};
 				listArtista.Add(artist);
 			}
@@ -64,7 +60,6 @@ namespace Spotify.Application
 			for (int i = 0; i < arrItem.Length; i++)
 			{
 				var tr = new AlbumBusiness();
-				Track[] tracksAlbum = tr.Album(arrItem[i].id).tracks;
 				Album album = new Album()
 				{
 					name = arrItem[i].name,
@@ -72,8 +67,7 @@ namespace Spotify.Application
 					type = arrItem[i].album_type,
 					totalTracks = arrItem[i].total_tracks,
 					albumArtist = arrItem[i].artists[0].name,
-					images = ImageMapper.ImageMapping(arrItem[i].images),
-					tracks = tracksAlbum
+					images = ImageMapper.ImageMapping(arrItem[i].images)
 				};
 
 				listAlbum.Add(album);

@@ -33,12 +33,10 @@ namespace Spotify.Application
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
                 tracks = AlbumTracks(id, responseService.name).ToArray()
-                //tracks = responseService.tracks.items
             };
             
             return album;
         }
-
         
         private List<Track> AlbumTracks(string id, string name)
         {

@@ -32,7 +32,6 @@ namespace Spotify.Application
                 images = ImageMapper.ImageMapping(responseService.images),
                 topTracks = TopTracks(id).ToArray(),
                 albums = AlbumArtist(id).ToArray(),
-                
             };
 
             return artist;
@@ -74,7 +73,7 @@ namespace Spotify.Application
             for (int i = 0; i < arrAlbums.Length; i++)
             {
                 var tr = new AlbumBusiness();
-                Track[] tracksAlbum = tr.Album(arrAlbums[i].id).tracks;
+                //Track[] tracksAlbum = tr.Album(arrAlbums[i].id).tracks;
                 Album album = new Album()
                 {
                     name = arrAlbums[i].name,
@@ -83,7 +82,7 @@ namespace Spotify.Application
                     images = ImageMapper.ImageMapping(arrAlbums[i].images),
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
-                    tracks = tracksAlbum
+                    //tracks = tracksAlbum
 
                 };
                 listAlbums.Add(album);
