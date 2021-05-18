@@ -1,14 +1,11 @@
-﻿using Spotify.Application.Mapper;
-using Spotify.Domain.Models;
-using Spotify.Domain.Response;
-using System;
+﻿using Spotify.Domain.Response;
 using System.Collections.Generic;
-using System.Text;
-using static Spotify.Domain.Models.Artist.AlbumArtist;
+using Spotify.Domain.Mapper;
+using Spotify.Application.Mapper;
 
 namespace Spotify.Application
 {
-	public class ArtistBusiness
+    public class ArtistBusiness
 	{
         private Service.SpotifyService _artistService { get; set; }
         public ArtistBusiness()
@@ -32,7 +29,7 @@ namespace Spotify.Application
                 type = responseService.type,
                 genres = responseService.genres,
                 popularity = responseService.popularity,
-                //images = responseService.images,
+                images = ImageMapper.ImageMapping(responseService.images),
                 topTracks = TopTracks(id).ToArray(),
                 albums = AlbumArtist(id).ToArray(),
                 
@@ -83,7 +80,7 @@ namespace Spotify.Application
                     name = arrAlbums[i].name,
                     albumArtist = arrAlbums[i].artists[0].name,
                     id = arrAlbums[i].id,
-                    //images = arrAlbums[i].images,
+                    images = ImageMapper.ImageMapping(arrAlbums[i].images),
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
                     tracks = tracksAlbum
