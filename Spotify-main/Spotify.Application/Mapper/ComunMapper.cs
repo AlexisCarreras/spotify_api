@@ -1,4 +1,4 @@
-﻿using Spotify.Domain.Models;
+﻿using Spotify.Domain.Models.Track;
 using Spotify.Domain.Response;
 using System;
 using System.Collections.Generic;

@@ -1,12 +1,8 @@
-﻿using Spotify.Domain.Abstract;
-using Spotify.Domain.Response;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//respuesta de consulta por track a API search/track
 
-namespace Spotify.Domain.Models
+namespace Spotify.Domain.Models.Search
 {
-    public class TrackSearch : Search
+    public class TrackSearch : Spotify.Domain.Abstract.Search
     {
         public Tracks tracks { get; set; }
     }
@@ -51,7 +47,7 @@ namespace Spotify.Domain.Models
             public External_UrlsTrackSearch external_urls { get; set; }
             public string href { get; set; }
             public string id { get; set; }
-            public Image[] images { get; set; }
+            public ImageModel[] images { get; set; }
             public string name { get; set; }
             public string release_date { get; set; }
             public string release_date_precision { get; set; }
@@ -79,14 +75,6 @@ namespace Spotify.Domain.Models
         {
             public string spotify { get; set; }
         }
-
-        //public class Image
-        //{
-        //    public int height { get; set; }
-        //    public string url { get; set; }
-        //    public int width { get; set; }
-        //}
-
         public class External_Ids
         {
             public string isrc { get; set; }

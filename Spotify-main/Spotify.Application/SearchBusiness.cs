@@ -2,7 +2,7 @@
 using Spotify.Application.Mapper;
 using Spotify.Domain.Abstract;
 using Spotify.Domain.Enums;
-using Spotify.Domain.Models;
+using Spotify.Domain.Models.Search;
 using Spotify.Domain.Response;
 using Spotify.Service;
 
@@ -43,7 +43,7 @@ namespace Spotify.Application
 					type = arrItem[i].type,
 					genres = arrItem[i].genres,
 					popularity = arrItem[i].popularity,
-					images = arrItem[i].images,
+					//images = arrItem[i].images,
 					//albums = album,
 					topTracks = topTracks
 				};
@@ -71,7 +71,7 @@ namespace Spotify.Application
 					type = arrItem[i].album_type,
 					totalTracks = arrItem[i].total_tracks,
 					albumArtist = arrItem[i].artists[0].name,
-					images = arrItem[i].images,
+					//images = arrItem[i].images,
 					tracks = tracksAlbum
 				};
 

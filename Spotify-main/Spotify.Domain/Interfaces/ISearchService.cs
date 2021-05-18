@@ -1,4 +1,5 @@
 ﻿using Spotify.Domain.Models;
+using Spotify.Domain.Models.Search;
 
 namespace Spotify.Domain.Interfaces
 {

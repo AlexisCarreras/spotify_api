@@ -4,7 +4,7 @@ using Spotify.Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static Spotify.Domain.Models.AlbumArtist;
+using static Spotify.Domain.Models.Artist.AlbumArtist;
 
 namespace Spotify.Application
 {
@@ -32,7 +32,7 @@ namespace Spotify.Application
                 type = responseService.type,
                 genres = responseService.genres,
                 popularity = responseService.popularity,
-                images = responseService.images,
+                //images = responseService.images,
                 topTracks = TopTracks(id).ToArray(),
                 albums = AlbumArtist(id).ToArray(),
                 
@@ -83,7 +83,7 @@ namespace Spotify.Application
                     name = arrAlbums[i].name,
                     albumArtist = arrAlbums[i].artists[0].name,
                     id = arrAlbums[i].id,
-                    images = arrAlbums[i].images,
+                    //images = arrAlbums[i].images,
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
                     tracks = tracksAlbum

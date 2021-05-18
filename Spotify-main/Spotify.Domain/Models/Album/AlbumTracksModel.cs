@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//respuesta de consulta por album a API album/{idDeAlbum}/tracks
 
-namespace Spotify.Domain.Models
+namespace Spotify.Domain.Models.Album
 {
     public class AlbumTracksModel
     {

@@ -2,11 +2,12 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using Spotify.Domain.Models;
 using Spotify.Domain.Enums;
 using Spotify.Domain.Abstract;
-using Spotify.Domain.Response;
-using static Spotify.Domain.Models.AlbumArtist;
+using Spotify.Domain.Models.Artist;
+using Spotify.Domain.Models.Album;
+using Spotify.Domain.Models.Track;
+using Spotify.Domain.Models.Search;
 
 namespace Spotify.Service
 {
@@ -24,7 +25,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQAxZs6u0oMDFBabZlJw_biNEUn5lavOXcOYnoGANW8rga_615ind4nDkr3bKoWiQqfDNss0XP8Chh84pR6qr1L9W42nglFJO1-3APLdfrBfatxIv7BJ-s6TI6Vh4lzbKzieNkMcINO6N4c";
+            string bearer = "BQAz7CkKZARw3WZYiLZjZcE5i9Z2G8n5dSxWjhhzQp9inUmXr0r5TPxhoBCoUwawgzgtZpH0ut96tNfMuQjcPRw6sBhBWC_dS-KqXey0Js5uzn2D1JedxZ2ZYffgHowrmV8iTiyWUkncxn8";
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
@@ -68,13 +69,13 @@ namespace Spotify.Service
             }
         }
 
-        public ItemArtistSearch Artist(string id)
+        public ArtistModel Artist(string id)
         {
             try
             {
                 string uri = $"/v1/artists/{id}";
                 var responseJson = Conexion(uri);
-                var responseArtist = JsonSerializer.Deserialize<ItemArtistSearch>(responseJson);
+                var responseArtist = JsonSerializer.Deserialize<ArtistModel>(responseJson);
                 return responseArtist;
             }
             catch (HttpRequestException ex)

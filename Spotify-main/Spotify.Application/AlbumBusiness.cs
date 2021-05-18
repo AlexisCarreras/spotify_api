@@ -1,10 +1,10 @@
 ﻿using Spotify.Application.Mapper;
 using Spotify.Domain.Models;
+using Spotify.Domain.Models.Album;
 using Spotify.Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static Spotify.Domain.Models.AlbumArtist;
 
 namespace Spotify.Application
 {
@@ -29,11 +29,12 @@ namespace Spotify.Application
             {
                 albumArtist = responseService.artists[0].name,
                 id = responseService.id,
-                images = responseService.images,
+                //images = responseService.images,
                 name = responseService.name,
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
                 tracks = AlbumTracks(id, responseService.name).ToArray()
+                //tracks = responseService.tracks.items
             };
             return album;
         }

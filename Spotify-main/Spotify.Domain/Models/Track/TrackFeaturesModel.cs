@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Spotify.Domain.Models
+namespace Spotify.Domain.Models.Track
 {
 	public class TrackFeaturesModel
 	{
