@@ -19,7 +19,7 @@ namespace Spotify.Api.Controllers
     {
         public string clientID = "732c3f54134b4e6a875b156899fe2bfa";
         public string clientSecret = "53224f31eace44fabc6767c85ce299db";
-        public string redirectURL = "http://mysite.com/callback/";
+        public string redirectURL = "https://localhost:44395/callback";
     }
 
     [Route("api/[Controller]/")]
@@ -55,7 +55,7 @@ namespace Spotify.Api.Controllers
             };
         }
 
-        [Route("callback")]
+        [Route("/callback")]
         public ContentResult Get(string code)
         {
             string responseString = "";
