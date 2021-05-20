@@ -9,6 +9,7 @@ using Spotify.Domain.Models.Album;
 using Spotify.Domain.Models.Track;
 using Spotify.Domain.Models.Search;
 using System.Text;
+using Spotify.Domain.Models.Auth;
 
 namespace Spotify.Service
 {
