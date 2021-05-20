@@ -17,8 +17,8 @@ namespace Spotify.Api.Controllers
 
     class SpotifyAuthentication
     {
-        public string clientID = "732c3f54134b4e6a875b156899fe2bfa";
-        public string clientSecret = "53224f31eace44fabc6767c85ce299db";
+        public string clientID = "5ea6a5fb8c494c0c87810637665e9a59";
+        public string clientSecret = "d904ac28c446456d956ceb30a5a40df5";
         public string redirectURL = "https://localhost:44395/callback";
     }
 
