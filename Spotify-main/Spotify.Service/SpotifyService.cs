@@ -8,6 +8,7 @@ using Spotify.Domain.Models.Artist;
 using Spotify.Domain.Models.Album;
 using Spotify.Domain.Models.Track;
 using Spotify.Domain.Models.Search;
+using System.Text;
 
 namespace Spotify.Service
 {
@@ -29,6 +30,10 @@ namespace Spotify.Service
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
+
+            //var data = new StringContent("", Encoding.UTF8, "application/x-www-form-urlencoded");//httpcontent
+            //_httpClient.PostAsync("url", data);
+            
 
             var result = _httpClient.GetAsync(uri).Result;
 
