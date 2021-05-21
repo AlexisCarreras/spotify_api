@@ -18,9 +18,9 @@ namespace Spotify.Application
             return _authService;
         }
 
-        public Auth Auth()
-        {
+        //public Auth Auth()
+        //{
             
-        }
+        //}
     }
 }

@@ -3,11 +3,11 @@ using Spotify.Domain.Models.Album;
 using Spotify.Domain.Response;
 using System.Collections.Generic;
 using Spotify.Domain.Mapper;
-
+using Spotify.Domain.Interfaces;
 
 namespace Spotify.Application
 {
-    public class AlbumBusiness
+    public class AlbumBusiness : IAlbumBusiness
     {
         private Service.SpotifyService _albumService { get; set; }
         public AlbumBusiness()

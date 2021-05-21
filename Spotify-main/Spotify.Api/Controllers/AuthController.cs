@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Spotify.Api.Controllers
 {
-
     class SpotifyAuthentication
     {
         public string clientID = "5ea6a5fb8c494c0c87810637665e9a59";

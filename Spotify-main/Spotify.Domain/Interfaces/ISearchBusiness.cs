@@ -6,6 +6,8 @@ namespace Spotify.Domain.Interfaces
 {
     public interface ISearchBusiness
     {
-        List<Artist> Search(string name, SearchEnum type);
+        List<Artist> SearchArtist(string name, SearchEnum type);
+        List<Album> SearchAlbum(string name, SearchEnum type);
+        List<Track> SearchTrack(string name, SearchEnum type);
     }
 }

@@ -3,10 +3,11 @@ using Spotify.Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Spotify.Domain.Interfaces;
 
 namespace Spotify.Application
 {
-	public class TrackBusiness
+	public class TrackBusiness : ITrackBusiness
 	{
 		private Service.SpotifyService _trackService { get; set; }
 		public TrackBusiness()

@@ -1,11 +1,12 @@
 ﻿using Spotify.Domain.Response;
 using System.Collections.Generic;
 using Spotify.Domain.Mapper;
+using Spotify.Domain.Interfaces;
 using Spotify.Application.Mapper;
 
 namespace Spotify.Application
 {
-    public class ArtistBusiness
+    public class ArtistBusiness : IArtistBusiness
 	{
         private Service.SpotifyService _artistService { get; set; }
         public ArtistBusiness()
@@ -37,7 +38,7 @@ namespace Spotify.Application
             return artist;
         }
 
-        public List<Track> TopTracks(string id, string market = "from_token")
+        private List<Track> TopTracks(string id, string market = "from_token")
         {
             var responseService = _artistService.TopTracks(id, market);
             var arrTracks = responseService.tracks;
@@ -64,7 +65,7 @@ namespace Spotify.Application
             return listTopTracks;
         }
 
-        public List<Album> AlbumArtist(string id)
+        private List<Album> AlbumArtist(string id)
         {
             var responseService = _artistService.AlbumsArtist(id);
             var arrAlbums = responseService.items;

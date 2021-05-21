@@ -2,6 +2,7 @@
 using Spotify.Application;
 using Spotify.Domain.Abstract;
 using Spotify.Domain.Enums;
+using Spotify.Domain.Interfaces;
 using Spotify.Domain.Response;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace Spotify.Api.Controllers
     [ApiController]
     public class TrackController : ControllerBase
     {
-        private readonly TrackBusiness _trackBusiness;
+        private readonly ITrackBusiness _trackBusiness;
         public TrackController()
         {
             _trackBusiness = new TrackBusiness();

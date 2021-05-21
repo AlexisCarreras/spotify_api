@@ -2,6 +2,7 @@
 using Spotify.Application.Mapper;
 using Spotify.Domain.Abstract;
 using Spotify.Domain.Enums;
+using Spotify.Domain.Interfaces;
 using Spotify.Domain.Mapper;
 using Spotify.Domain.Models.Search;
 using Spotify.Domain.Response;
@@ -9,7 +10,7 @@ using Spotify.Service;
 
 namespace Spotify.Application
 {
-	public class SearchBusiness //: ISearchBusiness
+	public class SearchBusiness : ISearchBusiness
 	{
 		private Service.SpotifyService _searchService { get; set; }
 		public SearchBusiness()
