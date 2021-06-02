@@ -9,6 +9,8 @@ using Spotify.Domain.Models.Album;
 using Spotify.Domain.Models.Track;
 using Spotify.Domain.Models.Search;
 using Spotify.Domain.Interfaces;
+using Spotify.Domain.Models.Auth;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Spotify.Service
 {
