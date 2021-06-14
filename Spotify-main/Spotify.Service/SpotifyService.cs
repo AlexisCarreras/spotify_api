@@ -27,7 +27,7 @@ namespace Spotify.Service
         private String Conexion(string uri)
         {
             _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQAQf-ufF6bu4FBnBv_XIlCbYPHAqjUyMBPtR4QYWVbvrws_8HkG5mUUrIerKuqZLmpxCZn3mtzRs4hwLImYSW4V7XkSZrm4KVp1sTlT7vc2oVhlcPIU3kxVsfOrPQB25JJha4FBhMoFtJI";
+            string bearer = "BQDouqKYBFNf92b0QcQxAw0xvRVBPSS7nvci6imlzzZeTPhkNivl8vS9aYaLbnMn0qIZFq2PG1IJ7uGcS-cPBkQ7HZpDHFsM9Jwo9MNJNE5mvqt7pyGskxoeciIbMKrnX9jX2zejLHWg8ZU";
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
 
@@ -46,7 +46,7 @@ namespace Spotify.Service
         {
             try
             {
-                string uri = $"/v1/search?query={name}&type={type.ToLower()}";
+                string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
                 var responseJson = Conexion(uri);
 
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())

@@ -98,7 +98,9 @@ namespace Spotify.Application
 					albumName = arrItem[i].album.name,
 					artistName = arrItem[i].artists[0].name,
 					previewUrl = arrItem[i].preview_url,
-					favorite = false
+					favorite = false,
+					type = arrItem[i].type,
+					images = ImageMapper.ImageMapping(arrItem[i].album.images),
 				};
 				track.TrackMapping(trackFeatures);
 				listTrack.Add(track);

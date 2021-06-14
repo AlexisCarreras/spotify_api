@@ -38,6 +38,8 @@ namespace Spotify.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

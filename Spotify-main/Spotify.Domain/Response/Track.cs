@@ -8,6 +8,8 @@ namespace Spotify.Domain.Response
     {
         public string name { get; set; }
         public string id { get; set; }
+		public Image[] images { get; set; }
+		public string type { get; set; }
         public int trackLength { get; set; }
         public string albumName { get; set; }
         public string artistName { get; set; }

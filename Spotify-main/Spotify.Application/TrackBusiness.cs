@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Spotify.Domain.Interfaces;
+using Spotify.Domain.Mapper;
 
 namespace Spotify.Application
 {
@@ -33,6 +34,8 @@ namespace Spotify.Application
 				artistName = responseService.artists[0].name,
 				name = responseService.name,
 				trackLength = responseService.duration_ms,
+				images = ImageMapper.ImageMapping(responseService.album.images),
+				type = responseService.type,
 				previewUrl = responseService.preview_url,
 				favorite = false,
 			};
