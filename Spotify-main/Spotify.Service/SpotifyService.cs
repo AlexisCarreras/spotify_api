@@ -17,8 +17,11 @@ namespace Spotify.Service
     public class SpotifyService : ISpotifyService
     {
         private readonly HttpClient _httpClient;
-        public SpotifyService()
+        private readonly IHttpClientFactory _httpClientFactory;
+        public SpotifyService(IHttpClientFactory httpClientFactory)
         {
+            _httpClientFactory = httpClientFactory;
+
             _httpClient = new HttpClient
             {
                 BaseAddress = new Uri("https://api.spotify.com")
@@ -26,15 +29,19 @@ namespace Spotify.Service
         }
         private String Conexion(string uri)
         {
-            _httpClient.DefaultRequestHeaders.Clear();
-            string bearer = "BQDouqKYBFNf92b0QcQxAw0xvRVBPSS7nvci6imlzzZeTPhkNivl8vS9aYaLbnMn0qIZFq2PG1IJ7uGcS-cPBkQ7HZpDHFsM9Jwo9MNJNE5mvqt7pyGskxoeciIbMKrnX9jX2zejLHWg8ZU";
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
+            //_httpClient.DefaultRequestHeaders.Clear();
+            //string bearer = "BQCyOWxGOAV9IBnhyrEhuIWXprUBoaP55qmZhEoCXe0565PAJMYcmtopB7Rpk6ZgJdWFNtqI7xf8nLCd4KiLvQlqlEYczbQJOur1s71UvoQpjOfv788Xrmf6xHCZxFh-iv3U-hzSbvB9dVZY2ZoFARVoOaeh4jQ";
+            //_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            //_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
 
-            //var data = new StringContent("", Encoding.UTF8, "application/x-www-form-urlencoded");//httpcontent
-            //_httpClient.PostAsync("url", data);
+            ////var data = new StringContent("", Encoding.UTF8, "application/x-www-form-urlencoded");//httpcontent
+            ////_httpClient.PostAsync("url", data);
 
-            var result = _httpClient.GetAsync(uri).Result;
+            //var result = _httpClient.GetAsync(uri).Result;
+
+            var client = _httpClientFactory.CreateClient("SpotifyClient");
+
+            var result = client.GetAsync(uri).Result;
 
             result.EnsureSuccessStatusCode(); // si no es un 200...
 

@@ -13,10 +13,11 @@ namespace Spotify.Api.Controllers
     public class AlbumController : ControllerBase
     {
         private readonly IAlbumBusiness _albumBusiness;
-        public AlbumController()
-        {
-            _albumBusiness = new AlbumBusiness();
-        }
+
+		public AlbumController(IAlbumBusiness albumBusiness)
+		{
+			_albumBusiness = albumBusiness;
+		}
 
         [HttpGet("{id}")]
         public IActionResult Get(string id)

@@ -13,10 +13,11 @@ namespace Spotify.Api.Controllers
     public class SearchController : ControllerBase
     {
         private readonly ISearchBusiness _searchBusiness;
-        public SearchController()
-        {
-            _searchBusiness = new SearchBusiness();
-        }
+
+		public SearchController(ISearchBusiness searchBusiness)
+		{
+			_searchBusiness = searchBusiness;
+		}
 
         [HttpGet("artist")]
         public IActionResult GetArtist(string name, SearchEnum type = SearchEnum.Artist)

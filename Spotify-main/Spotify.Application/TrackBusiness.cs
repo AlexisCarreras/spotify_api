@@ -10,16 +10,16 @@ namespace Spotify.Application
 {
 	public class TrackBusiness : ITrackBusiness
 	{
-		private Service.SpotifyService _trackService { get; set; }
-		public TrackBusiness()
+		private ISpotifyService _trackService { get; set; }
+		public TrackBusiness(ISpotifyService trackService)
 		{
-			_trackService = new Service.SpotifyService();
+			_trackService = trackService;
 		}
 
-		public Service.SpotifyService GetTrackService()
-		{
-			return _trackService;
-		}
+		//public Service.SpotifyService GetTrackService()
+		//{
+		//	return _trackService;
+		//}
 
 		public Track Track(string id)
 		{

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Spotify.Application;
 using Spotify.Domain.Interfaces;
 using Spotify.Service;
+using System;
 
 namespace Spotify.Api
 {
@@ -28,7 +29,17 @@ namespace Spotify.Api
             services.AddTransient<IAlbumBusiness, AlbumBusiness>();
             services.AddTransient<IArtistBusiness, ArtistBusiness>();
             services.AddTransient<ISpotifyService, SpotifyService>();
-        }
+            services.AddHttpClient("SpotifyClient", client => 
+            {
+                client.BaseAddress = new Uri("https://api.spotify.com");
+                client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
+            }).AddHeaderPropagation(option => option.Headers.Add("Authorization"));
+
+			services.AddHeaderPropagation(option =>
+			{
+				option.Headers.Add("Authorization");
+			});
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +48,8 @@ namespace Spotify.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHeaderPropagation();
 
             app.UseCors(b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 

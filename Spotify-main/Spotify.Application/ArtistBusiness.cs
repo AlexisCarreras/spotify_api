@@ -8,16 +8,16 @@ namespace Spotify.Application
 {
     public class ArtistBusiness : IArtistBusiness
 	{
-        private Service.SpotifyService _artistService { get; set; }
-        public ArtistBusiness()
+        private ISpotifyService _artistService { get; set; } 
+        public ArtistBusiness(ISpotifyService artistService)
         {
-            _artistService = new Service.SpotifyService();
+            _artistService = artistService;
         }
 
-        public Service.SpotifyService GetArtistService()
-        {
-            return _artistService;
-        }
+        //public Service.SpotifyService GetArtistService()
+        //{
+        //    return _artistService;
+        //}
 
         public Artist artist(string id)
         {
@@ -73,7 +73,6 @@ namespace Spotify.Application
             List<Album> listAlbums = new List<Album>();
             for (int i = 0; i < arrAlbums.Length; i++)
             {
-                var tr = new AlbumBusiness();
                 //Track[] tracksAlbum = tr.Album(arrAlbums[i].id).tracks;
                 Album album = new Album()
                 {

@@ -9,16 +9,16 @@ namespace Spotify.Application
 {
     public class AlbumBusiness : IAlbumBusiness
     {
-        private Service.SpotifyService _albumService { get; set; }
-        public AlbumBusiness()
+        private ISpotifyService _albumService { get; set; }
+        public AlbumBusiness(ISpotifyService albumService)
         {
-            _albumService = new Service.SpotifyService();
+            _albumService = albumService;
         }
 
-        public Service.SpotifyService GetAlbumService()
-        {
-            return _albumService;
-        }
+        //public Service.SpotifyService GetAlbumService()
+        //{
+        //    return _albumService;
+        //}
 
         public Album Album(string id)
         {

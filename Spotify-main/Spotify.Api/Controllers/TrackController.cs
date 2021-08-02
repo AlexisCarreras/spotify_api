@@ -13,12 +13,13 @@ namespace Spotify.Api.Controllers
     public class TrackController : ControllerBase
     {
         private readonly ITrackBusiness _trackBusiness;
-        public TrackController()
-        {
-            _trackBusiness = new TrackBusiness();
-        }
 
-        [HttpGet("{id}")]
+		public TrackController(ITrackBusiness trackBusiness)
+		{
+			_trackBusiness = trackBusiness;
+		}
+
+		[HttpGet("{id}")]
         public IActionResult Get(string id)
         {
             var response = _trackBusiness.Track(id);

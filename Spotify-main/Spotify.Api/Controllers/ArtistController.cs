@@ -13,9 +13,9 @@ namespace Spotify.Api.Controllers
     public class ArtistController : ControllerBase
     {
         private readonly IArtistBusiness _artistBusiness;
-        public ArtistController()
+        public ArtistController(IArtistBusiness artistBusiness)
         {
-            _artistBusiness = new ArtistBusiness();
+            _artistBusiness = artistBusiness;
         }
 
         [HttpGet("{id}")]

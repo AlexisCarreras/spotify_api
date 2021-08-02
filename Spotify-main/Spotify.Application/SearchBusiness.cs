@@ -12,17 +12,12 @@ namespace Spotify.Application
 {
 	public class SearchBusiness : ISearchBusiness
 	{
-		private Service.SpotifyService _searchService { get; set; }
-		public SearchBusiness()
-		{
-			_searchService = new Service.SpotifyService();
-		}
+		private ISpotifyService _searchService { get; set; }
 
-		public Service.SpotifyService GetSearchService()
+		public SearchBusiness(ISpotifyService searchService)
 		{
-			return _searchService;
+			_searchService = searchService;
 		}
-
 		public List<Artist> SearchArtist(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
@@ -33,8 +28,6 @@ namespace Spotify.Application
 
 			for (int i = 0; i < arrItem.Length; i++)
 			{
-
-				var alb = new ArtistBusiness();
 
 				Artist artist = new Artist()
 				{
@@ -60,7 +53,6 @@ namespace Spotify.Application
 
 			for (int i = 0; i < arrItem.Length; i++)
 			{
-				var tr = new AlbumBusiness();
 				Album album = new Album()
 				{
 					name = arrItem[i].name,
