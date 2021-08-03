@@ -18,11 +18,13 @@ namespace Spotify.Api.Controllers
 
     [Route("api/[Controller]/")]
     [ApiController]
+    
     public class SpotifyController : Controller
     {
         SpotifyAuthentication sAuth = new SpotifyAuthentication();
 
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public ContentResult Get()
         {
             var qb = new QueryBuilder();
@@ -50,6 +52,7 @@ namespace Spotify.Api.Controllers
         }
 
         [Route("/callback")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public ContentResult Get(string code)
         {
             string responseString = "";
