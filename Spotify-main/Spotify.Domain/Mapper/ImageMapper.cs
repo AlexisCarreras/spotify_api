@@ -10,7 +10,6 @@ namespace Spotify.Domain.Mapper
     {
         public static Image[] ImageMapping(ImageModel[] Origen)
         {
-            
             List<Image> imagen = new List<Image>(Origen.Length);
 
             for (int i = 0; i < Origen.Length; i++)

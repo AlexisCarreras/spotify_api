@@ -42,12 +42,9 @@ namespace Spotify.Service
 
         }
         public Search Search(string name, string type)
-        
         {
             try
             {
-                
-
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
                 var responseJson = Conexion(uri);
 
@@ -119,7 +116,6 @@ namespace Spotify.Service
 				Console.WriteLine("error inesperado:" + ex.Message);
 				return null;
 			}
-
 		}
 
         public AlbumModel Album(string id)
@@ -136,7 +132,6 @@ namespace Spotify.Service
                 Console.WriteLine("error inesperado:" + ex.Message);
                 return null;
             }
-
         }
 
         public AlbumTracksModel AlbumTracks(string id)
@@ -153,7 +148,6 @@ namespace Spotify.Service
                 Console.WriteLine("error inesperado:" + ex.Message);
                 return null;
             }
-
         }
 
         public TrackModel Track(string id)
@@ -170,7 +164,6 @@ namespace Spotify.Service
                 Console.WriteLine("error inesperado:" + ex.Message);
                 return null;
             }
-
         }
 
         public TrackFeaturesModel TrackFeatures(string id)
@@ -187,8 +180,6 @@ namespace Spotify.Service
                 Console.WriteLine("error inesperado:" + ex.Message);
                 return null;
             }
-
         }
-
     }
 }

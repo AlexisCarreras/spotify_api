@@ -14,11 +14,6 @@ namespace Spotify.Application
             _artistService = artistService;
         }
 
-        //public Service.SpotifyService GetArtistService()
-        //{
-        //    return _artistService;
-        //}
-
         public Artist artist(string id)
         {
             var responseService = _artistService.Artist(id);
@@ -37,7 +32,6 @@ namespace Spotify.Application
 
             return artist;
         }
-
         private List<Track> TopTracks(string id, string market = "AR")
         {
             var responseService = _artistService.TopTracks(id, market);

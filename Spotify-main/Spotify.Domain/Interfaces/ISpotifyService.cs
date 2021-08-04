@@ -15,6 +15,5 @@ namespace Spotify.Domain.Interfaces
         TrackModel Track(string id);
         TrackFeaturesModel TrackFeatures(string id);
         ArtistTopTracks TopTracks(string id, string market = "from_token");
-
     }
 }

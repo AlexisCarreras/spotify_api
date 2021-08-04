@@ -8,7 +8,5 @@ namespace Spotify.Domain.Interfaces
     public interface IAlbumBusiness
     {
         Album Album(string id);
-
-
     }
 }

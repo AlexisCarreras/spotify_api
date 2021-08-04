@@ -13,6 +13,4 @@ namespace Spotify.Domain.Response
         public Track[] topTracks { get; set; }
         public Album[] albums { get; set; }
     }
-
-
 }

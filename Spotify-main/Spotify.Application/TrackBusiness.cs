@@ -16,15 +16,9 @@ namespace Spotify.Application
 			_trackService = trackService;
 		}
 
-		//public Service.SpotifyService GetTrackService()
-		//{
-		//	return _trackService;
-		//}
-
 		public Track Track(string id)
 		{
 			var responseService = _trackService.Track(id);
-
 			var trackFeatures = _trackService.TrackFeatures(id);
 
 			Track track = new Track()
