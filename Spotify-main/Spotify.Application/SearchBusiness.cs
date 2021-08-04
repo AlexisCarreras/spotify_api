@@ -17,73 +17,78 @@ namespace Spotify.Application
 		{
 			_searchService = searchService;
 		}
-		public List<Artist> SearchArtist(string name, SearchEnum type)
+
+		public List<SearchDTO> SearchArtist(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
 			var arrItem = ((ArtistSearch)responseService).artists.items;
-			List<Artist> listArtista = new List<Artist>();
+			List<SearchDTO> listArtista = new List<SearchDTO>();
 
 			for (int i = 0; i < arrItem.Length; i++)
 			{
-				Artist artist = new Artist()
+				SearchDTO artist = new SearchDTO()
 				{
-					name = arrItem[i].name,
 					id = arrItem[i].id,
+					imagen_url = arrItem[i].images[0].url,
+					name_artist = arrItem[i].name,
 					type = arrItem[i].type,
-					genres = arrItem[i].genres,
-					popularity = arrItem[i].popularity,
-					images = ImageMapper.ImageMapping(arrItem[i].images)
 				};
 				listArtista.Add(artist);
 			}
 			return listArtista;
 		}
 
-		public List<Album> SearchAlbum(string name, SearchEnum type)
+		public List<SearchDTO> SearchAlbum(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
 			var arrItem = ((AlbumSearch)responseService).albums.items;
-			List<Album> listAlbum = new List<Album>();
+			List<SearchDTO> listAlbum = new List<SearchDTO>();
 
 			for (int i = 0; i < arrItem.Length; i++)
 			{
-				Album album = new Album()
+				SearchDTO album = new SearchDTO()
 				{
-					name = arrItem[i].name,
 					id = arrItem[i].id,
-					type = arrItem[i].album_type,
-					totalTracks = arrItem[i].total_tracks,
-					albumArtist = arrItem[i].artists[0].name,
-					images = ImageMapper.ImageMapping(arrItem[i].images)
+					imagen_url = arrItem[i].images[0].url,
+					name_artist = arrItem[i].artists[0].name,
+					name_album = arrItem[i].name,
+					type = arrItem[i].type,
 				};
 				listAlbum.Add(album);
 			}
 			return listAlbum;
 		}
 
-		public List<Track> SearchTrack(string name, SearchEnum type)
+		public List<SearchDTO> SearchTrack(string name, SearchEnum type)
 		{
 			var responseService = _searchService.Search(name, type.ToString());
 			var arrItem = ((TrackSearch)responseService).tracks.items;
-			List<Track> listTrack = new List<Track>();
+			List<SearchDTO> listTrack = new List<SearchDTO>();
 
 			for (int i = 0; i < arrItem.Length; i++)
 			{
 				var trackFeatures = _searchService.TrackFeatures(arrItem[i].id);
-				Track track = new Track()
+				SearchDTO track = new SearchDTO()
 				{
-					name = arrItem[i].name,
 					id = arrItem[i].id,
-					trackLength = arrItem[i].duration_ms,
-					albumName = arrItem[i].album.name,
-					artistName = arrItem[i].artists[0].name,
-					previewUrl = arrItem[i].preview_url,
+					imagen_url = arrItem[i].album.images[0].url,
+					name_artist = arrItem[i].artists[0].name,
+					name_track = arrItem[i].name,
+					track_lenght = arrItem[i].duration_ms,
 					favorite = false,
+					previewUrl = arrItem[i].preview_url,
 					type = arrItem[i].type,
-					images = ImageMapper.ImageMapping(arrItem[i].album.images),
-					//PRUEBA
+					//name = arrItem[i].name,
+					//id = arrItem[i].id,
+					//trackLength = arrItem[i].duration_ms,
+					//albumName = arrItem[i].album.name,
+					//artistName = arrItem[i].artists[0].name,
+					//previewUrl = arrItem[i].preview_url,
+					//favorite = false,
+					//type = arrItem[i].type,
+					//images = ImageMapper.ImageMapping(arrItem[i].album.images),
 				};
-				track.TrackMapping(trackFeatures);
+				//track.TrackMapping(trackFeatures);
 				listTrack.Add(track);
 			}
 			return listTrack;
