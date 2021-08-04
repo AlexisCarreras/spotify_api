@@ -81,6 +81,7 @@ namespace Spotify.Application
 					favorite = false,
 					type = arrItem[i].type,
 					images = ImageMapper.ImageMapping(arrItem[i].album.images),
+					//PRUEBA
 				};
 				track.TrackMapping(trackFeatures);
 				listTrack.Add(track);
