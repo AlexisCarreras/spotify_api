@@ -15,11 +15,6 @@ namespace Spotify.Application
             _albumService = albumService;
         }
 
-        //public Service.SpotifyService GetAlbumService()
-        //{
-        //    return _albumService;
-        //}
-
         public Album Album(string id)
         {
             var responseService = _albumService.Album(id);
@@ -32,7 +27,7 @@ namespace Spotify.Application
                 name = responseService.name,
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
-                tracks = AlbumTracks(id, responseService.name).ToArray()
+                //tracks = AlbumTracks(id, responseService.name).ToArray()
             };
             
             return album;

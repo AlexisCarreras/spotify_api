@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
-using Spotify.Domain.Enums;
 using Spotify.Domain.Abstract;
-using Spotify.Domain.Models.Artist;
-using Spotify.Domain.Models.Album;
-using Spotify.Domain.Models.Track;
-using Spotify.Domain.Models.Search;
+using Spotify.Domain.Enums;
+using Spotify.Domain.Helper;
 using Spotify.Domain.Interfaces;
-using Spotify.Domain.Models.Auth;
-using Microsoft.AspNetCore.Http.Extensions;
+using Spotify.Domain.Models.Album;
+using Spotify.Domain.Models.Artist;
+using Spotify.Domain.Models.Search;
+using Spotify.Domain.Models.Track;
 
 namespace Spotify.Service
 {
@@ -28,31 +26,28 @@ namespace Spotify.Service
             };
         }
         private String Conexion(string uri)
+        
         {
-            //_httpClient.DefaultRequestHeaders.Clear();
-            //string bearer = "BQCyOWxGOAV9IBnhyrEhuIWXprUBoaP55qmZhEoCXe0565PAJMYcmtopB7Rpk6ZgJdWFNtqI7xf8nLCd4KiLvQlqlEYczbQJOur1s71UvoQpjOfv788Xrmf6xHCZxFh-iv3U-hzSbvB9dVZY2ZoFARVoOaeh4jQ";
-            //_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            //_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {bearer}");
-
-            ////var data = new StringContent("", Encoding.UTF8, "application/x-www-form-urlencoded");//httpcontent
-            ////_httpClient.PostAsync("url", data);
-
-            //var result = _httpClient.GetAsync(uri).Result;
-
             var client = _httpClientFactory.CreateClient("SpotifyClient");
+
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Token.GetToken()}");
 
             var result = client.GetAsync(uri).Result;
 
-            result.EnsureSuccessStatusCode(); // si no es un 200...
+            result.EnsureSuccessStatusCode();
 
             var status = (int)result.StatusCode;
 
             return result.Content.ReadAsStringAsync().Result;
+
         }
         public Search Search(string name, string type)
+        
         {
             try
             {
+                
+
                 string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
                 var responseJson = Conexion(uri);
 
@@ -94,7 +89,7 @@ namespace Spotify.Service
             }
         }
 
-        public ArtistTopTracks TopTracks(string id, string market = "from_token")
+        public ArtistTopTracks TopTracks(string id, string market = "AR")
         {
             try
             {
@@ -197,23 +192,3 @@ namespace Spotify.Service
 
     }
 }
-
-
-
-
-
-
-//VerifyResponse();
-//if (!result.IsSuccessStatusCode)
-//{
-//    switch (result.StatusCode)
-//    {
-//        case HttpStatusCode.BadRequest:
-//            throw new Exception("BadRequest");
-//            break;
-//        default:
-//            break;
-//    } 
-//}
-
-//

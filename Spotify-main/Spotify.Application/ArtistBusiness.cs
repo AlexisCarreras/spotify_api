@@ -38,7 +38,7 @@ namespace Spotify.Application
             return artist;
         }
 
-        private List<Track> TopTracks(string id, string market = "from_token")
+        private List<Track> TopTracks(string id, string market = "AR")
         {
             var responseService = _artistService.TopTracks(id, market);
             var arrTracks = responseService.tracks;

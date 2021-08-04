@@ -20,7 +20,6 @@ namespace Spotify.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             
@@ -34,21 +33,13 @@ namespace Spotify.Api
             services.AddTransient<IAlbumBusiness, AlbumBusiness>();
             services.AddTransient<IArtistBusiness, ArtistBusiness>();
             services.AddTransient<ISpotifyService, SpotifyService>();
-            services.AddHttpClient("SpotifyClient", client => 
+            services.AddHttpClient("SpotifyClient", client =>
             {
                 client.BaseAddress = new Uri("https://api.spotify.com");
                 client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
-            }).AddHeaderPropagation(option => option.Headers.Add("Authorization"));
-
-			services.AddHeaderPropagation(option =>
-			{
-				option.Headers.Add("Authorization");
-			});
-
-            
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -61,7 +52,6 @@ namespace Spotify.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            app.UseHeaderPropagation();
 
             app.UseCors(b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 

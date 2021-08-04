@@ -9,12 +9,6 @@ using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Spotify.Api.Controllers
 {
-    class SpotifyAuthentication
-    {
-        public string clientID = "5ea6a5fb8c494c0c87810637665e9a59";
-        public string clientSecret = "d904ac28c446456d956ceb30a5a40df5";
-        public string redirectURL = "https://localhost:44395/callback";
-    }
 
     [Route("api/[Controller]/")]
     [ApiController]
@@ -24,7 +18,7 @@ namespace Spotify.Api.Controllers
         SpotifyAuthentication sAuth = new SpotifyAuthentication();
 
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         public ContentResult Get()
         {
             var qb = new QueryBuilder();
@@ -51,8 +45,8 @@ namespace Spotify.Api.Controllers
             };
         }
 
-        [Route("/callback")]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("/callback")]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         public ContentResult Get(string code)
         {
             string responseString = "";
