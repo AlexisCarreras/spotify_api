@@ -27,7 +27,6 @@ namespace Spotify.Infrastructure.Service
         }
 
         private String Conexion(string uri)
-
         {
             var client = _httpClientFactory.CreateClient("SpotifyClient");
 

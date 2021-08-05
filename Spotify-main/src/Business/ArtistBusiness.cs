@@ -1,17 +1,22 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
+using Spotify.Core.Models;
 using Spotify.Core.Response;
 using Spotify.Infrastructure.Mapper;
 
 namespace Spotify.Business
 {
     public class ArtistBusiness : IArtistBusiness
-	{
-        private ISpotifyService _artistService { get; set; } 
-        public ArtistBusiness(ISpotifyService artistService)
+    {
+        private readonly DataLog _data;
+        private ISpotifyService _artistService { get; set; }
+        public ArtistBusiness(ISpotifyService artistService,
+                             IOptions<DataLog> options)
         {
             _artistService = artistService;
+            _data = options.Value;
         }
 
         public Artist artist(string id)
@@ -39,7 +44,7 @@ namespace Spotify.Business
 
 
             List<Track> listTopTracks = new List<Track>();
-            for(int i = 0; i<arrTracks.Length;i++)
+            for (int i = 0; i < arrTracks.Length; i++)
             {
                 var trackFeatures = _artistService.TrackFeatures(arrTracks[i].id);
 
@@ -83,5 +88,5 @@ namespace Spotify.Business
             }
             return listAlbums;
         }
-	}
+    }
 }
