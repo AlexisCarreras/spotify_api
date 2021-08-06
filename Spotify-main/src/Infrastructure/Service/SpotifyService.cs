@@ -21,7 +21,7 @@ namespace Spotify.Infrastructure.Service
         public SpotifyService(IHttpClientFactory httpClientFactory, IOptions<SpotifyConfiguration> opt)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-            _spotifyConfiguration = opt.Value ?? throw new ArgumentNullException(nameof(opt.Value)); ;
+            _spotifyConfiguration = opt.Value ?? throw new ArgumentNullException(nameof(opt.Value));
         }
 
         private String Conexion(string uri)

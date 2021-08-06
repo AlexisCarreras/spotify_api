@@ -12,8 +12,10 @@ namespace Spotify.Infrastructure.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions();
+
             var section = configuration.GetSection("SpotifyConfiguration");
             services.Configure<SpotifyConfiguration>(section);
+
             var url = configuration["SpotifyConfiguration:Endpoint"];
 
             services.AddHttpClient("SpotifyClient", client =>
