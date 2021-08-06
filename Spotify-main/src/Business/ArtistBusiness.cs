@@ -10,13 +10,10 @@ namespace Spotify.Business
 {
     public class ArtistBusiness : IArtistBusiness
     {
-        private readonly DataLog _data;
         private ISpotifyService _artistService { get; set; }
-        public ArtistBusiness(ISpotifyService artistService,
-                             IOptions<DataLog> options)
+        public ArtistBusiness(ISpotifyService artistService)
         {
             _artistService = artistService;
-            _data = options.Value;
         }
 
         public Artist artist(string id)

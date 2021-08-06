@@ -8,11 +8,9 @@ namespace Spotify.Infrastructure.Helper
 {
     public static class Token 
     {
-        public static string GetToken()
+        public static string GetToken(string ClientId, string ClientSecret)
         {
-            string ClientID = "732c3f54134b4e6a875b156899fe2bfa";
-            string ClientSecret = "53224f31eace44fabc6767c85ce299db";
-            string auth = Convert.ToBase64String(Encoding.UTF8.GetBytes(ClientID + ":" + ClientSecret));
+            string auth = Convert.ToBase64String(Encoding.UTF8.GetBytes(ClientId + ":" + ClientSecret));
             var client = new RestClient("https://accounts.spotify.com/api/token");
             var request = new RestRequest(Method.POST);
 

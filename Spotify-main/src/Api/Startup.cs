@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Spotify.Business.Extensions;
+using Spotify.Core.Helper;
 using Spotify.Core.Models;
 
 namespace Spotify.Api
@@ -23,10 +24,6 @@ namespace Spotify.Api
             // |api -> business -> infra|
             // |-------- core -----------|
 
-            services.AddOptions();
-
-            var section = Configuration.GetSection("DataLog");
-            services.Configure<DataLog>(section);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

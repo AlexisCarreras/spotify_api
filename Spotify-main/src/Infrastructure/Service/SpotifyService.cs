@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
 using Spotify.Core.Abstract;
 using Spotify.Core.Enums;
+using Spotify.Core.Helper;
 using Spotify.Core.Interfaces;
 using Spotify.Core.Models.Album;
 using Spotify.Core.Models.Artist;
@@ -14,23 +16,19 @@ namespace Spotify.Infrastructure.Service
 {
     public class SpotifyService : ISpotifyService
     {
-        private readonly HttpClient _httpClient;
         private readonly IHttpClientFactory _httpClientFactory;
-        public SpotifyService(IHttpClientFactory httpClientFactory)
+        private readonly SpotifyConfiguration _spotifyConfiguration;
+        public SpotifyService(IHttpClientFactory httpClientFactory, IOptions<SpotifyConfiguration> opt)
         {
-            _httpClientFactory = httpClientFactory;
-
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://api.spotify.com")
-            };
+            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+            _spotifyConfiguration = opt.Value ?? throw new ArgumentNullException(nameof(opt.Value)); ;
         }
 
         private String Conexion(string uri)
         {
             var client = _httpClientFactory.CreateClient("SpotifyClient");
 
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Token.GetToken()}");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Token.GetToken(_spotifyConfiguration.ClientId, _spotifyConfiguration.ClientSecret)}");
 
             var result = client.GetAsync(uri).Result;
 
