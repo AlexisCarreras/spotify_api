@@ -43,21 +43,27 @@ namespace Spotify.Infrastructure.Service
         {
             try
             {
-                string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
-                var responseJson = Conexion(uri);
+                //string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
+                //var responseJson = Conexion(uri);
 
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
                 {
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
+                    var responseJson = Conexion(uri);
                     var responseArtist = JsonSerializer.Deserialize<ArtistSearch>(responseJson);
                     return responseArtist;
                 }
                 else if (type.ToLower() == SearchEnum.Album.ToString().ToLower())
                 {
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
+                    var responseJson = Conexion(uri);
                     var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
                     return responseAlbum;
                 }
                 else
                 {
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=5";
+                    var responseJson = Conexion(uri);
                     var responseTrack = JsonSerializer.Deserialize<TrackSearch>(responseJson);
                     return responseTrack;
                 }
