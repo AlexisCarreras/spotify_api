@@ -72,19 +72,9 @@ namespace Spotify.Business
 					name_track = arrItem[i].name,
 					track_lenght = arrItem[i].duration_ms,
 					favorite = false,
-					previewUrl = arrItem[i].preview_url,
-					type = arrItem[i].type,
-					//name = arrItem[i].name,
-					//id = arrItem[i].id,
-					//trackLength = arrItem[i].duration_ms,
-					//albumName = arrItem[i].album.name,
-					//artistName = arrItem[i].artists[0].name,
 					//previewUrl = arrItem[i].preview_url,
-					//favorite = false,
-					//type = arrItem[i].type,
-					//images = ImageMapper.ImageMapping(arrItem[i].album.images),
+					type = arrItem[i].type,
 				};
-				//track.TrackMapping(trackFeatures);
 				listTrack.Add(track);
 			}
 			return listTrack;
