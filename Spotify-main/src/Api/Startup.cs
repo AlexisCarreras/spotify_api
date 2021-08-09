@@ -32,7 +32,7 @@ namespace Spotify.Api
             });
 
             services.AddBusiness(Configuration);
-            
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

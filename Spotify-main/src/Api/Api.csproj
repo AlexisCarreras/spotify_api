@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Spotify.Api</AssemblyName>
     <RootNamespace>Spotify.Api</RootNamespace>
-    <UserSecretsId>ec6b7455-0a49-42a9-92e9-fea518c59193</UserSecretsId>
+    <UserSecretsId>df6aac88-85c6-4b9f-82b2-62be49e9a848</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
