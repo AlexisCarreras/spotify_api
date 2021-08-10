@@ -67,8 +67,8 @@ namespace Spotify.Business
                 int ms = arrItem[i].duration_ms;
                 TimeSpan t = TimeSpan.FromMilliseconds(ms);
                 string answer = ms < 3600000 && ms > 0
-                    ? string.Format("{1:D2}:{2:D2}", t.Hours, t.Minutes, t.Seconds, t.Milliseconds)
-                    : string.Format("{0:D2}:{1:D2}:{2:D2}", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
+                    ? string.Format($"{t.Minutes:D2}:{t.Seconds:D2}")
+                    : string.Format($"{t.Hours:D2}:{t.Minutes:D2}:{t.Seconds:D2}");
 
                 SearchDTO track = new SearchDTO()
                 {
