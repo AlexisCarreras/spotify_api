@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
@@ -25,62 +26,56 @@ namespace Spotify.Business
                 name = responseService.name,
                 id = responseService.id,
                 type = responseService.type,
-                genres = responseService.genres,
                 popularity = responseService.popularity,
-                images = ImageMapper.ImageMapping(responseService.images),
                 topTracks = TopTracks(id).ToArray(),
                 albums = AlbumArtist(id).ToArray(),
             };
-
+            artist.image = responseService.images.Length == 0 ? "" : responseService.images[0].url;
             return artist;
         }
-        private List<Track> TopTracks(string id, string market = "AR")
+
+        private List<ArtistTrack> TopTracks(string id, string market = "AR")
         {
             var responseService = _artistService.TopTracks(id, market);
             var arrTracks = responseService.tracks;
 
-
-            List<Track> listTopTracks = new List<Track>();
+            List<ArtistTrack> listTopTracks = new List<ArtistTrack>();
             for (int i = 0; i < arrTracks.Length; i++)
             {
-                var trackFeatures = _artistService.TrackFeatures(arrTracks[i].id);
-
-                Track track = new Track()
+                ArtistTrack track = new ArtistTrack()
                 {
                     albumName = arrTracks[i].album.name,
-                    artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,
                     trackLength = arrTracks[i].duration_ms,
                     previewUrl = arrTracks[i].preview_url,
-                    favorite = false
+                    favorite = false,
+                    type = arrTracks[i].type
                 };
-                track.TrackMapping(trackFeatures);
                 listTopTracks.Add(track);
             }
             return listTopTracks;
         }
 
-        private List<Album> AlbumArtist(string id)
+        private List<ArtistAlbum> AlbumArtist(string id)
         {
             var responseService = _artistService.AlbumsArtist(id);
             var arrAlbums = responseService.items;
 
-            List<Album> listAlbums = new List<Album>();
+            List<ArtistAlbum> listAlbums = new List<ArtistAlbum>();
             for (int i = 0; i < arrAlbums.Length; i++)
             {
-                //Track[] tracksAlbum = tr.Album(arrAlbums[i].id).tracks;
-                Album album = new Album()
+                ArtistAlbum album = new ArtistAlbum()
                 {
                     name = arrAlbums[i].name,
-                    albumArtist = arrAlbums[i].artists[0].name,
+                    //albumArtist = arrAlbums[i].artists[0].name,
+                    //image = arrAlbums[i].images[0].url,
                     id = arrAlbums[i].id,
-                    images = ImageMapper.ImageMapping(arrAlbums[i].images),
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
-                    //tracks = tracksAlbum
-
                 };
+                album.albumArtist = arrAlbums[i].artists.Length == 0 ? "No Artist" : arrAlbums[i].artists[0].name;
+                album.image = arrAlbums[i].images.Length == 0 ? "" : arrAlbums[i].images[0].url;
                 listAlbums.Add(album);
             }
             return listAlbums;
