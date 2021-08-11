@@ -39,7 +39,7 @@ namespace Spotify.Infrastructure.Service
             return result.Content.ReadAsStringAsync().Result;
 
         }
-        public Search Search(string name, string type)
+        public Search Search(string name, string type, int offset)
         {
             try
             {
@@ -48,21 +48,21 @@ namespace Spotify.Infrastructure.Service
 
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=7";
                     var responseJson = Conexion(uri);
                     var responseArtist = JsonSerializer.Deserialize<ArtistSearch>(responseJson);
                     return responseArtist;
                 }
                 else if (type.ToLower() == SearchEnum.Album.ToString().ToLower())
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=7";
                     var responseJson = Conexion(uri);
                     var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
                     return responseAlbum;
                 }
                 else
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=5";
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=5";
                     var responseJson = Conexion(uri);
                     var responseTrack = JsonSerializer.Deserialize<TrackSearch>(responseJson);
                     return responseTrack;

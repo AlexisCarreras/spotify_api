@@ -7,7 +7,7 @@ namespace Spotify.Core.Interfaces
 {
     public interface ISpotifyService
     {
-        Search Search(string name, string type);
+        Search Search(string name, string type, int offset);
         ArtistModel Artist(string id);
         AlbumArtist AlbumsArtist(string id);
         AlbumModel Album(string id);
