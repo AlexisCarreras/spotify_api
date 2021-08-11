@@ -1,6 +1,9 @@
-﻿using Spotify.Core.Interfaces;
+﻿using Spotify.Business.Mapper;
+using Spotify.Core.Interfaces;
+using Spotify.Core.Models.Artist;
 using Spotify.Core.Response;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Spotify.Business
 {
@@ -42,7 +45,7 @@ namespace Spotify.Business
                     albumName = arrTracks[i].album.name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,
-                    trackLength = arrTracks[i].duration_ms,
+                    trackLength = TrackLenghtFormater.LenghtFormater(arrTracks[i].duration_ms),
                     previewUrl = arrTracks[i].preview_url,
                     favorite = false,
                     type = arrTracks[i].type
@@ -67,7 +70,8 @@ namespace Spotify.Business
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
                 };
-                album.albumArtist = arrAlbums[i].artists.Length == 0 ? "No Artist" : arrAlbums[i].artists[0].name;
+                string arts = string.Join(", ", arrAlbums[i].artists.Select(a => a.name));
+                album.albumArtist = arrAlbums[i].artists.Length == 0 ? "No Artist" : arts;
                 album.image = arrAlbums[i].images.Length == 0 ? "" : arrAlbums[i].images[0].url;
                 listAlbums.Add(album);
             }

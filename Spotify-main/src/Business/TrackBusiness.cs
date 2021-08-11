@@ -1,7 +1,8 @@
 ﻿using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
 using Spotify.Core.Response;
-using Spotify.Infrastructure.Mapper;
+using System;
+using System.Linq;
 
 namespace Spotify.Business
 {
@@ -20,17 +21,17 @@ namespace Spotify.Business
 
 			Track track = new Track()
 			{
-				albumName = responseService.album.name,
 				id = responseService.id,
-				artistName = responseService.artists[0].name,
 				name = responseService.name,
-				trackLength = responseService.duration_ms,
-				images = ImageMapper.ImageMapping(responseService.album.images),
+				albumName = responseService.album.name,
+				trackLength = TrackLenghtFormater.LenghtFormater(responseService.duration_ms),
 				type = responseService.type,
 				previewUrl = responseService.preview_url,
 				favorite = false,
 			};
-            track.TrackMapping(trackFeatures);
+			track.artistName = string.Join(", ", responseService.artists.Select(a => a.name));
+			track.image = responseService.album.images.Length == 0 ? "" : responseService.album.images[0].url;
+			track.TrackMapping(trackFeatures);
             return track;
 		}
 	}

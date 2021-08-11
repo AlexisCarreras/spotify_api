@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
 using Spotify.Core.Models.Album;
 using Spotify.Core.Response;
-using Spotify.Infrastructure.Mapper;
 
 namespace Spotify.Business
 {
@@ -21,39 +22,35 @@ namespace Spotify.Business
 
             Album album = new Album()
             {
-                albumArtist = responseService.artists[0].name,
                 id = responseService.id,
-                images = ImageMapper.ImageMapping(responseService.images),
                 name = responseService.name,
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
-                //tracks = AlbumTracks(id, responseService.name).ToArray()
+                tracks = AlbumTracks(id).ToArray()
             };
-            
+            album.albumArtist = string.Join(", ", responseService.artists.Select(a => a.name));
+            album.image = responseService.images.Length == 0 ? "" : responseService.images[0].url;
+
             return album;
         }
         
-        private List<Track> AlbumTracks(string id, string name)
+        private List<AlbumTrack> AlbumTracks(string id)
         {
             AlbumTracksModel responseService = _albumService.AlbumTracks(id);
             var arrTracks = responseService.items;
 
-            List<Track> albumTracks = new List<Track>();
+            List<AlbumTrack> albumTracks = new List<AlbumTrack>();
             for (int i = 0; i < arrTracks.Length; i++)
             {
-                var trackFeatures = _albumService.TrackFeatures(arrTracks[i].id);
-
-                Track track = new Track()
+                AlbumTrack track = new AlbumTrack()
                 {
-                    albumName = name,
-                    artistName = arrTracks[i].artists[0].name,
                     id = arrTracks[i].id,
                     name = arrTracks[i].name,
-                    trackLength = arrTracks[i].duration_ms,
+                    trackLength = TrackLenghtFormater.LenghtFormater(arrTracks[i].duration_ms),
                     previewUrl = arrTracks[i].preview_url,
-                    favorite = false
+                    favorite = false,
+                    type = arrTracks[i].type,
                 };
-                track.TrackMapping(trackFeatures);
                 albumTracks.Add(track);
             }
             return albumTracks;

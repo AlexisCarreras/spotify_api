@@ -21,5 +21,4 @@
 		public int duration_ms { get; set; }
 		public int time_signature { get; set; }
 	}
-
 }
