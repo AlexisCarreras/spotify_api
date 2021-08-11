@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.Options;
-using Spotify.Business.Mapper;
-using Spotify.Core.Interfaces;
-using Spotify.Core.Models;
+﻿using Spotify.Core.Interfaces;
 using Spotify.Core.Response;
-using Spotify.Infrastructure.Mapper;
+using System.Collections.Generic;
 
 namespace Spotify.Business
 {
@@ -68,8 +63,6 @@ namespace Spotify.Business
                 ArtistAlbum album = new ArtistAlbum()
                 {
                     name = arrAlbums[i].name,
-                    //albumArtist = arrAlbums[i].artists[0].name,
-                    //image = arrAlbums[i].images[0].url,
                     id = arrAlbums[i].id,
                     totalTracks = arrAlbums[i].total_tracks,
                     type = arrAlbums[i].type,
