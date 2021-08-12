@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spotify.Business.Mapper;
 using Spotify.Core.Enums;
 using Spotify.Core.Interfaces;
 using Spotify.Core.Models.Search;
@@ -64,21 +65,14 @@ namespace Spotify.Business
 
             for (int i = 0; i < arrItem.Length; i++)
             {
-                int ms = arrItem[i].duration_ms;
-                TimeSpan t = TimeSpan.FromMilliseconds(ms);
-                string answer = ms < 3600000 && ms > 0
-                    ? string.Format($"{t.Minutes:D2}:{t.Seconds:D2}")
-                    : string.Format($"{t.Hours:D2}:{t.Minutes:D2}:{t.Seconds:D2}");
-
                 SearchDTO track = new SearchDTO()
                 {
                     id = arrItem[i].id,
                     imagen_url = arrItem[i].album.images[0].url,
                     name_artist = arrItem[i].artists[0].name,
                     name_track = arrItem[i].name,
-                    track_lenght = answer,
+                    track_lenght = TrackLenghtFormater.LenghtFormater(arrItem[i].duration_ms),
                     favorite = false,
-                    //previewUrl = arrItem[i].preview_url,
                     type = arrItem[i].type,
                 };
                 listTrack.Add(track);
