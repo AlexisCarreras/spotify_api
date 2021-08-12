@@ -48,14 +48,14 @@ namespace Spotify.Infrastructure.Service
 
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=7";
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=6";
                     var responseJson = Conexion(uri);
                     var responseArtist = JsonSerializer.Deserialize<ArtistSearch>(responseJson);
                     return responseArtist;
                 }
                 else if (type.ToLower() == SearchEnum.Album.ToString().ToLower())
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=7";
+                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=6";
                     var responseJson = Conexion(uri);
                     var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
                     return responseAlbum;
