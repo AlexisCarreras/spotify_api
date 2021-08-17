@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Spotify.Core.Interfaces;
 using Spotify.Infrastructure.Extensions;
@@ -13,6 +14,8 @@ namespace Spotify.Business.Extensions
             services.AddTransient<ITrackBusiness, TrackBusiness>();
             services.AddTransient<IAlbumBusiness, AlbumBusiness>();
             services.AddTransient<IArtistBusiness, ArtistBusiness>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddInfrastructure(configuration);
 

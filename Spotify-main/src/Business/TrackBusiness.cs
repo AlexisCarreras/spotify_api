@@ -1,8 +1,8 @@
-﻿using Spotify.Business.Mapper;
+﻿using System.Linq;
+using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
+using Spotify.Core.Models.Track;
 using Spotify.Core.Response;
-using System;
-using System.Linq;
 
 namespace Spotify.Business
 {
@@ -16,9 +16,9 @@ namespace Spotify.Business
 
 		public Track Track(string id)
 		{
-			var responseService = _trackService.Track(id);
-			var trackFeatures = _trackService.TrackFeatures(id);
-
+			TrackModel responseService = _trackService.Track(id);
+			TrackFeaturesModel trackFeatures = _trackService.TrackFeatures(id);
+			
 			Track track = new Track()
 			{
 				id = responseService.id,
@@ -31,7 +31,9 @@ namespace Spotify.Business
 			};
 			track.artistName = string.Join(", ", responseService.artists.Select(a => a.name));
 			track.image = responseService.album.images.Length == 0 ? "" : responseService.album.images[0].url;
-			track.TrackMapping(trackFeatures);
+			
+            track.TrackMapping(trackFeatures);
+
             return track;
 		}
 	}

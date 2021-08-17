@@ -1,18 +1,20 @@
-﻿using Spotify.Business.Mapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
 using Spotify.Core.Models.Artist;
 using Spotify.Core.Response;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Spotify.Business
 {
     public class ArtistBusiness : IArtistBusiness
     {
         private ISpotifyService _artistService { get; set; }
-        public ArtistBusiness(ISpotifyService artistService)
+        private IMapper _mapper;
+        public ArtistBusiness(ISpotifyService artistService, IMapper mapper)
         {
             _artistService = artistService;
+            _mapper = mapper;
         }
 
         public Artist artist(string id)
@@ -28,6 +30,7 @@ namespace Spotify.Business
                 topTracks = TopTracks(id).ToArray(),
                 albums = AlbumArtist(id).ToArray(),
             };
+
             artist.image = responseService.images.Length == 0 ? "" : responseService.images[0].url;
             return artist;
         }
@@ -57,25 +60,9 @@ namespace Spotify.Business
 
         private List<ArtistAlbum> AlbumArtist(string id)
         {
-            var responseService = _artistService.AlbumsArtist(id);
-            var arrAlbums = responseService.items;
+            AlbumArtist responseService = _artistService.AlbumsArtist(id);
 
-            List<ArtistAlbum> listAlbums = new List<ArtistAlbum>();
-            for (int i = 0; i < arrAlbums.Length; i++)
-            {
-                ArtistAlbum album = new ArtistAlbum()
-                {
-                    name = arrAlbums[i].name,
-                    id = arrAlbums[i].id,
-                    totalTracks = arrAlbums[i].total_tracks,
-                    type = arrAlbums[i].type,
-                };
-                string arts = string.Join(", ", arrAlbums[i].artists.Select(a => a.name));
-                album.albumArtist = arrAlbums[i].artists.Length == 0 ? "No Artist" : arts;
-                album.image = arrAlbums[i].images.Length == 0 ? "" : arrAlbums[i].images[0].url;
-                listAlbums.Add(album);
-            }
-            return listAlbums;
+            return _mapper.Map<List<ArtistAlbum>>(responseService.items);
         }
     }
 }

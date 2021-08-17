@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Spotify.Core.Interfaces;
 
 namespace Spotify.Api.Controllers
@@ -16,7 +18,9 @@ namespace Spotify.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetArtist(string id)
         {
+            var sw = Stopwatch.StartNew();
             var response = _artistBusiness.artist(id);
+            Console.WriteLine($"total: {sw.Elapsed.Seconds}s");
             return Ok(response);
         }
 
