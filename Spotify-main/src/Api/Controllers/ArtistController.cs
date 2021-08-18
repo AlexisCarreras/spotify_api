@@ -24,37 +24,18 @@ namespace Spotify.Api.Controllers
 			return Ok(response);
 		}
 
-		[HttpGet("{id}/albums")]
-		public IActionResult GetRequest(string id, int offset, int limit)
-		{
-			var request = new Request()
-			{
-				id = id,
-				offset = offset,
-				limit = limit
-			};
-			return Ok(request);
-		}
+		//[HttpGet("{id}/toptracks")]
+		//public IActionResult GetTopTracks(string id)
+		//{
+		//	var response = _artistBusiness.TopTracks(id);
+		//	return Ok(response);
+		//}
 
-	//[HttpGet("{id}/toptracks")]
-	//public IActionResult GetTopTracks(string id)
-	//{
-	//	var response = _artistBusiness.TopTracks(id);
-	//	return Ok(response);
-	//}
-
-	//[HttpGet("{id}/albums")]
-	//public IActionResult GetAlbumsArtist(string id)
-	//{
-	//	var response = _artistBusiness.AlbumArtist(id);
-	//	return Ok(response);
-	//}
-}
-	public class Request
-	{
-		public string id { get; set; }
-		public int offset { get; set; }
-		public int limit { get; set; }
+		//[HttpGet("{id}/albums")]
+		//public IActionResult GetAlbumsArtist(string id)
+		//{
+		//	var response = _artistBusiness.AlbumArtist(id);
+		//	return Ok(response);
+		//}
 	}
-
 }
