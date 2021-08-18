@@ -26,14 +26,13 @@ namespace Spotify.Business
                 name = responseService.name,
                 totalTracks = responseService.total_tracks,
                 type = responseService.type,
-                tracks = AlbumTracks(id).ToArray()
+                tracks = AlbumTracks(id).ToArray(),
+                image = responseService.images.Length == 0 ? "" : responseService.images[0].url,
+                albumArtist = string.Join(", ", responseService.artists.Select(a => a.name)),
             };
-            album.albumArtist = string.Join(", ", responseService.artists.Select(a => a.name));
-            album.image = responseService.images.Length == 0 ? "" : responseService.images[0].url;
-
             return album;
         }
-        
+
         private List<AlbumTrack> AlbumTracks(string id)
         {
             AlbumTracksModel responseService = _albumService.AlbumTracks(id);
