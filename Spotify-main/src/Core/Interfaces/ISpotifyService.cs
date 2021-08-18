@@ -10,6 +10,7 @@ namespace Spotify.Core.Interfaces
         Search Search(string name, string type, int offset);
         ArtistModel Artist(string id);
         AlbumArtist AlbumsArtist(string id);
+        AlbumArtist AlbumsArtist(string id, int offset);
         AlbumModel Album(string id);
         AlbumTracksModel AlbumTracks(string id);
         TrackModel Track(string id);

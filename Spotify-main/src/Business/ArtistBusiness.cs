@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
@@ -29,9 +30,8 @@ namespace Spotify.Business
                 popularity = responseService.popularity,
                 topTracks = TopTracks(id).ToArray(),
                 albums = AlbumArtist(id).ToArray(),
+                image = responseService.images.Length == 0 ? "" : responseService.images[0].url
             };
-
-            artist.image = responseService.images.Length == 0 ? "" : responseService.images[0].url;
             return artist;
         }
 
@@ -63,6 +63,27 @@ namespace Spotify.Business
             AlbumArtist responseService = _artistService.AlbumsArtist(id);
 
             return _mapper.Map<List<ArtistAlbum>>(responseService.items);
+        }
+
+        public List<ArtistAlbum> ArtistAlbums(string id, int offset)
+        {
+            var responseService = _artistService.AlbumsArtist(id, offset).items;
+            List<ArtistAlbum> ArAlbum = new List<ArtistAlbum>();
+
+            for (int i = 0; i < responseService.Length; i++)
+            {
+                ArtistAlbum alb = new ArtistAlbum()
+                {
+                    id = responseService[i].id,
+                    name = responseService[i].name,
+                    albumArtist = string.Join(", ", responseService[i].artists.Select(a => a.name)),
+                    image = responseService[i].images.Length == 0 ? "" : responseService[i].images[0].url,
+                    totalTracks = responseService[i].total_tracks,
+                    type = responseService[i].type
+                };
+                ArAlbum.Add(alb);
+            }
+            return ArAlbum;
         }
     }
 }

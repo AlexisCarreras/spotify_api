@@ -18,24 +18,22 @@ namespace Spotify.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetArtist(string id)
         {
-            var sw = Stopwatch.StartNew();
             var response = _artistBusiness.artist(id);
-            Console.WriteLine($"total: {sw.Elapsed.Seconds}s");
             return Ok(response);
         }
 
-		//[HttpGet("{id}/toptracks")]
-		//public IActionResult GetTopTracks(string id)
-		//{
-		//	var response = _artistBusiness.TopTracks(id);
-		//	return Ok(response);
-		//}
+        //[HttpGet("{id}/toptracks")]
+        //public IActionResult GetTopTracks(string id)
+        //{
+        //	var response = _artistBusiness.TopTracks(id);
+        //	return Ok(response);
+        //}
 
-		//[HttpGet("{id}/albums")]
-		//public IActionResult GetAlbumsArtist(string id)
-		//{
-		//	var response = _artistBusiness.AlbumArtist(id);
-		//	return Ok(response);
-		//}
-	}
+        [HttpGet("{id}/albums")]
+        public IActionResult GetAlbumsArtist(string id, int offset)
+        {
+            var response = _artistBusiness.ArtistAlbums(id, offset);
+            return Ok(response);
+        }
+    }
 }
