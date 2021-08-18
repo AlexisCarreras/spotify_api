@@ -106,11 +106,11 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumArtist AlbumsArtist(string id)
+        public AlbumArtist AlbumsArtist(string id, int offset)
         {
             try
             {
-                string uri = $"/v1/artists/{id}/albums";
+                string uri = $"/v1/artists/{id}/albums?offset={offset}&limit=6";
                 var responseJson = Conexion(uri);
                 var responseAlbumsArtist = JsonSerializer.Deserialize<AlbumArtist>(responseJson);
                 return responseAlbumsArtist;

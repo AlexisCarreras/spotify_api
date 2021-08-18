@@ -17,7 +17,7 @@ namespace Spotify.Business
             _mapper = mapper;
         }
 
-        public Artist artist(string id)
+        public Artist artist(string id, int offset)
         {
             var responseService = _artistService.Artist(id);
 
@@ -28,7 +28,7 @@ namespace Spotify.Business
                 type = responseService.type,
                 popularity = responseService.popularity,
                 topTracks = TopTracks(id).ToArray(),
-                albums = AlbumArtist(id).ToArray(),
+                albums = AlbumArtist(id, offset).ToArray(),
             };
 
             artist.image = responseService.images.Length == 0 ? "" : responseService.images[0].url;
@@ -38,6 +38,10 @@ namespace Spotify.Business
         private List<ArtistTrack> TopTracks(string id, string market = "AR")
         {
             var responseService = _artistService.TopTracks(id, market);
+            if (responseService is null) 
+            {
+                var responseService2 = _artistService.TopTracks(id, market);
+            }
             var arrTracks = responseService.tracks;
 
             List<ArtistTrack> listTopTracks = new List<ArtistTrack>();
@@ -58,9 +62,9 @@ namespace Spotify.Business
             return listTopTracks;
         }
 
-        private List<ArtistAlbum> AlbumArtist(string id)
+        private List<ArtistAlbum> AlbumArtist(string id, int offset)
         {
-            AlbumArtist responseService = _artistService.AlbumsArtist(id);
+            AlbumArtist responseService = _artistService.AlbumsArtist(id, offset);
 
             return _mapper.Map<List<ArtistAlbum>>(responseService.items);
         }

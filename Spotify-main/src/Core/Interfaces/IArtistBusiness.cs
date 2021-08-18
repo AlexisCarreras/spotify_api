@@ -4,6 +4,6 @@ namespace Spotify.Core.Interfaces
 {
     public interface IArtistBusiness
     {
-        Artist artist(string id);
+        Artist artist(string id, int offset);
     }
 }
