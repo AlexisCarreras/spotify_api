@@ -23,17 +23,15 @@ namespace Spotify.Business
 			{
 				id = responseService.id,
 				name = responseService.name,
+				artistName = string.Join(", ", responseService.artists.Select(a => a.name)),
+				image = responseService.album.images.Length == 0 ? "" : responseService.album.images[0].url,
 				albumName = responseService.album.name,
 				trackLength = TrackLenghtFormater.LenghtFormater(responseService.duration_ms),
 				type = responseService.type,
 				previewUrl = responseService.preview_url,
 				favorite = false,
 			};
-			track.artistName = string.Join(", ", responseService.artists.Select(a => a.name));
-			track.image = responseService.album.images.Length == 0 ? "" : responseService.album.images[0].url;
-			
             track.TrackMapping(trackFeatures);
-
             return track;
 		}
 	}

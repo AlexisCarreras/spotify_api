@@ -27,11 +27,10 @@ namespace Spotify.Business
                 SearchDTO artist = new SearchDTO()
                 {
                     id = arrItem[i].id,
-                    //imagen_url = arrItem[i].images[0].url,
+                    imagen_url = arrItem[i].images.Length == 0 ? "" : arrItem[i].images[0].url,
                     name_artist = arrItem[i].name,
                     type = arrItem[i].type,
                 };
-                artist.imagen_url = arrItem[i].images.Length == 0 ? "" : arrItem[i].images[0].url;
 				listArtista.Add(artist);
             }
             return listArtista;
@@ -48,12 +47,11 @@ namespace Spotify.Business
                 SearchDTO album = new SearchDTO()
                 {
                     id = arrItem[i].id,
-                    //imagen_url = arrItem[i].images[0].url,
+                    imagen_url = arrItem[i].images.Length == 0 ? "" : arrItem[i].images[0].url,
                     name_artist = arrItem[i].artists[0].name,
                     name_album = arrItem[i].name,
                     type = arrItem[i].type,
                 };
-                album.imagen_url = arrItem[i].images.Length == 0 ? "" : arrItem[i].images[0].url;
                 listAlbum.Add(album);
             }
             return listAlbum;
@@ -70,14 +68,13 @@ namespace Spotify.Business
                 SearchDTO track = new SearchDTO()
                 {
                     id = arrItem[i].id,
-                    imagen_url = arrItem[i].album.images[0].url,
+                    imagen_url = arrItem[i].album.images.Length == 0 ? "" : arrItem[i].album.images[0].url,
                     name_artist = arrItem[i].artists[0].name,
                     name_track = arrItem[i].name,
                     track_lenght = TrackLenghtFormater.LenghtFormater(arrItem[i].duration_ms),
                     favorite = false,
                     type = arrItem[i].type,
                 };
-                track.imagen_url = arrItem[i].album.images.Length == 0 ? "" : arrItem[i].album.images[0].url;
                 listTrack.Add(track);
             }
             return listTrack;

@@ -21,10 +21,6 @@ namespace Spotify.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // |api -> business -> infra|
-            // |-------- core -----------|
-
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -32,7 +28,6 @@ namespace Spotify.Api
             });
 
             services.AddBusiness(Configuration);
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -16,14 +16,13 @@ namespace Spotify.Business.Mapper
                            act => act.MapFrom(src => ValidLengthArtist(src)))
                 .ForMember(dest => dest.image, act => act.MapFrom(src => src.images.Length == 0 ? "" : src.images[0].url));
 
+            CreateMap<ArtistTopTracks.Track, ArtistTrack>()
+                .ForMember(dest => dest.albumName, act => act.MapFrom(src => src.album.name))
+                .ForMember(dest => dest.trackLength, act => act.MapFrom(src => TrackLenghtFormater.LenghtFormater(src.duration_ms)))
+                .ForMember(dest => dest.previewUrl, act => act.MapFrom(src => src.preview_url));
         }
 
         private Func<AlbumArtist.ItemAlbumArtist, string> ValidLengthArtist =
             src => src.artists.Length == 0 ? "No Artist" : string.Join(", ", src.artists.Select(a => a.name));
-
-        //private string Valid(AlbumArtist.ItemAlbumArtist src)
-        //{
-        //    return src.artists.Length == 0 ? "No Artist" : string.Join(", ", src.artists.Select(a => a.name));
-        //}
     }
 }

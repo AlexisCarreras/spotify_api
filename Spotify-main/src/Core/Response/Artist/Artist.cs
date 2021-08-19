@@ -8,6 +8,5 @@
         public int popularity { get; set; }
         public string type { get; set; }
         public ArtistTrack[] topTracks { get; set; }
-        public ArtistAlbum[] albums { get; set; }
     }
 }

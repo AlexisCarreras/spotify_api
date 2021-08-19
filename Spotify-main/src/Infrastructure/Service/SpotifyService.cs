@@ -43,9 +43,6 @@ namespace Spotify.Infrastructure.Service
         {
             try
             {
-                //string uri = $"/v1/search?query={name}&type={type.ToLower()}&limit=7";
-                //var responseJson = Conexion(uri);
-
                 if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
                 {
                     string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=6";
@@ -110,7 +107,7 @@ namespace Spotify.Infrastructure.Service
         {
             try
             {
-                string uri = $"/v1/artists/{id}/albums&limit=20&include_groups=album,single,compilation";
+                string uri = $"/v1/artists/{id}/albums?limit=20&include_groups=album,single,compilation";
                 var responseJson = Conexion(uri);
                 var responseAlbumsArtist = JsonSerializer.Deserialize<AlbumArtist>(responseJson);
                 return responseAlbumsArtist;

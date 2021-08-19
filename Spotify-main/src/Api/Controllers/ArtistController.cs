@@ -22,13 +22,6 @@ namespace Spotify.Api.Controllers
             return Ok(response);
         }
 
-        //[HttpGet("{id}/toptracks")]
-        //public IActionResult GetTopTracks(string id)
-        //{
-        //	var response = _artistBusiness.TopTracks(id);
-        //	return Ok(response);
-        //}
-
         [HttpGet("{id}/albums")]
         public IActionResult GetAlbumsArtist(string id, int offset)
         {
