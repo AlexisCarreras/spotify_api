@@ -7,5 +7,6 @@ namespace Spotify.Core.Interfaces
     {
         Artist artist(string id);
         List<ArtistAlbum> ArtistAlbums(string id, int offset);
+        List<ArtistTrack> ArtistTopTracks(string id, string market);
     }
 }

@@ -20,6 +20,10 @@ namespace Spotify.Business.Mapper
                 .ForMember(dest => dest.albumName, act => act.MapFrom(src => src.album.name))
                 .ForMember(dest => dest.trackLength, act => act.MapFrom(src => TrackLenghtFormater.LenghtFormater(src.duration_ms)))
                 .ForMember(dest => dest.previewUrl, act => act.MapFrom(src => src.preview_url));
+
+            CreateMap<ArtistModel, Artist>()
+                .ForMember(dest => dest.image, act => act.MapFrom(src => src.images.Length == 0 ? "" : src.images[0].url));
+
         }
 
         private Func<AlbumArtist.ItemAlbumArtist, string> ValidLengthArtist =

@@ -28,13 +28,12 @@ namespace Spotify.Business
                 id = responseService.id,
                 type = responseService.type,
                 popularity = responseService.popularity,
-                topTracks = TopTracks(id).ToArray(),
                 image = responseService.images.Length == 0 ? "" : responseService.images[0].url
             };
             return artist;
         }
 
-        private List<ArtistTrack> TopTracks(string id, string market = "AR")
+        public List<ArtistTrack> ArtistTopTracks(string id, string market = "AR")
         {
             var responseService = _artistService.TopTracks(id, market).tracks;
             return _mapper.Map<List<ArtistTrack>>(responseService);

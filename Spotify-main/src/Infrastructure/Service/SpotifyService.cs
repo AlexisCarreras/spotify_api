@@ -87,7 +87,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public ArtistTopTracks TopTracks(string id, string market = "AR")
+        public ArtistTopTracks TopTracks(string id, string market)
         {
             try
             {
