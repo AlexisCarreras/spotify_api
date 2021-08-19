@@ -23,9 +23,7 @@ namespace Spotify.Business.Mapper
 
             CreateMap<ArtistModel, Artist>()
                 .ForMember(dest => dest.image, act => act.MapFrom(src => src.images.Length == 0 ? "" : src.images[0].url));
-
         }
-
         private Func<AlbumArtist.ItemAlbumArtist, string> ValidLengthArtist =
             src => src.artists.Length == 0 ? "No Artist" : string.Join(", ", src.artists.Select(a => a.name));
     }

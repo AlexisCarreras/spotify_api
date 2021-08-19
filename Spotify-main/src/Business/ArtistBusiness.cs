@@ -21,16 +21,7 @@ namespace Spotify.Business
         public Artist artist(string id)
         {
             var responseService = _artistService.Artist(id);
-
-            Artist artist = new Artist()
-            {
-                name = responseService.name,
-                id = responseService.id,
-                type = responseService.type,
-                popularity = responseService.popularity,
-                image = responseService.images.Length == 0 ? "" : responseService.images[0].url
-            };
-            return artist;
+            return _mapper.Map<Artist>(responseService);
         }
 
         public List<ArtistTrack> ArtistTopTracks(string id, string market = "AR")

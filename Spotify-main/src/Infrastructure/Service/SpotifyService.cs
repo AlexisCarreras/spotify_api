@@ -155,7 +155,7 @@ namespace Spotify.Infrastructure.Service
         {
             try
             {
-                string uri = $"/v1/albums/{id}/tracks";
+                string uri = $"/v1/albums/{id}/tracks?limit=50";
                 var responseJson = Conexion(uri);
                 var responseAlbums = JsonSerializer.Deserialize<AlbumTracksModel>(responseJson);
                 return responseAlbums;
