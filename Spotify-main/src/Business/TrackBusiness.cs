@@ -21,23 +21,28 @@ namespace Spotify.Business
 		public Track Track(string id)
 		{
 			TrackModel responseService = _trackService.Track(id);
-			TrackFeaturesModel trackFeatures = _trackService.TrackFeatures(id);
 			return _mapper.Map<Track>(responseService);
+		}
+		public TrackFeature TrackFeature(string id)
+		{
+			TrackFeaturesModel responseService = _trackService.TrackFeatures(id);
+			return _mapper.Map<TrackFeature>(responseService);
+		//	TrackFeature TF = new TrackFeature()
+		//	{
+		//		acousticness = (int)(responseService.acousticness*1000),
+		//		danceability = (int)(responseService.danceability*1000),
+		//		energy = (int)(responseService.energy*1000),
+		//		instrumentalness = (int)(responseService.instrumentalness*1000),
+		//		key = responseService.key.ToString(),
+		//		liveness = (int)(responseService.liveness*1000),
+		//		mode = responseService.mode.ToString(),
+		//		speechiness = (int)(responseService.speechiness*1000),
+		//		tempo = responseService.tempo,
+		//		valence = (int)(responseService.valence*1000),
+		//};
 			
-			//Track track = new Track()
-			//{
-			//	id = responseService.id,
-			//	name = responseService.name,
-			//	artistName = string.Join(", ", responseService.artists.Select(a => a.name)),
-			//	image = responseService.album.images.Length == 0 ? "" : responseService.album.images[0].url,
-			//	albumName = responseService.album.name,
-			//	trackLength = TrackLenghtFormater.LenghtFormater(responseService.duration_ms),
-			//	type = responseService.type,
-			//	previewUrl = responseService.preview_url,
-			//	favorite = false,
-			//};
-   //         track.TrackMapping(trackFeatures);
-   //         return track;
+
+		//	return TF;
 		}
 	}
 }

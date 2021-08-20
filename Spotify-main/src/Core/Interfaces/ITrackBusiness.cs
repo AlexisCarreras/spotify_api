@@ -5,5 +5,6 @@ namespace Spotify.Core.Interfaces
     public interface ITrackBusiness
     {
         Track Track(string id);
+        TrackFeature TrackFeature(string id);
     }
 }

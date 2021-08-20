@@ -20,5 +20,12 @@ namespace Spotify.Api.Controllers
             var response = _trackBusiness.Track(id);
             return Ok(response);
         }
+
+        [HttpGet("{id}/track-features")]
+        public IActionResult GetFeatures(string id)
+        {
+            var response = _trackBusiness.TrackFeature(id);
+            return Ok(response);
+        }
     }
 }
