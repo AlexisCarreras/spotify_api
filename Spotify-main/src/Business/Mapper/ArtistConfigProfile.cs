@@ -6,9 +6,9 @@ using Spotify.Core.Response;
 
 namespace Spotify.Business.Mapper
 {
-    public class ConfigProfile : Profile
+    public class ArtistConfigProfile : Profile
     {
-        public ConfigProfile()
+        public ArtistConfigProfile()
         {
             CreateMap<AlbumArtist.ItemAlbumArtist, ArtistAlbum>()
                 .ForMember(dest => dest.totalTracks, act => act.MapFrom(src => src.total_tracks))
