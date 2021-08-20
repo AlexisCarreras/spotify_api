@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using RestSharp;
+using Spotify.Core.Enums;
 using Spotify.Core.Models.Auth;
 
 namespace Spotify.Infrastructure.Helper
@@ -29,6 +30,11 @@ namespace Spotify.Infrastructure.Helper
 
 				throw;
 			}
+        }
+
+        public static string ToQuery(this SearchEnum search)
+        {
+            return search.ToString().ToLower();
         }
     }
 }

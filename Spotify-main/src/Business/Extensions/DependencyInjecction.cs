@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Spotify.Business.Search;
 using Spotify.Core.Interfaces;
 using Spotify.Infrastructure.Extensions;
 

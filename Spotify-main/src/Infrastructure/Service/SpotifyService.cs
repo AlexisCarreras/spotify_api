@@ -39,27 +39,27 @@ namespace Spotify.Infrastructure.Service
             return result.Content.ReadAsStringAsync().Result;
 
         }
-        public Search Search(string name, string type, int offset)
+        public Search Search(string name, SearchEnum type, int offset)
         {
             try
             {
-                if (type.ToLower() == SearchEnum.Artist.ToString().ToLower())
+                if (type == SearchEnum.Artist)
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=6";
+                    string uri = $"/v1/search?query={name}&type={type.ToQuery()}&offset={offset}&limit=6";
                     var responseJson = Conexion(uri);
                     var responseArtist = JsonSerializer.Deserialize<ArtistSearch>(responseJson);
                     return responseArtist;
                 }
-                else if (type.ToLower() == SearchEnum.Album.ToString().ToLower())
+                else if (type == SearchEnum.Album)
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=6";
+                    string uri = $"/v1/search?query={name}&type={type.ToQuery()}&offset={offset}&limit=6";
                     var responseJson = Conexion(uri);
                     var responseAlbum = JsonSerializer.Deserialize<AlbumSearch>(responseJson);
                     return responseAlbum;
                 }
                 else
                 {
-                    string uri = $"/v1/search?query={name}&type={type.ToLower()}&offset={offset}&limit=5";
+                    string uri = $"/v1/search?query={name}&type={type.ToQuery()}&offset={offset}&limit=5";
                     var responseJson = Conexion(uri);
                     var responseTrack = JsonSerializer.Deserialize<TrackSearch>(responseJson);
                     return responseTrack;

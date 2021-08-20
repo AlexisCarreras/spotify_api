@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Spotify.Core.Enums;
 using Spotify.Core.Interfaces;
+using Spotify.Core.Request;
+using Spotify.Core.Response;
 
 namespace Spotify.Api.Controllers
 {
@@ -10,30 +14,40 @@ namespace Spotify.Api.Controllers
     {
         private readonly ISearchBusiness _searchBusiness;
 
-		public SearchController(ISearchBusiness searchBusiness)
-		{
-			_searchBusiness = searchBusiness;
-		}
+        public SearchController(ISearchBusiness searchBusiness)
+        {
+            _searchBusiness = searchBusiness;
+        }
 
         [HttpGet("artist")]
-        public IActionResult GetArtist(string name, SearchEnum type = SearchEnum.Artist, int offset=0)
+        public IActionResult GetArtist(string name, int offset = 0)
         {
-            var response = _searchBusiness.SearchArtist(name, type, offset);
+            List<SearchDTO> response = _searchBusiness.SearchArtist(name, offset);
             return Ok(response);
         }
 
         [HttpGet("track")]
-        public IActionResult GetTrack(string name, SearchEnum type = SearchEnum.Track, int offset=0)
+        public IActionResult GetTrack(string name, int offset = 0)
         {
-            var response = _searchBusiness.SearchTrack(name, type, offset);
+            List<SearchDTO> response = _searchBusiness.SearchTrack(name, offset);
             return Ok(response);
         }
 
         [HttpGet("album")]
-        public IActionResult GetAlbum(string name, SearchEnum type = SearchEnum.Album, int offset=0)
+        public IActionResult GetAlbum(string name, int offset = 0)
         {
-            var response = _searchBusiness.SearchAlbum(name, type, offset);
+            List<SearchDTO> response = _searchBusiness.SearchAlbum(name, offset);
             return Ok(response);
+        }
+
+        [HttpGet("/api/v2/search")]
+        public async Task<IEnumerable<SearchDTO>> GetResource(string name, SearchEnum searchType, int offset)
+        {
+            var request = new SearchRequestv2(name, searchType, offset);
+
+            var response = await _searchBusiness.SearchV2(request);
+
+            return response;
         }
     }
 }
