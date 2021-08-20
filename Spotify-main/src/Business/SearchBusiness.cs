@@ -18,18 +18,17 @@ namespace Spotify.Business
 
         public List<SearchDTO> SearchArtist(string name, SearchEnum type, int offset)
         {
-            var responseService = _searchService.Search(name, type.ToString(), offset);
-            var arrItem = ((ArtistSearch)responseService).artists.items;
+            var responseService = ((ArtistSearch)_searchService.Search(name, type.ToString(), offset)).artists.items;
             List<SearchDTO> listArtista = new List<SearchDTO>();
 
-            for (int i = 0; i < arrItem.Length; i++)
+            for (int i = 0; i < responseService.Length; i++)
             {
                 SearchDTO artist = new SearchDTO()
                 {
-                    id = arrItem[i].id,
-                    imagen_url = arrItem[i].images.Length == 0 ? "" : arrItem[i].images[0].url,
-                    name_artist = arrItem[i].name,
-                    type = arrItem[i].type,
+                    id = responseService[i].id,
+                    imagen_url = responseService[i].images.Length == 0 ? "" : responseService[i].images[0].url,
+                    name_artist = responseService[i].name,
+                    type = responseService[i].type,
                 };
 				listArtista.Add(artist);
             }
@@ -38,19 +37,18 @@ namespace Spotify.Business
 
         public List<SearchDTO> SearchAlbum(string name, SearchEnum type, int offset)
         {
-            var responseService = _searchService.Search(name, type.ToString(), offset);
-            var arrItem = ((AlbumSearch)responseService).albums.items;
+            var responseService = ((AlbumSearch)_searchService.Search(name, type.ToString(), offset)).albums.items;
             List<SearchDTO> listAlbum = new List<SearchDTO>();
 
-            for (int i = 0; i < arrItem.Length; i++)
+            for (int i = 0; i < responseService.Length; i++)
             {
                 SearchDTO album = new SearchDTO()
                 {
-                    id = arrItem[i].id,
-                    imagen_url = arrItem[i].images.Length == 0 ? "" : arrItem[i].images[0].url,
-                    name_artist = arrItem[i].artists[0].name,
-                    name_album = arrItem[i].name,
-                    type = arrItem[i].type,
+                    id = responseService[i].id,
+                    imagen_url = responseService[i].images.Length == 0 ? "" : responseService[i].images[0].url,
+                    name_artist = responseService[i].artists[0].name,
+                    name_album = responseService[i].name,
+                    type = responseService[i].type,
                 };
                 listAlbum.Add(album);
             }
@@ -59,21 +57,20 @@ namespace Spotify.Business
 
         public List<SearchDTO> SearchTrack(string name, SearchEnum type, int offset)
         {
-            var responseService = _searchService.Search(name, type.ToString(), offset);
-            var arrItem = ((TrackSearch)responseService).tracks.items;
+            var responseService = ((TrackSearch)_searchService.Search(name, type.ToString(), offset)).tracks.items;
             List<SearchDTO> listTrack = new List<SearchDTO>();
 
-            for (int i = 0; i < arrItem.Length; i++)
+            for (int i = 0; i < responseService.Length; i++)
             {
                 SearchDTO track = new SearchDTO()
                 {
-                    id = arrItem[i].id,
-                    imagen_url = arrItem[i].album.images.Length == 0 ? "" : arrItem[i].album.images[0].url,
-                    name_artist = arrItem[i].artists[0].name,
-                    name_track = arrItem[i].name,
-                    track_lenght = TrackLenghtFormater.LenghtFormater(arrItem[i].duration_ms),
+                    id = responseService[i].id,
+                    imagen_url = responseService[i].album.images.Length == 0 ? "" : responseService[i].album.images[0].url,
+                    name_artist = responseService[i].artists[0].name,
+                    name_track = responseService[i].name,
+                    track_lenght = TrackLenghtFormater.LenghtFormater(responseService[i].duration_ms),
                     favorite = false,
-                    type = arrItem[i].type,
+                    type = responseService[i].type,
                 };
                 listTrack.Add(track);
             }
