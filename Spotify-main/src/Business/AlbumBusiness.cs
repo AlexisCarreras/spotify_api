@@ -22,17 +22,17 @@ namespace Spotify.Business
         public Album Album(string id)
         {
             var responseService = _albumService.Album(id);
-
-            Album album = new Album()
-            {
-                id = responseService.id,
-                name = responseService.name,
-                totalTracks = responseService.total_tracks,
-                type = responseService.type,
-                image = responseService.images.Length == 0 ? "" : responseService.images[0].url,
-                albumArtist = string.Join(", ", responseService.artists.Select(a => a.name)),
-            };
-            return album;
+            return _mapper.Map<Album>(responseService);
+            //Album album = new Album()
+            //{
+            //    id = responseService.id,
+            //    name = responseService.name,
+            //    totalTracks = responseService.total_tracks,
+            //    type = responseService.type,
+            //    image = responseService.images.Length == 0 ? "" : responseService.images[0].url,
+            //    albumArtist = string.Join(", ", responseService.artists.Select(a => a.name)),
+            //};
+            //return album;
         }
 
         public List<AlbumTrack> AlbumTracks(string id)
