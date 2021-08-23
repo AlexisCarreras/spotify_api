@@ -20,5 +20,12 @@ namespace Spotify.Api.Controllers
             var response = _albumBusiness.Album(id);
             return Ok(response);
         }
-	}
+
+        [HttpGet("{id}/tracks")]
+        public IActionResult GetTracks(string id)
+        {
+            var response = _albumBusiness.AlbumTracks(id);
+            return Ok(response);
+        }
+    }
 }
