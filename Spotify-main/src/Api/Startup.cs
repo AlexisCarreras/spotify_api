@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Spotify.Business.Extensions;
+using Spotify.Core.Data;
 
 namespace Spotify.Api
 {
@@ -30,6 +31,7 @@ namespace Spotify.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyTestService", Version = "v1", });
             });
 
+            services.AddSingleton<FeaturifyContext, FeaturifyContext>();
             services.AddBusiness(Configuration);
         }
 
