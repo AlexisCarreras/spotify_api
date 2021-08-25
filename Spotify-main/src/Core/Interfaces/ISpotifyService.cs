@@ -3,6 +3,7 @@ using Spotify.Core.Enums;
 using Spotify.Core.Models.Album;
 using Spotify.Core.Models.Artist;
 using Spotify.Core.Models.Track;
+using System.Threading.Tasks;
 
 namespace Spotify.Core.Interfaces
 {
@@ -14,8 +15,8 @@ namespace Spotify.Core.Interfaces
         AlbumArtist AlbumsArtist(string id, int offset);
         AlbumModel Album(string id);
         AlbumTracksModel AlbumTracks(string id);
-        TrackModel Track(string id);
-        TrackFeaturesModel TrackFeatures(string id);
+        Task<TrackModel> Track(string id);
+        Task<TrackFeaturesModel> TrackFeatures(string id);
         ArtistTopTracks TopTracks(string id, string market);
     }
 }

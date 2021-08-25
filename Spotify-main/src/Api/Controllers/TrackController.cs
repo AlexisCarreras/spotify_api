@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Spotify.Core.Interfaces;
+using Spotify.Core.Response;
+using System.Threading.Tasks;
 
 namespace Spotify.Api.Controllers
 {
@@ -15,16 +17,16 @@ namespace Spotify.Api.Controllers
 		}
 
 		[HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public async Task<ActionResult<Track>> Get(string id)
         {
-            var response = _trackBusiness.Track(id);
-            return Ok(response);
+            var response = await _trackBusiness.Track(id);
+            return response;
         }
 
         [HttpGet("{id}/track-features")]
-        public IActionResult GetFeatures(string id)
+        public async Task<ActionResult<TrackFeature>> GetFeatures(string id)
         {
-            var response = _trackBusiness.TrackFeature(id);
+            var response = await _trackBusiness.TrackFeature(id);
             return Ok(response);
         }
     }

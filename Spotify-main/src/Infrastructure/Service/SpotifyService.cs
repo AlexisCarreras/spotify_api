@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Spotify.Core.Abstract;
 using Spotify.Core.Enums;
@@ -167,7 +168,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public TrackModel Track(string id)
+        public async Task<TrackModel> Track(string id)
         {
             try
             {
@@ -183,7 +184,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public TrackFeaturesModel TrackFeatures(string id)
+        public async Task<TrackFeaturesModel> TrackFeatures(string id)
         {
             try
             {
