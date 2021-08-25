@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data;
-using Spotify.Core.Interfaces;
-using Spotify.Core.Model;
+using Spotify.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,10 +25,10 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserByID(int id)
+        public async Task<ActionResult<Users>> GetUserByID(int id)
         {
-            var response = _context.Users.Find(id);
-            return response == null ? NotFound() : Ok(response);
+            var response = await _context.Users.FindAsync(id);
+            return response == null ? NotFound() : response;
         }
 
         [HttpPost]

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data;
-using Spotify.Core.Model;
+using Spotify.Core.Models;
 using System;
 
 
@@ -13,10 +13,7 @@ namespace Spotify.Core.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<FavoritesTracks> entity)
         {
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.TrackId)
                 .IsRequired()

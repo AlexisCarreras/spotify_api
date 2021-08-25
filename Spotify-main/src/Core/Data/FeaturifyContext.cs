@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data.Configurations;
-using Spotify.Core.Model;
+using Spotify.Core.Models;
 using System;
 
 #nullable disable
@@ -23,14 +23,6 @@ namespace Spotify.Core.Data
         public virtual DbSet<FavoritesTracks> FavoritesTracks { get; set; }
         public virtual DbSet<Tracks> Tracks { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Featurify;Integrated Security=True");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

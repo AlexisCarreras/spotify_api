@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,12 +27,19 @@ namespace Spotify.Api
                     options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 });
 
+            services.AddDbContext<FeaturifyContext>(
+            options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Featurify;Integrated Security=True"));
+            //options => options.UseSqlServer(this.Configuration.GetConnectionString("CS")));
+            //var x = Configuration.GetConnectionString("CS");
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyTestService", Version = "v1", });
             });
 
-            services.AddSingleton<FeaturifyContext, FeaturifyContext>();
+
+
+            services.AddScoped<FeaturifyContext, FeaturifyContext>();
             services.AddBusiness(Configuration);
         }
 

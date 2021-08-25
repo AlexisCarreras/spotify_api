@@ -4,11 +4,12 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Spotify.Core.Model
+namespace Spotify.Core.Models
 {
-    public partial class Users
+    public partial class FavoritesTracks
     {
         public int Id { get; set; }
-        public string Email { get; set; }
+        public string UsuarioId { get; set; }
+        public string TrackId { get; set; }
     }
 }

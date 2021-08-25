@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data;
-using Spotify.Core.Model;
+using Spotify.Core.Models;
 using System;
 
 

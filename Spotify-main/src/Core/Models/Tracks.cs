@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Spotify.Core.Model
+namespace Spotify.Core.Models
 {
     public partial class Tracks
     {

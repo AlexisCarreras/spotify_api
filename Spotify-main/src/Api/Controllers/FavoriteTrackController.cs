@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data;
-using Spotify.Core.Model;
+using Spotify.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,48 +25,6 @@ namespace PruebaFeaturify.Controllers
             return await _context.FavoritesTracks.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FavoritesTracks>> GetFavoritesTracks(string id)
-        {
-            var favoritesTracks = await _context.FavoritesTracks.FindAsync(id);
-
-            if (favoritesTracks == null)
-            {
-                return NotFound();
-            }
-
-            return favoritesTracks;
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFavoritesTracks(string id, FavoritesTracks favoritesTracks)
-        {
-            if (id != favoritesTracks.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(favoritesTracks).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FavoritesTracksExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         [HttpPost]
         public async Task<ActionResult<FavoritesTracks>> PostFavoritesTracks(FavoritesTracks favoritesTracks)
         {
@@ -79,7 +37,7 @@ namespace PruebaFeaturify.Controllers
             {
                 if (FavoritesTracksExists(favoritesTracks.Id))
                 {
-                    return Conflict();
+                    return Conflict($"El track {favoritesTracks.Id} ya existe en la base de datos");
                 }
                 else
                 {
@@ -105,7 +63,7 @@ namespace PruebaFeaturify.Controllers
             return NoContent();
         }
 
-        private bool FavoritesTracksExists(string id)
+        private bool FavoritesTracksExists(int id)
         {
             return _context.FavoritesTracks.Any(e => e.Id == id);
         }
