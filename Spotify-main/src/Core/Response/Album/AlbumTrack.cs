@@ -8,5 +8,6 @@
 		public string trackLength { get; set; }
 		public string previewUrl { get; set; }
 		public bool favorite { get; set; }
+		public int track_number { get; set; }
 	}
 }
