@@ -25,9 +25,9 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet("{id}/albums")]
-        public IActionResult GetAlbumsArtist(string id, int offset)
+        public async Task<ActionResult<ArtistAlbum>> GetAlbumsArtist(string id, int offset)
         {
-            var response = _artistBusiness.ArtistAlbums(id, offset);
+            var response = await _artistBusiness.ArtistAlbums(id, offset);
             return Ok(response);
         }
 

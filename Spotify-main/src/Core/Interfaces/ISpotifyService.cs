@@ -11,8 +11,7 @@ namespace Spotify.Core.Interfaces
     {
         Search Search(string name, SearchEnum type, int offset);
         Task<ArtistModel> Artist(string id);
-        AlbumArtist AlbumsArtist(string id);
-        AlbumArtist AlbumsArtist(string id, int offset);
+        Task<AlbumArtist> AlbumsArtist(string id, int offset);
         Task<AlbumModel> Album(string id);
         Task<AlbumTracksModel> AlbumTracks(string id);
         Task<TrackModel> Track(string id);

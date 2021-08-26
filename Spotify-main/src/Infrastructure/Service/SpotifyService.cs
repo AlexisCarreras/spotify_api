@@ -104,23 +104,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumArtist AlbumsArtist(string id)
-        {
-            try
-            {
-                string uri = $"/v1/artists/{id}/albums?limit=20&include_groups=album,single,compilation";
-                var responseJson = Conexion(uri);
-                var responseAlbumsArtist = JsonSerializer.Deserialize<AlbumArtist>(responseJson);
-                return responseAlbumsArtist;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine("error inesperado:" + ex.Message);
-                return null;
-            }
-        }
-
-        public AlbumArtist AlbumsArtist(string id, int offset)
+        public async Task<AlbumArtist> AlbumsArtist(string id, int offset)
         {
             try
             {

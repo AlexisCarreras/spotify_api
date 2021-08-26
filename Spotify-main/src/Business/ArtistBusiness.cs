@@ -30,9 +30,9 @@ namespace Spotify.Business
             var responseService = _artistService.TopTracks(id, market).tracks;
             return _mapper.Map<List<ArtistTrack>>(responseService);
         }
-        public List<ArtistAlbum> ArtistAlbums(string id, int offset)
+        public async Task<IEnumerable<ArtistAlbum>> ArtistAlbums(string id, int offset)
         {
-            var responseService = _artistService.AlbumsArtist(id, offset).items;
+            var responseService = (await _artistService.AlbumsArtist(id, offset)).items;
             return _mapper.Map<List<ArtistAlbum>>(responseService);
         }
     }
