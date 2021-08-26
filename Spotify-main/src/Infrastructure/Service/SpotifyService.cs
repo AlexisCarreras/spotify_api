@@ -152,7 +152,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumTracksModel AlbumTracks(string id)
+        public async Task<AlbumTracksModel> AlbumTracks(string id)
         {
             try
             {

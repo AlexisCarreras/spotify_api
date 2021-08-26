@@ -24,9 +24,9 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet("{id}/tracks")]
-        public IActionResult GetTracks(string id)
+        public async Task<ActionResult<AlbumTrack>> GetTracks(string id)
         {
-            var response = _albumBusiness.AlbumTracks(id);
+            var response = await _albumBusiness.AlbumTracks(id);
             return Ok(response);
         }
     }
