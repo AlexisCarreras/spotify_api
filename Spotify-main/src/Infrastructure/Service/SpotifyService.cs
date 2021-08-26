@@ -17,8 +17,8 @@ namespace Spotify.Infrastructure.Service
     public class SpotifyService : ISpotifyService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly SpotifyConfiguration _spotifyConfiguration;
-        public SpotifyService(IHttpClientFactory httpClientFactory, IOptions<SpotifyConfiguration> opt)
+        private readonly SpotifyConfigurationOptions _spotifyConfiguration;
+        public SpotifyService(IHttpClientFactory httpClientFactory, IOptions<SpotifyConfigurationOptions> opt)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _spotifyConfiguration = opt.Value ?? throw new ArgumentNullException(nameof(opt.Value));
