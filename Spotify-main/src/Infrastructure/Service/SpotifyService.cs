@@ -88,7 +88,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public ArtistTopTracks TopTracks(string id, string market)
+        public async Task<ArtistTopTracks> TopTracks(string id, string market)
         {
             try
             {

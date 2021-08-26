@@ -32,9 +32,9 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet("{id}/top-tracks")]
-        public IActionResult GetArtistTopTracks(string id, string market = "AR")
+        public async Task<ActionResult<ArtistTrack>> GetArtistTopTracks(string id, string market = "AR")
         {
-            var response = _artistBusiness.ArtistTopTracks(id, market);
+            var response = await _artistBusiness.ArtistTopTracks(id, market);
             return Ok(response);
         }
     }

@@ -8,6 +8,6 @@ namespace Spotify.Core.Interfaces
     {
         Task<Artist> artist(string id);
         Task<IEnumerable<ArtistAlbum>> ArtistAlbums(string id, int offset);
-        List<ArtistTrack> ArtistTopTracks(string id, string market);
+        Task<IEnumerable<ArtistTrack>> ArtistTopTracks(string id, string market);
     }
 }
