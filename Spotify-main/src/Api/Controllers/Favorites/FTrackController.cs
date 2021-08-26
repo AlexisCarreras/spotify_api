@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data;
 using Spotify.Core.Models;
+using Spotify.Core.Response.Favorite;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,12 +33,19 @@ namespace PruebaFeaturify.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Tracks>> PostTracks(Tracks tracks)
+        public async Task<ActionResult<Tracks>> PostTracks(FTrackDTO track)
         {
-            _context.Tracks.Add(tracks);
+            Tracks t = new Tracks()
+            {
+                AlbumIdSpotify = track.AlbumIdSpotify,
+                TrackIdSpotify = track.TrackIdSpotify,
+                ArtistIdSpotify = track.ArtistIdSpotify,
+                TrackName = track.TrackName
+            };
+            _context.Tracks.Add(t);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTracks", new { id = tracks.Id }, tracks);
+            return CreatedAtAction("GetTracks", new { id = t.Id }, t);
         }
 
         [HttpDelete("{id}")]
