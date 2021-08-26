@@ -9,7 +9,7 @@ namespace Spotify.Core.Interfaces
 {
     public interface ISpotifyService
     {
-        Search Search(string name, SearchEnum type, int offset);
+        Task<Search> Search(string name, SearchEnum type, int offset);
         Task<ArtistModel> Artist(string id);
         Task<AlbumArtist> AlbumsArtist(string id, int offset);
         Task<ArtistTopTracks> TopTracks(string id, string market);

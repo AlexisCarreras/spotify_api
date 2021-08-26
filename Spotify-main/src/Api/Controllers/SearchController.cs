@@ -20,23 +20,23 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet("artist")]
-        public IActionResult GetArtist(string name, int offset = 0)
+        public async Task<ActionResult<IEnumerable<SearchDTO>>> GetArtist(string name, int offset = 0)
         {
-            List<SearchDTO> response = _searchBusiness.SearchArtist(name, offset);
+            var response = await _searchBusiness.SearchArtist(name, offset);
             return Ok(response);
         }
 
         [HttpGet("track")]
-        public IActionResult GetTrack(string name, int offset = 0)
+        public async Task<ActionResult<IEnumerable<SearchDTO>>> GetTrack(string name, int offset = 0)
         {
-            List<SearchDTO> response = _searchBusiness.SearchTrack(name, offset);
+            var response = await _searchBusiness.SearchTrack(name, offset);
             return Ok(response);
         }
 
         [HttpGet("album")]
-        public IActionResult GetAlbum(string name, int offset = 0)
+        public async Task<ActionResult<IEnumerable<SearchDTO>>> GetAlbum(string name, int offset = 0)
         {
-            List<SearchDTO> response = _searchBusiness.SearchAlbum(name, offset);
+            var response = await _searchBusiness.SearchAlbum(name, offset);
             return Ok(response);
         }
 

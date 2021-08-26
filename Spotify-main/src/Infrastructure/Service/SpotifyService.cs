@@ -40,7 +40,7 @@ namespace Spotify.Infrastructure.Service
             return result.Content.ReadAsStringAsync().Result;
 
         }
-        public Search Search(string name, SearchEnum type, int offset)
+        public async Task<Search> Search(string name, SearchEnum type, int offset)
         {
             try
             {
