@@ -1,12 +1,13 @@
 ﻿using Spotify.Core.Response;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Spotify.Core.Interfaces
 {
     public interface IArtistBusiness
     {
-        Artist artist(string id);
-        List<ArtistAlbum> ArtistAlbums(string id, int offset);
-        List<ArtistTrack> ArtistTopTracks(string id, string market);
+        Task<Artist> artist(string id);
+        Task<IEnumerable<ArtistAlbum>> ArtistAlbums(string id, int offset);
+        Task<IEnumerable<ArtistTrack>> ArtistTopTracks(string id, string market);
     }
 }

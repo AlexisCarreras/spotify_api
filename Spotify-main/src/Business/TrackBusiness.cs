@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
@@ -18,31 +19,15 @@ namespace Spotify.Business
 			_mapper = mapper;
 		}
 
-		public Track Track(string id)
+		public async Task<Track> Track(string id)
 		{
-			TrackModel responseService = _trackService.Track(id);
+			var responseService = await _trackService.Track(id);
 			return _mapper.Map<Track>(responseService);
 		}
-		public TrackFeature TrackFeature(string id)
+		public async Task<TrackFeature> TrackFeature(string id)
 		{
-			TrackFeaturesModel responseService = _trackService.TrackFeatures(id);
+			TrackFeaturesModel responseService = await _trackService.TrackFeatures(id);
 			return _mapper.Map<TrackFeature>(responseService);
-		//	TrackFeature TF = new TrackFeature()
-		//	{
-		//		acousticness = (int)(responseService.acousticness*1000),
-		//		danceability = (int)(responseService.danceability*1000),
-		//		energy = (int)(responseService.energy*1000),
-		//		instrumentalness = (int)(responseService.instrumentalness*1000),
-		//		key = responseService.key.ToString(),
-		//		liveness = (int)(responseService.liveness*1000),
-		//		mode = responseService.mode.ToString(),
-		//		speechiness = (int)(responseService.speechiness*1000),
-		//		tempo = responseService.tempo,
-		//		valence = (int)(responseService.valence*1000),
-		//};
-			
-
-		//	return TF;
 		}
 	}
 }

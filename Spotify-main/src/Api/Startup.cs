@@ -19,18 +19,18 @@ namespace Spotify.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddBusiness(Configuration);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Featurify API", Version = "v1", });
+            });
+
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyTestService", Version = "v1", });
-            });
-
-            services.AddBusiness(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

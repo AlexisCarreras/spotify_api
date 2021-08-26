@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Spotify.Core.Entities;
+using Spotify.Core.Enums;
 using Spotify.Core.Models.Auth;
 using Spotify.Core.Request;
 using System;
@@ -15,7 +18,7 @@ using System.Threading.Tasks;
 namespace WebApiPaises.Controllers
 {
     [Produces("application/json")]
-    [Route("api/account")]
+    [Route("api/v1/account")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -31,8 +34,10 @@ namespace WebApiPaises.Controllers
             _authenticationOptions = options.Value;
         }
 
-        [Route("create")]
+        [Route("register")]
         [HttpPost]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+        //           Roles = nameof(RoleEnum.Basic))]
         public async Task<IActionResult> CreateUser([FromBody] UserRegisterRequest model)
         {
             var user = new ApplicationUser
@@ -44,6 +49,7 @@ namespace WebApiPaises.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, RoleEnum.Admin.ToString());
 
             return result.Succeeded
                 ? Ok(new { Message = $"{model.UserName} Registered." })
@@ -54,10 +60,10 @@ namespace WebApiPaises.Controllers
         [Route("authenticate")]
         public async Task<IActionResult> Login([FromBody] UserAuthenticateRequest userInfo)
         {
-            var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(userInfo.UserName, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                var token = BuildToken(userInfo);
+                AuthenticationAccess token = await BuildToken(userInfo);
                 return Ok(token);
             }
 
@@ -65,10 +71,9 @@ namespace WebApiPaises.Controllers
             return BadRequest(ModelState);
         }
 
-
         private async Task<AuthenticationAccess> BuildToken(UserAuthenticateRequest userInfo)
         {
-            var user = await _userManager.FindByEmailAsync(userInfo.Email);
+            ApplicationUser user = await _userManager.FindByNameAsync(userInfo.UserName);
             var roles = await _userManager.GetRolesAsync(user);
 
             //Header
@@ -80,7 +85,7 @@ namespace WebApiPaises.Controllers
             var rolesClaims = roles.Select(role => new Claim(ClaimTypes.Role, role));
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Email),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(nameof(ApplicationUser.UserName), user.UserName),
                 new Claim("FirstName", user.FirstName),
@@ -103,7 +108,8 @@ namespace WebApiPaises.Controllers
             return new AuthenticationAccess
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
-                Succeeded = true
+                Succeeded = true,
+                Roles = roles
             };
         }
     }

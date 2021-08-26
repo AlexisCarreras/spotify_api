@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Spotify.Core.Abstract;
 using Spotify.Core.Enums;
@@ -39,7 +40,7 @@ namespace Spotify.Infrastructure.Service
             return result.Content.ReadAsStringAsync().Result;
 
         }
-        public Search Search(string name, SearchEnum type, int offset)
+        public async Task<Search> Search(string name, SearchEnum type, int offset)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace Spotify.Infrastructure.Service
                 return null;
             }
         }
-        public ArtistModel Artist(string id)
+        public async Task<ArtistModel> Artist(string id)
         {
             try
             {
@@ -87,7 +88,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public ArtistTopTracks TopTracks(string id, string market)
+        public async Task<ArtistTopTracks> TopTracks(string id, string market)
         {
             try
             {
@@ -103,23 +104,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumArtist AlbumsArtist(string id)
-        {
-            try
-            {
-                string uri = $"/v1/artists/{id}/albums?limit=20&include_groups=album,single,compilation";
-                var responseJson = Conexion(uri);
-                var responseAlbumsArtist = JsonSerializer.Deserialize<AlbumArtist>(responseJson);
-                return responseAlbumsArtist;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine("error inesperado:" + ex.Message);
-                return null;
-            }
-        }
-
-        public AlbumArtist AlbumsArtist(string id, int offset)
+        public async Task<AlbumArtist> AlbumsArtist(string id, int offset)
         {
             try
             {
@@ -135,7 +120,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumModel Album(string id)
+        public async Task<AlbumModel> Album(string id)
         {
             try
             {
@@ -151,7 +136,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumTracksModel AlbumTracks(string id)
+        public async Task<AlbumTracksModel> AlbumTracks(string id)
         {
             try
             {
@@ -167,7 +152,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public TrackModel Track(string id)
+        public async Task<TrackModel> Track(string id)
         {
             try
             {
@@ -183,7 +168,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public TrackFeaturesModel TrackFeatures(string id)
+        public async Task<TrackFeaturesModel> TrackFeatures(string id)
         {
             try
             {

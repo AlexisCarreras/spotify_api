@@ -19,61 +19,64 @@ namespace Spotify.Business.Search
             _searchService = searchService;
         }
 
-        public List<SearchDTO> SearchArtist(string name, int offset)
+        public async Task<IEnumerable<SearchDTO>> SearchArtist(string name, int offset)
         {
-            var responseService = ((ArtistSearch)_searchService.Search(name, SearchEnum.Artist, offset)).artists.items;
-            List<SearchDTO> listArtista = new List<SearchDTO>();
+            var responseService = (await Task.FromResult(_searchService.Search(name, SearchEnum.Artist, offset)));
+            var items = ((ArtistSearch)responseService.Result).artists.items;
+            List <SearchDTO> listArtista = new List<SearchDTO>();
 
-            for (int i = 0; i < responseService.Length; i++)
+            for (int i = 0; i < items.Length; i++)
             {
                 SearchDTO artist = new SearchDTO()
                 {
-                    id = responseService[i].id,
-                    imagen_url = responseService[i].images.Length == 0 ? "" : responseService[i].images[0].url,
-                    name_artist = responseService[i].name,
-                    type = responseService[i].type,
+                    id = items[i].id,
+                    imagen_url = items[i].images.Length == 0 ? "" : items[i].images[0].url,
+                    name_artist = items[i].name,
+                    type = items[i].type,
                 };
                 listArtista.Add(artist);
             }
             return listArtista;
         }
 
-        public List<SearchDTO> SearchAlbum(string name, int offset)
+        public async Task<IEnumerable<SearchDTO>> SearchAlbum(string name, int offset)
         {
-            var responseService = ((AlbumSearch)_searchService.Search(name, SearchEnum.Album, offset)).albums.items;
-            List<SearchDTO> listAlbum = new List<SearchDTO>();
+            var responseService = (await Task.FromResult(_searchService.Search(name, SearchEnum.Album, offset)));
+            var items = ((AlbumSearch)responseService.Result).albums.items;
+            List <SearchDTO> listAlbum = new List<SearchDTO>();
 
-            for (int i = 0; i < responseService.Length; i++)
+            for (int i = 0; i < items.Length; i++)
             {
                 SearchDTO album = new SearchDTO()
                 {
-                    id = responseService[i].id,
-                    imagen_url = responseService[i].images.Length == 0 ? "" : responseService[i].images[0].url,
-                    name_artist = responseService[i].artists[0].name,
-                    name_album = responseService[i].name,
-                    type = responseService[i].type,
+                    id = items[i].id,
+                    imagen_url = items[i].images.Length == 0 ? "" : items[i].images[0].url,
+                    name_artist = items[i].artists[0].name,
+                    name_album = items[i].name,
+                    type = items[i].type,
                 };
                 listAlbum.Add(album);
             }
             return listAlbum;
         }
 
-        public List<SearchDTO> SearchTrack(string name, int offset)
+        public async Task<IEnumerable<SearchDTO>> SearchTrack(string name, int offset)
         {
-            var responseService = ((TrackSearch)_searchService.Search(name, SearchEnum.Track, offset)).tracks.items;
-            List<SearchDTO> listTrack = new List<SearchDTO>();
+            var responseService = (await Task.FromResult(_searchService.Search(name, SearchEnum.Track, offset)));
+            var items = ((TrackSearch)responseService.Result).tracks.items;
+            List <SearchDTO> listTrack = new List<SearchDTO>();
 
-            for (int i = 0; i < responseService.Length; i++)
+            for (int i = 0; i < items.Length; i++)
             {
                 SearchDTO track = new SearchDTO()
                 {
-                    id = responseService[i].id,
-                    imagen_url = responseService[i].album.images.Length == 0 ? "" : responseService[i].album.images[0].url,
-                    name_artist = responseService[i].artists[0].name,
-                    name_track = responseService[i].name,
-                    track_lenght = TrackLenghtFormater.LenghtFormater(responseService[i].duration_ms),
+                    id = items[i].id,
+                    imagen_url = items[i].album.images.Length == 0 ? "" : items[i].album.images[0].url,
+                    name_artist = items[i].artists[0].name,
+                    name_track = items[i].name,
+                    track_lenght = TrackLenghtFormater.LenghtFormater(items[i].duration_ms),
                     favorite = false,
-                    type = responseService[i].type,
+                    type = items[i].type,
                 };
                 listTrack.Add(track);
             }
@@ -84,7 +87,7 @@ namespace Spotify.Business.Search
         public async Task<IEnumerable<SearchDTO>> SearchV2(SearchRequestv2 request)
         {
             // llamar a servicio
-            Core.Abstract.Search responseService = await Task.FromResult(_searchService.Search(request.Name, request.SearchType, request.OffSet));
+            var responseService = await Task.FromResult(_searchService.Search(request.Name, request.SearchType, request.OffSet));
 
             // switch emum
 
@@ -97,7 +100,7 @@ namespace Spotify.Business.Search
             };
 
             // ejecutar metodo, build response
-            var response = _builderStrategy.BuildResponse(responseService);
+            var response = _builderStrategy.BuildResponse(responseService.Result);
 
             // return
             return response;
