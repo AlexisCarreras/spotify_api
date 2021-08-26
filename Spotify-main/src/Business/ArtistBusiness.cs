@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Spotify.Business.Mapper;
 using Spotify.Core.Interfaces;
@@ -18,9 +19,9 @@ namespace Spotify.Business
             _mapper = mapper;
         }
 
-        public Artist artist(string id)
+        public async Task<Artist> artist(string id)
         {
-            var responseService = _artistService.Artist(id);
+            var responseService = await _artistService.Artist(id);
             return _mapper.Map<Artist>(responseService);
         }
 

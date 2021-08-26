@@ -72,7 +72,7 @@ namespace Spotify.Infrastructure.Service
                 return null;
             }
         }
-        public ArtistModel Artist(string id)
+        public async Task<ArtistModel> Artist(string id)
         {
             try
             {

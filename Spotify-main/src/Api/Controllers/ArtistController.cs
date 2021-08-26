@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Spotify.Core.Interfaces;
+using Spotify.Core.Response;
 
 namespace Spotify.Api.Controllers
 {
@@ -16,9 +18,9 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetArtist(string id)
+        public async Task<ActionResult<Artist>> GetArtist(string id)
         {
-            var response = _artistBusiness.artist(id);
+            var response = await _artistBusiness.artist(id);
             return Ok(response);
         }
 
