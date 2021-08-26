@@ -42,6 +42,7 @@ namespace PruebaFeaturify.Controllers
                 ArtistIdSpotify = track.ArtistIdSpotify,
                 TrackName = track.TrackName
             };
+
             _context.Tracks.Add(t);
             await _context.SaveChangesAsync();
 

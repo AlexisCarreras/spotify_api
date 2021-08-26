@@ -28,18 +28,13 @@ namespace Spotify.Api
                 });
 
             services.AddDbContext<FeaturifyContext>(
-            options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Featurify;Integrated Security=True"));
-            //options => options.UseSqlServer(this.Configuration.GetConnectionString("CS")));
-            //var x = Configuration.GetConnectionString("CS");
+                options => options.UseSqlServer(Configuration.GetConnectionString("CS")));
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyTestService", Version = "v1", });
             });
 
-
-
-            services.AddScoped<FeaturifyContext, FeaturifyContext>();
             services.AddBusiness(Configuration);
         }
 
