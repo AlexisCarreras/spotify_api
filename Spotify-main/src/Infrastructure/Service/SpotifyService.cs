@@ -181,6 +181,7 @@ namespace Spotify.Infrastructure.Service
                 Console.WriteLine("error inesperado:" + ex.Message);
                 return null;
             }
+            
         }
 
         public TrackFeaturesModel TrackFeatures(string id)
