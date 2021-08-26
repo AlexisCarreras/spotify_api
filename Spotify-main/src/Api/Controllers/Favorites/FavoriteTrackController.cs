@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Spotify.Core.Data;
 using Spotify.Core.Models;
+using Spotify.Core.Response.Favorite;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,18 +27,24 @@ namespace PruebaFeaturify.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<FavoritesTracks>> PostFavoritesTracks(FavoritesTracks favoritesTracks)
+        public async Task<ActionResult<FavoritesTracks>> PostFavoritesTracks(FavoriteTrackDTO favoriteTrack)
         {
-            _context.FavoritesTracks.Add(favoritesTracks);
+            FavoritesTracks ft = new FavoritesTracks()
+            {
+                TrackId = favoriteTrack.TrackId,
+                UsuarioId = favoriteTrack.UsuarioId
+            };
+
+            _context.FavoritesTracks.Add(ft);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (FavoritesTracksExists(favoritesTracks.Id))
+                if (FavoritesTracksExists(ft.Id))
                 {
-                    return Conflict($"El track {favoritesTracks.Id} ya existe en la base de datos");
+                    return Conflict($"El track {ft.Id} ya existe en la base de datos");
                 }
                 else
                 {
@@ -45,7 +52,7 @@ namespace PruebaFeaturify.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFavoritesTracks", new { id = favoritesTracks.Id }, favoritesTracks);
+            return CreatedAtAction("GetFavoritesTracks", new { id = ft.Id }, ft);
         }
 
         [HttpDelete("{id}")]
