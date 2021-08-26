@@ -4,6 +4,7 @@ using Spotify.Core.Data;
 using Spotify.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Spotify.Core.Response.Favorite;
 
 namespace Spotify.Api.Controllers
 {
@@ -32,12 +33,14 @@ namespace Spotify.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Users>> PostUsers(Users users)
+        public async Task<ActionResult<Users>> PostUsers(UserDTO users)
         {
-            _context.Users.Add(users);
+            Users u = new Users() {Email = users.Email,};
+
+            _context.Users.Add(u);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsers", new { id = users.Id }, users);
+            return CreatedAtAction("GetUsers", new { id = u.Id }, u);
         }
     }
 }
