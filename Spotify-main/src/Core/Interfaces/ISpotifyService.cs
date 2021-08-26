@@ -13,7 +13,7 @@ namespace Spotify.Core.Interfaces
         ArtistModel Artist(string id);
         AlbumArtist AlbumsArtist(string id);
         AlbumArtist AlbumsArtist(string id, int offset);
-        AlbumModel Album(string id);
+        Task<AlbumModel> Album(string id);
         AlbumTracksModel AlbumTracks(string id);
         Task<TrackModel> Track(string id);
         Task<TrackFeaturesModel> TrackFeatures(string id);

@@ -136,7 +136,7 @@ namespace Spotify.Infrastructure.Service
             }
         }
 
-        public AlbumModel Album(string id)
+        public async Task<AlbumModel> Album(string id)
         {
             try
             {
