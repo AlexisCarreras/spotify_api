@@ -108,7 +108,7 @@ namespace Spotify.Infrastructure.Service
         {
             try
             {
-                string uri = $"/v1/artists/{id}/albums?offset={offset}&limit=20&include_groups=album,single,compilation";
+                string uri = $"/v1/artists/{id}/albums?offset={offset}&limit=6&include_groups=album,single,compilation";
                 var responseJson = Conexion(uri);
                 var responseAlbumsArtist = JsonSerializer.Deserialize<AlbumArtist>(responseJson);
                 return responseAlbumsArtist;
