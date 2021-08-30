@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
+﻿using System;
+using System.Text;
 using Featurify.Core.Entities;
 using Featurify.Core.Helper;
 using Featurify.Core.Interfaces;
 using Featurify.Core.Models.Auth;
 using Featurify.Infrastructure.Data;
 using Featurify.Infrastructure.Service;
-using System;
-using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Featurify.Infrastructure.Extensions
 {

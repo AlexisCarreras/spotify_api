@@ -64,6 +64,7 @@ namespace WebApiPaises.Controllers
             if (result.Succeeded)
             {
                 AuthenticationAccess token = await BuildToken(userInfo);
+
                 return Ok(token);
             }
 
@@ -85,11 +86,11 @@ namespace WebApiPaises.Controllers
             var rolesClaims = roles.Select(role => new Claim(ClaimTypes.Role, role));
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(nameof(ApplicationUser.UserName), user.UserName),
-                new Claim("FirstName", user.FirstName),
-                new Claim("LastName", user.LastName)
+                new Claim("user_id", user.Id),
+                new Claim("user_name", user.UserName),
+                new Claim("first_name", user.FirstName),
+                new Claim("last_name", user.LastName)
             }
             .Union(rolesClaims);
 

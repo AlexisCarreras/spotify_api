@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Featurify.Core.Entities;
 using Featurify.Core.Response.Favorite;
 using Featurify.Infrastructure.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace PruebaFeaturify.Controllers
 {
@@ -19,9 +23,14 @@ namespace PruebaFeaturify.Controllers
             _context = context;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TrackEntity>>> GetTracks()
         {
+            Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
+
+            System.Console.WriteLine($"mi id es: {claim.Value}");
+
             return await _context.Tracks.ToListAsync();
         }
 
@@ -34,10 +43,12 @@ namespace PruebaFeaturify.Controllers
         [HttpPost]
         public async Task<ActionResult<TrackEntity>> PostTracks(FTrackDTO track)
         {
+            // buscar en tabla por  track.TrackIdSpotify, si no existe, agregar nuevo registro
+            // si existe... buscar 
             TrackEntity t = new TrackEntity()
             {
                 AlbumIdSpotify = track.AlbumIdSpotify,
-                TrackIdSpotify = track.TrackIdSpotify,
+                TrackIdSpotify = track.TrackIdSpotify, // unique_id
                 ArtistIdSpotify = track.ArtistIdSpotify,
                 TrackName = track.TrackName
             };
