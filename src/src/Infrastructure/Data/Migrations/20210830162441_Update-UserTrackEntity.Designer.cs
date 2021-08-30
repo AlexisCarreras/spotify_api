@@ -4,14 +4,16 @@ using Featurify.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Featurify.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FeaturifyContext))]
-    partial class FeaturifyContextModelSnapshot : ModelSnapshot
+    [Migration("20210830162441_Update-UserTrackEntity")]
+    partial class UpdateUserTrackEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

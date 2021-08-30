@@ -9,6 +9,7 @@ namespace Featurify.Core.Entities
         public int Id { get; set; }
         public string UserId { get; set; }
         public int TrackId { get; set; }
+        public bool Enable { get; set; }
 
         public virtual TrackEntity Track { get; set; }
         public virtual ApplicationUser User { get; set; }
