@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,22 +15,22 @@ namespace PruebaFeaturify.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TracksController : ControllerBase
+    public class FTrackController : ControllerBase
     {
         private readonly FeaturifyContext _context;
 
-        public TracksController(FeaturifyContext context)
+        public FTrackController(FeaturifyContext context)
         {
             _context = context;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TrackEntity>>> GetTracks()
         {
-            Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
+            //Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
 
-            System.Console.WriteLine($"mi id es: {claim.Value}");
+            //System.Console.WriteLine($"mi id es: {claim.Value}");
 
             return await _context.Tracks.ToListAsync();
         }
@@ -43,20 +44,25 @@ namespace PruebaFeaturify.Controllers
         [HttpPost]
         public async Task<ActionResult<TrackEntity>> PostTracks(FTrackDTO track)
         {
-            // buscar en tabla por  track.TrackIdSpotify, si no existe, agregar nuevo registro
-            // si existe... buscar 
-            TrackEntity t = new TrackEntity()
+            if (_context.Tracks.Any(a => a.TrackIdSpotify == track.TrackIdSpotify))
             {
-                AlbumIdSpotify = track.AlbumIdSpotify,
-                TrackIdSpotify = track.TrackIdSpotify, // unique_id
-                ArtistIdSpotify = track.ArtistIdSpotify,
-                TrackName = track.TrackName
-            };
+                return Ok("El Track ya está registado en la BBDD");
+            }
+            else
+            {
+                TrackEntity t = new TrackEntity()
+                {
+                    AlbumIdSpotify = track.AlbumIdSpotify,
+                    TrackIdSpotify = track.TrackIdSpotify,
+                    ArtistIdSpotify = track.ArtistIdSpotify,
+                    TrackName = track.TrackName
+                };
 
-            _context.Tracks.Add(t);
-            await _context.SaveChangesAsync();
+                _context.Tracks.Add(t);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTracks", new { id = t.Id }, t);
+                return CreatedAtAction("GetTracks", new { id = t.Id }, t);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -73,5 +79,7 @@ namespace PruebaFeaturify.Controllers
 
             return NoContent();
         }
+
+
     }
 }

@@ -1,78 +1,112 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
-//using Featurify.Core.Entities;
-//using Featurify.Core.Response.Favorite;
-//using Featurify.Infrastructure.Data;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Featurify.Core.Entities;
+using Featurify.Core.Response.Favorite;
+using Featurify.Infrastructure.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
-//namespace PruebaFeaturify.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class FavoritesTracksController : ControllerBase
-//    {
-//        private readonly FeaturifyContext _context;
+namespace PruebaFeaturify.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class FavoritesTracksController : ControllerBase
+    {
+        private readonly FeaturifyContext _context;
 
-//        public FavoritesTracksController(FeaturifyContext context)
-//        {
-//            _context = context;
-//        }
+        public FavoritesTracksController(FeaturifyContext context)
+        {
+            _context = context;
+        }
 
-//        [HttpGet]
-//        public async Task<ActionResult<IEnumerable<FavoritesTrackEntity>>> GetFavoritesTracks()
-//        {
-//            return await _context.FavoritesTracks.ToListAsync();
-//        }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<IEnumerable<UserTrackEntity>>> GetFavoritesTracks()
+        {
+            Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
 
-//        [HttpPost]
-//        public async Task<ActionResult<FavoritesTrackEntity>> PostFavoritesTracks(FavoriteTrackDTO favoriteTrack)
-//        {
-//            FavoritesTrackEntity ft = new FavoritesTrackEntity()
-//            {
-//                TrackId = favoriteTrack.TrackId,
-//                UsuarioId = favoriteTrack.UsuarioId
-//            };
+            return await _context.UsersTracks.Where(a => a.UserId == claim.Value).ToListAsync();
+        }
 
-//            _context.FavoritesTracks.Add(ft);
-//            try
-//            {
-//                await _context.SaveChangesAsync();
-//            }
-//            catch (DbUpdateException)
-//            {
-//                if (FavoritesTracksExists(ft.Id))
-//                {
-//                    return Conflict($"El track {ft.Id} ya existe en la base de datos");
-//                }
-//                else
-//                {
-//                    throw;
-//                }
-//            }
+        [HttpPost("favorite")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> PostFavorite([FromBody]FTrackDTO track)
+        {
+            Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
+            if (ExisteEnTablaTracks(track))
+            {
+                if (ExisteEnTablaUsersTracks(track))
+                {
+                    var x = _context.UsersTracks.FirstOrDefault(a => a.TrackId == getIdFromTablaTracks(track));
+                    x.Enable = !x.Enable;
+                    _context.UsersTracks.Update(x);
 
-//            return CreatedAtAction("GetFavoritesTracks", new { id = ft.Id }, ft);
-//        }
+                    await _context.SaveChangesAsync();
 
-//        [HttpDelete("{id}")]
-//        public async Task<IActionResult> DeleteFavoritesTracks(string id)
-//        {
-//            var favoritesTracks = await _context.FavoritesTracks.FindAsync(id);
-//            if (favoritesTracks == null)
-//            {
-//                return NotFound();
-//            }
+                    return CreatedAtAction("FavTrackSetEnable", x);
+                }
+                else
+                {
+                    UserTrackEntity UsTr = new UserTrackEntity()
+                    {
+                        UserId = claim.Value,
+                        TrackId = _context.Tracks.Find(getIdFromTablaTracks(track)).Id,
+                        Enable = true,
+                    };
+                    _context.UsersTracks.Add(UsTr);
+                    await _context.SaveChangesAsync();
+                    return CreatedAtAction("GetUsersTracks", new { id = UsTr.Id }, UsTr);
+                }
+            }
+            else
+            {
+                TrackEntity t = new TrackEntity()
+                {
+                    AlbumIdSpotify = track.AlbumIdSpotify,
+                    TrackIdSpotify = track.TrackIdSpotify,
+                    ArtistIdSpotify = track.ArtistIdSpotify,
+                    TrackName = track.TrackName,
+                };
+                _context.Tracks.Add(t);
+                await _context.SaveChangesAsync();
 
-//            _context.FavoritesTracks.Remove(favoritesTracks);
-//            await _context.SaveChangesAsync();
+                UserTrackEntity UsTr = new UserTrackEntity()
+                {
+                    UserId = claim.Value,
+                    TrackId = _context.Tracks.Find(getIdFromTablaTracks(track)).Id,
+                    Enable = true,
+                };
+                _context.UsersTracks.Add(UsTr);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("GetUsersTracks", new { id = UsTr.Id }, UsTr);
+            }
+        }
 
-//            return NoContent();
-//        }
+        private bool ExisteEnTablaTracks(FTrackDTO track)
+        {
+            return _context.Tracks.Any(a => a.TrackIdSpotify == track.TrackIdSpotify);
+        }
 
-//        private bool FavoritesTracksExists(int id)
-//        {
-//            return _context.FavoritesTracks.Any(e => e.Id == id);
-//        }
-//    }
-//}
+        private bool ExisteEnTablaUsersTracks(FTrackDTO track)
+        {
+            return _context.UsersTracks.Any(a => a.TrackId == getIdFromTablaTracks(track));
+        }
+
+        private int getIdFromTablaTracks(FTrackDTO track)
+        {
+            var x =  _context.Tracks.Where(a => a.TrackIdSpotify == track.TrackIdSpotify).Select(a => a.Id);
+            var idtrack = 0;
+            foreach(var a in x)
+            {
+                idtrack = a;
+            }
+            return idtrack;
+
+        }
+    }
+}

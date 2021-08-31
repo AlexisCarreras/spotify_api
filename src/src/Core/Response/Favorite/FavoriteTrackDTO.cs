@@ -9,6 +9,7 @@ namespace Featurify.Core.Response.Favorite
     public class FavoriteTrackDTO
     {
         public string UsuarioId { get; set; }
-        public string TrackId { get; set; }
+        public int TrackId { get; set; }
+        public bool Enable { get; set; }
     }
 }
