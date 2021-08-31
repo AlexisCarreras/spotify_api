@@ -29,26 +29,28 @@ namespace PruebaFeaturify.Controllers
         public async Task<ActionResult<IEnumerable<UserTrackEntity>>> GetFavoritesTracks()
         {
             Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
-
-            return await _context.UsersTracks.Where(a => a.UserId == claim.Value).ToListAsync();
+            return await _context.UsersTracks.Where(a => a.UserId == claim.Value && a.Enable == true).ToListAsync();
         }
 
         [HttpPost("favorite")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> PostFavorite([FromBody]FTrackDTO track)
         {
+            var claims = User.Claims;
+            var claim2 = User.Claims.Where(a => a.Type == "user_id");
             Claim claim = User.Claims.FirstOrDefault(c => c.Type.Equals("user_id"));
             if (ExisteEnTablaTracks(track))
             {
-                if (ExisteEnTablaUsersTracks(track))
+                if (ExisteEnTablaUsersTracks(track, claim.Value))
                 {
-                    var x = _context.UsersTracks.FirstOrDefault(a => a.TrackId == getIdFromTablaTracks(track));
+                    var x = _context.UsersTracks.Where(a => a.TrackId == getIdFromTablaTracks(track) && a.UserId == claim.Value).FirstOrDefault();
                     x.Enable = !x.Enable;
                     _context.UsersTracks.Update(x);
 
                     await _context.SaveChangesAsync();
 
-                    return CreatedAtAction("FavTrackSetEnable", x);
+                    return Ok(x);
+                    //return CreatedAtAction("PostFavorite", new { enable = x.Enable }, x);
                 }
                 else
                 {
@@ -60,7 +62,7 @@ namespace PruebaFeaturify.Controllers
                     };
                     _context.UsersTracks.Add(UsTr);
                     await _context.SaveChangesAsync();
-                    return CreatedAtAction("GetUsersTracks", new { id = UsTr.Id }, UsTr);
+                    return CreatedAtAction("PostFavorite", UsTr);
                 }
             }
             else
@@ -83,30 +85,32 @@ namespace PruebaFeaturify.Controllers
                 };
                 _context.UsersTracks.Add(UsTr);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction("GetUsersTracks", new { id = UsTr.Id }, UsTr);
+                return CreatedAtAction("PostFavorite", UsTr);
             }
         }
 
+        #region Privates Methods
         private bool ExisteEnTablaTracks(FTrackDTO track)
         {
             return _context.Tracks.Any(a => a.TrackIdSpotify == track.TrackIdSpotify);
         }
 
-        private bool ExisteEnTablaUsersTracks(FTrackDTO track)
+        private bool ExisteEnTablaUsersTracks(FTrackDTO track, String userId)
         {
-            return _context.UsersTracks.Any(a => a.TrackId == getIdFromTablaTracks(track));
+            return _context.UsersTracks.Any(a => a.TrackId == getIdFromTablaTracks(track) && a.UserId == userId);
         }
 
         private int getIdFromTablaTracks(FTrackDTO track)
         {
-            var x =  _context.Tracks.Where(a => a.TrackIdSpotify == track.TrackIdSpotify).Select(a => a.Id);
+            var x = _context.Tracks.Where(a => a.TrackIdSpotify == track.TrackIdSpotify).Select(a => a.Id);
             var idtrack = 0;
-            foreach(var a in x)
+            foreach (var a in x)
             {
                 idtrack = a;
             }
             return idtrack;
 
-        }
+        } 
+        #endregion
     }
 }
